@@ -6,7 +6,7 @@ import Logout from "./components/views/Logout/LogoutButton";
 import Home from "./components/views/Home/Home";
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <div>
@@ -18,6 +18,6 @@ function App() {
         </Switch>
       </div>
     </Router>
-  );
+  )
 }
 export default App;

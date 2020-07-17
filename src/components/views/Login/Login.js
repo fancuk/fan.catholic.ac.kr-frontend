@@ -33,7 +33,7 @@ function Login({ authenticated, login, location }) {
                  height="300px"
             />
             <h1><BsFillLockFill/>&nbsp;Login</h1>
-            <h5>Let`s F.A.N !</h5>
+            <h5>Free meeting Active studying Nice ending</h5>
             <input
                 value={id}
                 onChange={({ target: { value } }) => setId(value)}

@@ -15,7 +15,6 @@ const Join = () => {
     const [semester, setSemester] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
-    const [level, setLevel] = useState("");
 
     const setIdText = e => {
         setId(e.target.value);
@@ -42,9 +41,6 @@ const Join = () => {
     const setEmailText = e => {
         setEmail(e.target.value);
     };
-    const setLevelText = e => {
-        setLevel(e.target.value);
-    };
 
     const save = e => {
         e.preventDefault();
@@ -61,8 +57,6 @@ const Join = () => {
             alert("1학기 혹은 2학기를 확인 해주세요")
         } else if (!isNumber.test(phone) || phone.length !== 11) {
             alert("휴대폰 번호를 다시 확인하세요.");
-        } else if (!isNumber.test(level) || level.length!== 1) {
-            alert("처음의 등급은 1(준회원) 입니다.");
         }
     };
     // 모든 테스트를 거치고 나서 저장을 누르면 로그인 페이지로 이동을 넘어가야함 -> 이게 제일 안됨...!!!!
@@ -70,6 +64,7 @@ const Join = () => {
     return (
         <Div>
             <h1><BsFillPersonPlusFill />&nbsp;Join</h1>
+            <h4>Free meeting Active studying Nice ending</h4>
             <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 ! </h5>
             <img src={logo}
                 className="Login-logo"
@@ -128,12 +123,6 @@ const Join = () => {
                         name="email"
                         id="email"
                         onChange={setEmailText}
-                    /><br />
-                    <FormLabel htmlFor="level">회원등급</FormLabel>
-                    <Input
-                        name="level"
-                        id="level"
-                        onChange={setLevelText}
                     /><br />
                 </form>
                 <Button onClick={save}>저장</Button>
