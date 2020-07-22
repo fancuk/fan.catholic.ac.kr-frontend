@@ -1,26 +1,35 @@
 import React, { useState } from "react"
 import styled from 'styled-components';
-import { Link,Redirect, withRouter } from "react-router-dom"
+import { Link, Redirect, withRouter } from "react-router-dom"
 import logo from '../../logo.png';
-import {BsFillLockFill} from "react-icons/bs";
+import { BsFillLockFill } from "react-icons/bs";
+import axios from "axios"
+
+let form = new FormData()
+
 
 function Login({ authenticated, login, location }) {
-    const [id, setId] = useState("")
-    const [password, setPassword] = useState("")
+    const [id, user_id] = useState("")
+    const [pwd, user_pwd] = useState("")
 
     const handleClick = () => {
         try {
-            login({ id, password })
+            login({ id, pwd })
         } catch (e) {
             alert("Failed to login")
-            setId("")
-            setPassword("")
+            user_id("")
+            user_pwd("")
         }
-    }
-    const Find = () => {
-        alert("팬 운영진에게 전화해주세요")
-    }
+        form.append('id', this.id)
+        form.append('pwd',this.pwd)
 
+        axios.post(`http://fan.catholic.ac.kr/api/login`, form)
+            .then( response => {
+                console.log('response : ', JSON.stringify(response, null, 2))
+            }).catch( error => {
+            console.log('failed', error)
+        })
+    }
     const { from } = location.state || { from: { pathname: "/" } }
     if (authenticated) return <Redirect to={from} />
 
@@ -32,36 +41,35 @@ function Login({ authenticated, login, location }) {
                  width="300px"
                  height="300px"
             />
-            <h1><BsFillLockFill/>&nbsp;Login</h1>
+            <h1><BsFillLockFill />&nbsp;Login</h1>
             <h5>Free meeting Active studying Nice ending</h5>
             <input
                 value={id}
-                onChange={({ target: { value } }) => setId(value)}
+                onChange={({ target: { value } }) => user_id(value)}
                 type="text"
                 placeholder="id"
-            /><br/>
+            /><br />
             <input
-                value={password}
-                onChange={({ target: { value } }) => setPassword(value)}
+                value={pwd}
+                onChange={({ target: { value } }) => user_pwd(value)}
                 type="password"
                 placeholder="password"
-            /><br/>
+            /><br />
             <Link to="./join">
                 <Button>Join</Button>
             </Link>
             <Button onClick={handleClick}>Login</Button>
-                <Button onClick={Find}>비밀번호/아이디 찾기</Button>
-
+            <h5>비밀번호 분실 시, 운영진에게 문의 해주세요! </h5>
         </Div>
     )
 }
-const Div=styled.div`
+const Div = styled.div`
 padding:25px;
 display:block;
 text-align:center;
 `;
 
-const Button =styled.button`
+const Button = styled.button`
     display:inline-block;
     border-radius:10px;
     border-color:#0080ff;
