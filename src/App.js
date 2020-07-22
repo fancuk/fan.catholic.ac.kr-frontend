@@ -4,8 +4,10 @@ import Join from "./components/views/Join/Join";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";
 import Home from "./components/views/Home/Home";
-import RentBookList from "./components/view/library/RentBookList";
-import BookList from "./components/view/library/BookList";
+import RentBookList from "./components/views/library/RentBookList";
+import BookList from "./components/views/library/BookList";
+import CustomerList from "./components/views/CustomerList/CustomerList";
+import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail"
 import './App.css';
 
 const App = () => {
@@ -19,6 +21,8 @@ const App = () => {
                     <Route path="/home" component={Home} />
                     <Route path="/library" component={BookList} />
                     <Route path="/rentbook" component={RentBookList} />
+                    <Route exact path="/member" component={ CustomerList}/>
+                    <Route path="/member/detail" component={CustomerDetail}/>
                  </Switch>
             </div>
         </Router>
