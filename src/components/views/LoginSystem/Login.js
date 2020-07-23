@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link, Redirect, withRouter } from "react-router-dom"
 import logo from '../../logo.png';
 import { BsFillLockFill } from "react-icons/bs";
-import axios from "axios"
+// import axios from "axios"
 
 let form = new FormData()
 
@@ -20,15 +20,15 @@ function Login({ authenticated, login, location }) {
             user_id("")
             user_pwd("")
         }
-        form.append('id', this.id)
-        form.append('pwd',this.pwd)
+        // form.append('id', this.id)
+        // form.append('pwd',this.pwd)
 
-        axios.post(`http://fan.catholic.ac.kr/api/login`, form)
-            .then( response => {
-                console.log('response : ', JSON.stringify(response, null, 2))
-            }).catch( error => {
-            console.log('failed', error)
-        })
+        // axios.post(`http://fan.catholic.ac.kr/api/login`, form)
+        //     .then( response => {
+        //         console.log('response : ', JSON.stringify(response, null, 2))
+        //     }).catch( error => {
+        //     console.log('failed', error)
+        // })
     }
     const { from } = location.state || { from: { pathname: "/" } }
     if (authenticated) return <Redirect to={from} />
@@ -55,10 +55,10 @@ function Login({ authenticated, login, location }) {
                 type="password"
                 placeholder="password"
             /><br />
-            <Link to="./join">
-                <Button>Join</Button>
+            <Link to="./register">
+                <Button>회원가입</Button>
             </Link>
-            <Button onClick={handleClick}>Login</Button>
+            <Button onClick={handleClick}>로그인</Button>
             <h5>비밀번호 분실 시, 운영진에게 문의 해주세요! </h5>
         </Div>
     )
