@@ -5,9 +5,9 @@ import logo from '../../logo.png';
 import Input from "@material-ui/core/Input";
 import FormLabel from "@material-ui/core/FormLabel";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-import axios from "axios"
+// import axios from "axios"
 
-let form = new FormData()
+// let form = new FormData()
 
 const Register = () => {
     const [id, setId] = useState("");
@@ -40,35 +40,35 @@ const Register = () => {
         setSemester(e.target.value);
     };
     const setPhoneText = e => {
-        if(e.target.value.length === 14) return;
-        console.log(e.target.value);
-        console.log(e.target.value.length);
-        console.log(isPlusPhone);
+        // if(e.target.value.length === 14) return;
+        // console.log(e.target.value);
+        // console.log(e.target.value.length);
+        // console.log(isPlusPhone);
 
-        if (e.target.value.length < 3) setIsPlusPhone(true);
-        if(e.target.value.length === 3 && isPlusPhone ) {
-            setPhone(e.target.value+"-");
-            setIsPlusPhone(false);
-        } else if (e.target.value.length === 4 && e.target.value.includes("-")) {
-            setPhone(
-                e.target.value.substring(0,3)+"-"+e.target.value.substring(3)
-            );
-        } else if (e.target.value.length === 8) {
-            if (e.target.value.match(/-/g).length === 1 && isPlusPhone) {
-                setPhone(e.target.value);
-                setIsPlusPhone(false);
-            }else {
-                setPhone(e.target.value+"-");
-                setIsPlusPhone(true);
-            }
-        } else if (e.target.value.length === 9 && isPlusPhone) {
-            setPhone(
-                e.target.value.substring(0,8)+"-"+e.target.value.substring(8)
-            );
-            setIsPlusPhone(true);
-        } else {
+        // if (e.target.value.length < 3) setIsPlusPhone(true);
+        // if(e.target.value.length === 3 && isPlusPhone ) {
+        //     setPhone(e.target.value+"-");
+        //     setIsPlusPhone(false);
+        // } else if (e.target.value.length === 4 && e.target.value.includes("-")) {
+        //     setPhone(
+        //         e.target.value.substring(0,3)+"-"+e.target.value.substring(3)
+        //     );
+        // } else if (e.target.value.length === 8) {
+        //     if (e.target.value.match(/-/g).length === 1 && isPlusPhone) {
+        //         setPhone(e.target.value);
+        //         setIsPlusPhone(false);
+        //     }else {
+        //         setPhone(e.target.value+"-");
+        //         setIsPlusPhone(true);
+        //     }
+        // } else if (e.target.value.length === 9 && isPlusPhone) {
+        //     setPhone(
+        //         e.target.value.substring(0,8)+"-"+e.target.value.substring(8)
+        //     );
+        //     setIsPlusPhone(true);
+        // } else {
             setPhone(e.target.value);
-        }
+        // }
     };
     const setEmailText = e => {
         setEmail(e.target.value);
@@ -92,20 +92,20 @@ const Register = () => {
         }
     };
 
-    form.append('id', this.id)
-    form.append('pwd', this.pwd)
-    form.append('name', this.name)
-    form.append('student_id', this.student_id)
-    form.append('grade', this.grade)
-    form.append('semester', this.semester)
-    form.append('phone', this.phone)
-    form.append('email',this.email)
+    // form.append('id', this.id)
+    // form.append('pwd', this.pwd)
+    // form.append('name', this.name)
+    // form.append('student_id', this.student_id)
+    // form.append('grade', this.grade)
+    // form.append('semester', this.semester)
+    // form.append('phone', this.phone)
+    // form.append('email',this.email)
 
-    axios.post(`http://fan.catholic.ac.kr/api/register`, form)
-        .then( response => {
-            console.log('response : ', JSON.stringify(response, null, 8))
-        }).catch( error => {
-        console.log('failed', error) })
+    // axios.post(`http://fan.catholic.ac.kr/api/register`, form)
+    //     .then( response => {
+    //         console.log('response : ', JSON.stringify(response, null, 8))
+    //     }).catch( error => {
+    //     console.log('failed', error) })
 
     return (
         <Div>
