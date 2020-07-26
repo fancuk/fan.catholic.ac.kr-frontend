@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-class BoardForm extends Component {
+class StudyBoardForm extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         let selectedBoard = nextProps.selectedBoard;
@@ -47,4 +47,4 @@ class BoardForm extends Component {
     }
 }
 
-export default BoardForm;
+export default StudyBoardForm;

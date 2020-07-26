@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import BoardForm from './BoardForm';
-import BoardItem from './BoardItem';
+import NoticeForm from './NoticeForm';
+import NoticeItem from './NoticeItem';
 import {withRouter} from "react-router-dom";
 
-class Board extends Component {
+class Notice extends Component {
 
     state = {
         maxNo: 3,
         boards: [
             {
                 brdno: 1,
-                brdwriter: 'Lee SunSin',
-                brdtitle: 'If you intend to live then you die',
+                brdwriter: '임효진',
+                brdtitle: 'FAN 게시판 입니다.',
+                brditem: '안녕하세요 게시판지기 입니다. 텍스트 입력을 시작하도록 하겠습니다.',
                 brddate: new Date()
             },
             {
                 brdno: 2,
-                brdwriter: 'Lee SunSin',
-                brdtitle: 'If you intend to live then you die',
+                brdwriter: '임혜린',
+                brdtitle: 'FAN 게시판2 입니다.',
+                brditem: '안녕하세요 게시판지기 입니다. 텍스트 입력을 시작하도록 하겠습니다.',
                 brddate: new Date()
-            }
+            },
         ],
         selectedBoard:{}
     }
@@ -54,7 +56,8 @@ class Board extends Component {
 
         return (
             <div>
-                <BoardForm selectedBoard={selectedBoard} onSaveData={this.handleSaveData}/>
+                <h1>공지사항 - F.A.N </h1>
+                <NoticeForm selectedBoard={selectedBoard} onSaveData={this.handleSaveData}/>
                 <table border="1">
                     <tbody>
                     <tr align="center">
@@ -66,7 +69,7 @@ class Board extends Component {
                     </tr>
                     {
                         boards.map(row =>
-                            (<BoardItem key={row.brdno} row={row} onRemove={this.handleRemove} onSelectRow={this.handleSelectRow} />)
+                            (<NoticeItem key={row.brdno} row={row} onRemove={this.handleRemove} onSelectRow={this.handleSelectRow} />)
                         )
                     }
                     </tbody>
@@ -76,4 +79,4 @@ class Board extends Component {
     }
 }
 
-export default withRouter(Board);
+export default withRouter(Notice);

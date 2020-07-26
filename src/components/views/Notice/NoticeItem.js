@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class BoardItem extends Component {
+class NoticeItem extends Component {
     handleRemove = () => {
         const { row, onRemove } = this.props;
         onRemove(row.brdno);
@@ -25,4 +25,4 @@ class BoardItem extends Component {
     }
 }
 
-export default BoardItem;
+export default NoticeItem;

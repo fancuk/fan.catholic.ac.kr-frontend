@@ -7,8 +7,10 @@ import Home from "./components/views/Home/Home";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
 import MyPage from "./components/views/MyPage/MyPage";
+import Fan from "./components/views/FanBoard/FanBoard";
+import Notice from "./components/views/Notice/Notice";
+import Study from "./components/views/StudyBoard/StudyBoard";
 import './App.css';
-import logo from "./components/logo.png";
 
 const App = () => {
     return (
