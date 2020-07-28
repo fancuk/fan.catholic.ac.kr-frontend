@@ -7,7 +7,7 @@ import Home from "./components/views/Home/Home";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
 import CustomerList from "./components/views/CustomerList/CustomerList";
-import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail"
+import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail";
 import './App.css';
 
 const App = () => {
