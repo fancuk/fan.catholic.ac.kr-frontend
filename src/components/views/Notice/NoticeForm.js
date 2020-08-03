@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 
 class NoticeForm extends Component {
 
@@ -38,9 +39,15 @@ class NoticeForm extends Component {
                 <input placeholder="제목" ref={node => this.brdtitle  = node}/>
                 <input placeholder="아이디" ref={node => this.brdwriter = node}/><br />
                 <textarea name="content" cols="150" rows="8" ref={node => this.brditem= node}>
-                    게시판을 입력해주세요. 제목을 클릭하면 내용을 알 수 있습니다.
-                </textarea>&nbsp;
-                <button type="submit">저장</button>
+                    게시판을 입력해주세요.
+                </textarea><br/>
+                {/*// 저장을 누르면서 나는 게시판 창에 가고 싶어(이벤트로 할거 같은데 사실 로그인 때도 안된 문제 ) + 여백 좀 챙겨 + 아이디 치워  */}
+                <button type="submit">저장</button>&nbsp;
+                <Link to="./Notice">
+                    <button>
+                        취소
+                    </button>
+                </Link>
             </form>
         );
     }

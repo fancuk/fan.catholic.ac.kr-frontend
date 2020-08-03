@@ -13,6 +13,7 @@ import Notice from "./components/views/Notice/Notice";
 import FanBoard from "./components/views/FanBoard/FanBoard";
 import StudyBoard from "./components/views/StudyBoard/StudyBoard";
 import './App.css';
+import NewNotice from "./components/views/Notice/NewNotice";
 
 const App = () => {
     return (
@@ -30,8 +31,10 @@ const App = () => {
                         <Route exact path="/member" component={CustomerList}/>
                         <Route path="/member/detail" component={CustomerDetail}/>
                         <Route path="/notice" component={Notice}/>
+                        <Route path="/newnotice" component={NewNotice}/>
                         <Route path="/fanboard" component={FanBoard}/>
                         <Route path="/studyboard" component={StudyBoard}/>
+
                     </Switch>
                 </div>
             </Router>
