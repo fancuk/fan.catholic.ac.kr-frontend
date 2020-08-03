@@ -1,3 +1,6 @@
+body {
+  background-color: white;
+}
 .App {
   text-align: center;
 }
@@ -13,6 +16,4 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
+
