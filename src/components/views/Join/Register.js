@@ -6,7 +6,7 @@ import Input from "@material-ui/core/Input";
 import FormLabel from "@material-ui/core/FormLabel";
 import { BsFillPersonPlusFill } from "react-icons/bs"
 
-const Join = () => {
+const Register = () => {
     const [id, setId] = useState("");
     const [passwd, setPasswd] = useState("");
     const [name, setName] = useState("");
@@ -148,4 +148,4 @@ const Button = styled.button`
     background-color:#afdaff;
    `;
 
-export default withRouter(Join);
+export default withRouter(Register);
