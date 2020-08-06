@@ -76,10 +76,10 @@ const Register = () => {
             />
             <div className="Join">
                 <form onSubmit={save}>
-                    <FormLabel htmlFor="id">아이디</FormLabel>
+                    <FormLabel htmlFor="user_id">아이디</FormLabel>
                     <Input
-                        name="id"
-                        id="id"
+                        name="user_id"
+                        id="user_id"
                         onChange={setIdText}
                     /><br />
                     <FormLabel htmlFor="passwd">패스워드</FormLabel>
