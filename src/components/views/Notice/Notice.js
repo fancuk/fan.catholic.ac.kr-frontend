@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NoticeItem from './NoticeItem';
-import {Link,withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import styled from "styled-components";
 
 class Notice extends Component {
 
@@ -25,12 +26,6 @@ class Notice extends Component {
         selectedBoard:{}
     }
 
-    handleRemove = (brdno) => {
-        this.setState({
-            boards: this.state.boards.filter(row => row.brdno !== brdno)
-        })
-    }
-
     handleSelectRow = (row) => {
         this.setState({selectedBoard:row});
     }
@@ -38,8 +33,8 @@ class Notice extends Component {
     render() {
         const { boards, selectedBoard } = this.state;
         return (
-            <div>
-                <h1>공지사항 - F.A.N </h1>
+            <>
+                <h2>공지사항 - F.A.N </h2>
                 <table border="1">
                     <tbody>
                     <tr align="center">
@@ -56,14 +51,22 @@ class Notice extends Component {
                     }
                     </tbody>
                 </table>
-                <Link to="./NewNotice">
-                <button>
-                    글쓰기
-                </button>
+                <Link to="./newnotice">
+                    <Button>글쓰기</Button>
                 </Link>
-            </div>
+            </>
         );
     }
 }
+
+const Button =styled.button`
+    display:inline-block;
+    border-radius:10px;
+    border-color:#0080ff;
+    margin:10px;
+    padding:5px;
+    font-weight:600;
+    background-color:#afdaff;
+   `;
 
 export default withRouter(Notice);

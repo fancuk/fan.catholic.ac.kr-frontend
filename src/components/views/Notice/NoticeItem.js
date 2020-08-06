@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from "styled-components";
 
 class NoticeItem extends Component {
     handleRemove = () => {
@@ -6,24 +7,28 @@ class NoticeItem extends Component {
         onRemove(row.brdno);
     }
 
-    handleSelectRow = () => {
-        const { row, onSelectRow } = this.props;
-        onSelectRow(row);
-    }
-
-
     render() {
         return(
             <tr>
                 <td>{this.props.row.brdno}</td>
-                <td><a onClick={this.handleSelectRow}>{this.props.row.brdtitle}</a></td>
+                <td>{this.props.row.brdtitle}</td>
                 <td>{this.props.row.brdwriter}</td>
                 <td>{this.props.row.brditem}</td>
                 <td>{this.props.row.brddate.toLocaleDateString('ko-KR')}</td>
-                <td onClick={this.handleRemove}>삭제</td>
+                <td><Button onClick={this.handleRemove}>삭제</Button></td>
             </tr>
         );
     }
 }
+
+const Button =styled.button`
+    display:inline-block;
+    border-radius:10px;
+    border-color:#0080ff;
+    margin:10px;
+    padding:5px;
+    font-weight:600;
+    background-color:#afdaff;
+   `;
 
 export default NoticeItem;

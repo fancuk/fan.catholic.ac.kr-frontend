@@ -10,10 +10,12 @@ import CustomerList from "./components/views/CustomerList/CustomerList";
 import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail";
 // import MainSlider from "./components/views/Home/MainSlider";
 import Notice from "./components/views/Notice/Notice";
-import FanBoard from "./components/views/FanBoard/FanBoard";
-import StudyBoard from "./components/views/StudyBoard/StudyBoard";
-import './App.css';
 import NewNotice from "./components/views/Notice/NewNotice";
+import Fan from "./components/views/Fan/Fan";
+import NewFan from "./components/views/Fan/NewFan";
+import Study from "./components/views/Study/Study";
+import NewStudy from "./components/views/Study/NewStudy";
+import './App.css';
 
 const App = () => {
     return (
@@ -32,8 +34,10 @@ const App = () => {
                         <Route path="/member/detail" component={CustomerDetail}/>
                         <Route path="/notice" component={Notice}/>
                         <Route path="/newnotice" component={NewNotice}/>
-                        <Route path="/fanboard" component={FanBoard}/>
-                        <Route path="/studyboard" component={StudyBoard}/>
+                        <Route path="/study" component={Study}/>
+                        <Route path="/newstudy" component={NewStudy}/>
+                        <Route path="/fan" component={Fan}/>
+                        <Route path="/newfan" component={NewFan}/>
 
                     </Switch>
                 </div>
