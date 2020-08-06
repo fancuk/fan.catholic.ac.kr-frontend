@@ -28,9 +28,9 @@ class NewStudy extends Component {
     render() {
         const { selectedBoard } = this.state;
         return (
-            <div>
+            <>
                 <StudyForm selectedBoard={selectedBoard} />
-            </div>
+            </>
         );
     }
 }
