@@ -151,7 +151,7 @@ const Edit = () => {
                     /><br />
                 </form>
                 <Button onClick={save}>저장</Button>
-                <Link to="/home">
+                <Link to="/profile">
                     <Button>취소</Button>
                 </Link>
             </div>
