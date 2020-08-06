@@ -62,6 +62,7 @@ class StudyForm extends Component {
         );
     }
 }
+// 저장 안됨 수정하기
 
 const Button =styled.button`
     display:inline-block;

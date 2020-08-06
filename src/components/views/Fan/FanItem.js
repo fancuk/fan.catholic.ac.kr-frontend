@@ -20,6 +20,7 @@ class FanItem extends Component {
         );
     }
 }
+// 삭제 안됨 수정하기
 
 const Button =styled.button`
     display:inline-block;

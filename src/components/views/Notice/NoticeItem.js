@@ -19,7 +19,7 @@ class NoticeItem extends Component {
             </tr>
         );
     }
-}
+} //삭제 부분 안되는 거 고쳐야 함
 
 const Button =styled.button`
     display:inline-block;

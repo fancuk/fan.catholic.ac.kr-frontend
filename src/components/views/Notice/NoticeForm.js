@@ -62,6 +62,7 @@ class NoticeForm extends Component {
         );
     }
 }
+// 저장 안되는 거 수정할 것
 
 const Button =styled.button`
     display:inline-block;
