@@ -57,6 +57,8 @@ const Register = () => {
             alert("1학기 혹은 2학기를 확인 해주세요")
         } else if (!isNumber.test(phone) || phone.length !== 11) {
             alert("휴대폰 번호를 다시 확인하세요.");
+        } else if (!/^([a-z0-9A-Z_]+)@(catholic)\.ac.kr$/.test(email)) {
+        alert('학교 웹 메일으로만 가입 가능합니다.')
         }
     };
     // 모든 테스트를 거치고 나서 저장을 누르면 로그인 페이지로 이동을 넘어가야함 -> 이게 제일 안됨...!!!!
