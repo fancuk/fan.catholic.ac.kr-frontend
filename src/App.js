@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/views/Header/Header";
 import Edit from "./components/views/Profile/Edit";
-import Register from "./components/views/Join/Register";
+import Register from "./components/views/Register/Register";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";
 import RentBookList from "./components/views/library/RentBookList";
