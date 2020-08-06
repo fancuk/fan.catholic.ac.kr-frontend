@@ -9,12 +9,12 @@ import BookList from "./components/views/library/BookList";
 import CustomerList from "./components/views/CustomerList/CustomerList";
 import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail";
 // import MainSlider from "./components/views/Home/MainSlider";
-import Notice from "./components/views/Notice/Notice";
-import NewNotice from "./components/views/Notice/NewNotice";
-import Fan from "./components/views/Fan/Fan";
-import NewFan from "./components/views/Fan/NewFan";
-import Study from "./components/views/Study/Study";
-import NewStudy from "./components/views/Study/NewStudy";
+import Notice from "./components/views/NoticeBoard/Notice";
+import NewNotice from "./components/views/NoticeBoard/NewNotice";
+import Fan from "./components/views/FanBoard/Fan";
+import NewFan from "./components/views/FanBoard/NewFan";
+import Study from "./components/views/StudyBoard/Study";
+import NewStudy from "./components/views/StudyBoard/NewStudy";
 import './App.css';
 
 const App = () => {
