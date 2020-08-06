@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/views/Header/Header";
+import Edit from "./components/views/Profile/Edit";
 import Register from "./components/views/Join/Register";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";
@@ -26,6 +27,7 @@ const App = () => {
                     <Switch>
                         {/*<Route path="/home" component={MainSlider}/>*/}
                         <Route path="/register" component={Register}/>
+                        <Route path="/edit" component={Edit}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/logout" component={Logout}/>
                         <Route path="/library" component={BookList}/>
