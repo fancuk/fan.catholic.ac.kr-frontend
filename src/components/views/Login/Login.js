@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link, Redirect, withRouter } from "react-router-dom";
 import logo from '../../logo.png';
 import { BsFillLockFill } from "react-icons/bs";
+// import {Validator} from "./Validator";
 
 
 class Login extends Component {
@@ -22,6 +23,7 @@ class Login extends Component {
         }
 
         try {
+            // Validator(body);
             await Axios.post('fan.catholic.ac.kr:5000/login', body, { withCredentials: true })
             this.props.history.push('/');
         } catch (catchedError) {
@@ -58,14 +60,12 @@ class Login extends Component {
                         placeholder='아이디'
                         onInput={this.handleInput}
                     />
-                    <br/>
                     <Input
                         type='password'
                         name='password'
                         placeholder='비밀번호'
                         onInput={this.handleInput}
                     />
-                    <br/>
                     <Link to="./register">
                         <Button>회원가입</Button>
                     </Link>
@@ -88,7 +88,7 @@ text-align:center;
 `;
 
 const Button =styled.button`
-    display:display;
+    display:inline-block;
     border-radius:10px;
     border-color:#0080ff;
     margin:10px;
@@ -99,8 +99,11 @@ const Button =styled.button`
     `;
 
 const Input = styled.input`
+width:600px;
 padding:15px;
-margin:30px;
+margin-right:400px;
+margin-left:400px;
+display:block;
 `;
 
 export default withRouter(Login);

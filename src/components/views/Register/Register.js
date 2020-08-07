@@ -1,146 +1,147 @@
-import React, { useState } from "react";
+import React, { Component } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Link, withRouter } from "react-router-dom"
 import logo from '../../logo.png';
 import Input from "@material-ui/core/Input";
 import FormLabel from "@material-ui/core/FormLabel";
-import { BsFillPersonPlusFill } from "react-icons/bs"
+import { BsFillPersonPlusFill } from "react-icons/bs";
+// import { Validator } from './Validator';
 
-const Register = () => {
-    const [id, setId] = useState("");
-    const [passwd, setPasswd] = useState("");
-    const [name, setName] = useState("");
-    const [student_id, setStudent_id] = useState("");
-    const [grade, setGrade] = useState("");
-    const [semester, setSemester] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
+class Register extends Component {
+    state = {
+        user_id: '',
+        user_pwd: '',
+        name: '',
+        student_id: '',
+        grade: '',
+        semester: '',
+        phone: '',
+        email: '',
+        errorMessage: '',
+    }
 
-    const setIdText = e => {
-        setId(e.target.value);
-    };
-    const setPasswdText = e => {
-        setPasswd(e.target.value);
-    };
-
-    const setNameText = e => {
-        setName(e.target.value);
-    };
-    const setStudent_idText = e => {
-        setStudent_id(e.target.value);
-    };
-    const setGradeText = e => {
-        setGrade(e.target.value);
-    };
-    const setSemesterText = e => {
-        setSemester(e.target.value);
-    };
-    const setPhoneText = e => {
-        setPhone(e.target.value);
-    };
-    const setEmailText = e => {
-        setEmail(e.target.value);
-    };
-
-    const save = e => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        const isKorean = /[A-Za-z0-9]/;
-        const isNumber = /[0-9]/;
 
-        if (isKorean.test(name)) {
-            alert("이름을 다시 확인하세요.");
-        } else if (!isNumber.test(student_id) || student_id.length !== 9) {
-            alert("학번을 다시 확인하세요.");
-        } else if (!isNumber.test(grade) || grade.length !== 1) {
-            alert("학년은 1~4학년 만 있습니다!! 다시 확인해주세요.")
-        } else if (!isNumber.test(semester) || semester.length !== 1) {
-            alert("1학기 혹은 2학기를 확인 해주세요")
-        } else if (!isNumber.test(phone) || phone.length !== 11) {
-            alert("휴대폰 번호를 다시 확인하세요.");
-        } else if (!/^([a-z0-9A-Z_]+)@(catholic)\.ac.kr$/.test(email)) {
-        alert('학교 웹 메일으로만 가입 가능합니다.')
+        const body = {
+            user_id: this.state.user_id,
+            user_pwd: this.state.user_pwd,
+            name: this.state.name,
+            student_id: this.state.student_id,
+            grade: this.state.grade,
+            semester: this.state.semester,
+            phone: this.state.phone,
+            email: this.state.email
+        };
+
+        try {
+            // Validator(body);
+            await axios.post('fan.catholic.ac.kr:5000/register', body);
+            this.props.history.push('/login');
+        } catch (catchedError) {
+            const errorMessage = (catchedError.response && catchedError.response.data)
+                ? catchedError.response.data.errorMessage
+                : catchedError.message;
+            this.setState({
+                errorMessage
+            });
         }
-    };
-    // 모든 테스트를 거치고 나서 저장을 누르면 로그인 페이지로 이동을 넘어가야함 -> 이게 제일 안됨...!!!!
+    }
 
-    return (
-        <Div>
-            <h1><BsFillPersonPlusFill />&nbsp;Join</h1>
-            <h4>Free meeting Active studying Nice ending</h4>
-            <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 ! </h5>
-            <img src={logo}
-                className="Login-logo"
-                alt="logo"
-                hspace="50"
-                align="left"
-                width="300px"
-                height="300px"
-            />
-            <div className="Join">
-                <form onSubmit={save}>
-                    <FormLabel htmlFor="user_id">아이디</FormLabel>
-                    <Input
-                        name="user_id"
-                        id="user_id"
-                        onChange={setIdText}
-                    /><br />
-                    <FormLabel htmlFor="passwd">패스워드</FormLabel>
-                    <Input
-                        name="passwd"
-                        id="passwd"
-                        onChange={setPasswdText}
-                    /><br />
-                    <FormLabel htmlFor="name">이름</FormLabel>
-                    <Input
-                        name="name"
-                        id="name"
-                        onChange={setNameText}
-                    /><br />
-                    <FormLabel htmlFor="student_id">학번</FormLabel>
-                    <Input
-                        name="student_id"
-                        id="student_id"
-                        onChange={setStudent_idText}
-                    /><br />
-                    <FormLabel htmlFor="grade">학년</FormLabel>
-                    <Input
-                        name="grade"
-                        id="grade"
-                        onChange={setGradeText}
-                    /><br />
-                    <FormLabel htmlFor="semester">학기</FormLabel>
-                    <Input
-                        name="semester"
-                        id="semester"
-                        onChange={setSemesterText}
-                    /><br />
-                    <FormLabel htmlFor="phone">휴대폰 번호</FormLabel>
-                    <Input
-                        name="phone"
-                        id="phone"
-                        onChange={setPhoneText}
-                    /><br />
-                    <FormLabel htmlFor="email">이메일</FormLabel>
-                    <Input
-                        name="email"
-                        id="email"
-                        onChange={setEmailText}
-                    /><br />
+    handleInput = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    render() {
+        return (
+            <Div>
+                <h1><BsFillPersonPlusFill/>&nbsp;Join</h1>
+                <h4>Free meeting Active studying Nice ending</h4>
+                <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 !</h5>
+                <img src={logo}
+                     className="Login-logo"
+                     alt="logo"
+                     align="left"
+                     width="500px"
+                     height="500px"
+                /><br/><br/>
+                <form className="Register">
+                    <div onSubmit={this.handleSubmit}>
+                        <FormLabel htmlFor="user_id">아이디</FormLabel>
+                        <Input
+                            text='text'
+                            name="user_id"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="user_pwd">비밀번호</FormLabel>
+                        <Input
+                            text='password'
+                            name="user_pwd"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="name">이름</FormLabel>
+                        <Input
+                            text='text'
+                            name="name"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="student_id">학번</FormLabel>
+                        <Input
+                            text='text'
+                            name="student_id"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="grade">학년</FormLabel>
+                        <Input
+                            text='text'
+                            name="grade"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="semester">학기</FormLabel>
+                        <Input
+                            text='text'
+                            name="semester"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="phone">휴대폰 번호</FormLabel>
+                        <Input
+                            text='text'
+                            name="phone"
+                            onChange={this.handleInput}
+                        /><br/>
+                        <FormLabel htmlFor="user_id">이메일</FormLabel>
+                        <Input
+                            text='text'
+                            name="email"
+                            onChange={this.handleInput}
+                        /><br/>
+                    </div>
+                    <Link to="./home">
+                        <Button>취소</Button>
+                    </Link>
+                    <Link to onClick={this.handleSubmit}>
+                            <Button type='Submit'>
+                                회원가입
+                            </Button>
+                        </Link>
+                    <div style={{color: 'red'}}>
+                        {this.state.errorMessage}
+                    </div>
                 </form>
-                <Button onClick={save}>저장</Button>
-                <Link to="/home">
-                    <Button>취소</Button>
-                </Link>
-            </div>
-        </Div>
-    );
-};
-const Div = styled.div`
-padding:10px;
-text-align:center;
-`;
+            </Div>
+        );
+    }
+}
+    const Div = styled.div`
+    padding:10px;
+    text-align:center;
+    display:block;
+    `;
 
-const Button = styled.button`
+    const Button = styled.button`
     display:inline-block;
     border-radius:10px;
     border-color:#0080ff;
@@ -150,4 +151,4 @@ const Button = styled.button`
     background-color:#afdaff;
    `;
 
-export default withRouter(Register);
+    export default withRouter(Register);
