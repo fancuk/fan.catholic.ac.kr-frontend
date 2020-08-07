@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import "./Header.css";
 import logo from "../../logo.png";
+import styled from "styled-components";
+
 
 class Header extends Component {
     render() {
@@ -20,7 +22,9 @@ class Header extends Component {
                     <div id="head-util">
                         <ul>
                             <li><a href="/mypage" >마이페이지</a></li>
-                            <li><button>로그아웃</button></li>
+                            <li>
+                               <a href="./logout"><Button>로그아웃</Button></a>
+                            </li>
                         </ul>
 
                     </div>
@@ -59,6 +63,16 @@ class Header extends Component {
         );
     }
 }
+
+const Button =styled.button`
+    display:inline-block;
+    border-radius:10px;
+    border-color:#0080ff;
+    margin:10px;
+    padding:5px;
+    font-weight:600;
+    background-color:#afdaff;
+   `;
 
 export default (Header);
 
