@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import styled from "styled-components";
 
 
-class Profile extends Component {
+class Edit extends Component {
     state = {
         user_id:'',
         user_pwd:'',
@@ -147,4 +147,4 @@ padding:15px;
 margin:30px;
 `;
 
-export default withRouter(Profile);
+export default withRouter(Edit);
