@@ -20,9 +20,10 @@ class Edit extends Component {
         super(props);
         this.fetchUser();
     }
+// 마이페이지에서 가지고 오는 데이터?
 
     fetchUser = async () => {
-        const {data: { user }} = (await Axios.get('fan.catholic.ac.kr:5000/api/profile/edit', { withCredentials: true }));
+        const {data: { user }} = (await Axios.get('fan.catholic.ac.kr:5000/api/profile/mypage', { withCredentials: true }));
         if (!user) {
             this.props.history.push('/login');
         }
@@ -42,28 +43,48 @@ class Edit extends Component {
             [e.target.name]: e.target.value
         })
     }
-// 수정이 되는 거와 안되는 것의 차이를 모르겠음
+
+//  - 마이페이지 : 회원정보 수정(학번, 비번, 전번, 이메일, 학년)
+// 수정이 되어야 하는 데이터 :  + 이게 편집이 되어야 함
+
     handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('user_id', this.state.user_id);
-        formData.append('user_pwd', this.state.user_pwd);
         formData.append('name', this.state.name);
-        formData.append('student_id', this.state.student_id);
         formData.append('grade', this.state.grade);
-        formData.append('semester', this.state.semester);
-        formData.append('phone', this.state.phone);
-        formData.append('email', this.state.email);
+        const fan_updated = this.setState({
+            user_pwd:this.data.user_pwd,
+            student_id:this.data.student_id,
+            phone:this.data.phone,
+            grade:this.data.grade,
+            email:this.data.email
+        });
 
+        if (fan_updated) {
+            formData.append('user_pwd', this.state.user_pwd);
+            formData.append('student_id', this.state.student_id);
+            formData.append('grade', this.state.grade);
+            formData.append('phone', this.state.phone);
+            formData.append('email', this.state.email);
+        }
 
-        const result = await Axios.post(`fan.catholic.ac.kr:5000/api/profile/update`, formData, { withCredentials: true });
-
+        const result = await Axios.post(`fan.catholic.ac.kr:5000/api/profile/edit`, formData, { withCredentials: true });
+        if (fan_updated) {
+            this.setState({
+                    user_pwd: result.data.user_pwd,
+                    student_id: result.data.student_id,
+                    phone: result.data.phone,
+                    grade: result.data.grade,
+                    email:result.data.email
+            });
+        }
     }
 
     handleDelete = async (e) => {
         e.preventDefault();
         if(window.confirm('정말 탈퇴하시겠습니까?')) {
-            await Axios.post(`fan.catholic.ac.kr:5000/api/profile/delete`, {} , { withCredentials: true });
+            await Axios.post(`fan.catholic.ac.kr:5000/api/delete/user`, {} , { withCredentials: true });
             this.props.history.push('/');
         }
     }
