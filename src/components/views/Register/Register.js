@@ -6,7 +6,7 @@ import logo from '../../logo.png';
 import Input from "@material-ui/core/Input";
 import FormLabel from "@material-ui/core/FormLabel";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-// import { Validator } from './Validator';
+import { Validator } from './Validator';
 
 class Register extends Component {
     state = {
@@ -36,8 +36,8 @@ class Register extends Component {
         };
 
         try {
-            // Validator(body);
-            await axios.post('fan.catholic.ac.kr:5000/register', body);
+            Validator(body);
+            await axios.post('fan.catholic.ac.kr:5000/api/register', body);
             this.props.history.push('/login');
         } catch (catchedError) {
             const errorMessage = (catchedError.response && catchedError.response.data)

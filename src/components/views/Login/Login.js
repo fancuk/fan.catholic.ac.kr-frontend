@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link, Redirect, withRouter } from "react-router-dom";
 import logo from '../../logo.png';
 import { BsFillLockFill } from "react-icons/bs";
-// import {Validator} from "./Validator";
+import {Validator} from "./Validator";
 
 
 class Login extends Component {
@@ -23,8 +23,8 @@ class Login extends Component {
         }
 
         try {
-            // Validator(body);
-            await Axios.post('fan.catholic.ac.kr:5000/login', body, { withCredentials: true })
+            Validator(body);
+            await Axios.post('fan.catholic.ac.kr:5000/api/login', body, { withCredentials: true })
             this.props.history.push('/');
         } catch (catchedError) {
             const errorMessage = (catchedError.response && catchedError.response.data)
