@@ -1,10 +1,24 @@
 import React, {Component} from "react";
 import "./MainSlide.css"
-import catholic from "../../catholic.PNG"
-import catLogo from "../../catLogo.PNG"
-import dasol from "../../dasol.PNG"
+import News from "./News";
+import slider_list from "./slider_list";
 
 class MainSlide extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            contactData: [
+                {name: "슬라이드1", img: "http://www.dhnews.co.kr/news/photo/202008/126930_130521_449.jpg"},
+                {name: "슬라이드2", img:"http://www.dhnews.co.kr/news/photo/202008/126930_130522_449.jpg" },
+                {name: "슬라이드3", img: "http://www.dhnews.co.kr/news/photo/202008/126930_130523_450.jpg"}]
+        };
+        this.state = {
+            contactData: [
+                {news: "가톨릭대학교", img1: "http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg"},
+                {news: "수시", img1:"http://www.dhnews.co.kr/news/photo/202008/126930_130525_451.jpg" },
+                {news: "정시", img1: "http://www.dhnews.co.kr/news/photo/202008/126930_130526_451.jpg"}]
+        };
+    }
     render() {
         window.onload = function(){
         let slideWrapper = document.getElementById('slider-wrap');
@@ -78,24 +92,11 @@ class MainSlide extends Component {
         return (
             <div id="slider-wrap">
                 <ul id="slider">
-                    <li>
-                        <div>
-                            <h3>슬라이드1</h3>
-                        </div>
-                        <img src={catLogo} width="1002" height="316" alt=""/>
-                    </li>
-                    <li>
-                        <div>
-                            <h3>슬라이드2</h3>
-                        </div>
-                        <img src={catholic} alt=""/>
-                    </li>
-                    <li>
-                        <div>
-                            <h3>슬라이드3</h3>
-                        </div>
-                        <img src={dasol} alt=""/>
-                    </li>
+                    {this.state.contactData.map((contact, i) => {
+                        return (<slider_list name={contact.name}
+                                             img={contact.img}
+                                             key={i}/>);
+                    })}
                 </ul>
                 <div className="slider-btns" id="next"><span>▶</span></div>
                 <div className="slider-btns" id="previous"><span>◀</span></div>
@@ -108,18 +109,11 @@ class MainSlide extends Component {
                     <div className="section1">
                         <h2>소식 및 행사 <span>NEWS &amp; EVENTS</span></h2>
                         <ul>
-                            <li><span className="thumb">
-			<a href="#"><img src={catLogo} alt="" width="204" height="133"/>
-			가톨릭대학교</a></span>
-                            </li>
-                            <li><span className="thumb">
-			<a href="#"><img src={catholic} alt="" width="204" height="133"/>
-			가톨릭대학교</a></span>
-                        </li>
-                            <li><span className="thumb">
-			<a href="#"><img src={catLogo} alt="" width="204" height="133"/>
-			가톨릭대학교</a></span>
-                            </li>
+                            {this.state.contactData.map((c, i) => {
+                                return (<News name={c.news}
+                                                     img={c.img1}
+                                                     key={i}/>);
+                            })}
                         </ul>
                         <a href="#" className="more">MORE</a>
                     </div>

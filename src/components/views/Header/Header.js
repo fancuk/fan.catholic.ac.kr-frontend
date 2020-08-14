@@ -22,7 +22,6 @@ class Header extends Component {
                             <li><a href="/mypage" >마이페이지</a></li>
                             <li><button>로그아웃</button></li>
                         </ul>
-
                     </div>
                     <nav role="navigation">
                         <ul id="main-menu">
@@ -52,7 +51,7 @@ class Header extends Component {
                     </nav>
                 </div>
                 <div id="footer">
-                    <p>© 2020 F.A.N</p>
+                    <p>©2020 F.A.N</p>
                     <p>가톨릭대학교 컴퓨터정보공학부 학회 F.A.N</p>
                 </div>
             </div>
