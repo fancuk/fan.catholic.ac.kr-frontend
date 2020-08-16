@@ -22,6 +22,8 @@ const App = () => {
                 <div>
                     <Switch>
                         {/*<Route path="/home" component={MainSlider}/>*/}
+                        <Route path="/mypage" component={MyPage}/>
+                        <Route path="/edit" component={Edit}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/logout" component={Logout}/>
