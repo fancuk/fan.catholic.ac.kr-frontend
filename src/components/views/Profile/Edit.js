@@ -23,7 +23,7 @@ class Edit extends Component {
 // 마이페이지에서 가지고 오는 데이터?
 
     fetchUser = async () => {
-        const {data: { user }} = (await Axios.get('fan.catholic.ac.kr:5000/api/profile/mypage', { withCredentials: true }));
+        const {data: { user }} = (await Axios.get('http://fan.catholic.ac.kr:5000/api/profile/mypage', { withCredentials: true }));
         if (!user) {
             this.props.history.push('/login');
         }
