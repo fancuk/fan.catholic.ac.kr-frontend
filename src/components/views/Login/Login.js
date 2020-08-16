@@ -5,7 +5,6 @@ import { Link, Redirect, withRouter } from "react-router-dom";
 import logo from '../../logo.png';
 import { BsFillLockFill } from "react-icons/bs";
 import {Validator} from "./Validator";
-import './index.html'
 
 class Login extends Component {
     state = {
