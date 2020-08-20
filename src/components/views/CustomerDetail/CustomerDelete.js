@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Button from "@material-ui/core/Button";
 
 
 class CustomerDelete extends Component {
@@ -12,7 +13,7 @@ class CustomerDelete extends Component {
     }
     render() {
         return(
-            <button onClick={(e) => {this.props.deleteCustomer(this.props.id)}}>삭제</button>
+            <Button variant="contained" color= "secondary" onClick={(e) => {this.props.deleteCustomer(this.props.id)}}>탈퇴</Button>
         )
     }
 }
