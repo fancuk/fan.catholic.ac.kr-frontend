@@ -45,6 +45,7 @@ class Rental extends React.Component {
             renter: '',
             open: false
         })
+        alert("도서를 대여했습니다.");
     }
     handleClickOpen = () => {
         this.setState({

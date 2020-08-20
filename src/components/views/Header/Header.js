@@ -7,16 +7,7 @@ class Header extends Component {
         return (
             <div>
                 <div id="header">
-                    <div id="fan">
-                        <a href="/"><img src={logo}
-                                         alt="logo"
-                                         hspace="30"
-                                         align="left"
-                                         width="100px"
-                                         height="100px"/></a>
-                        <h1> <a href="/">F.A.N</a> </h1>
-                        <h3>  : Free meeting Active studying  Nice ending</h3>
-                    </div>
+
                     <div id="head-util">
                         <ul>
                             <li><a href="/mypage" >마이페이지</a></li>
@@ -50,10 +41,6 @@ class Header extends Component {
                             </li>
                         </ul>
                     </nav>
-                </div>
-                <div id="footer">
-                    <p>© 2020 F.A.N</p>
-                    <p>가톨릭대학교 컴퓨터정보공학부 학회 F.A.N</p>
                 </div>
             </div>
         );
