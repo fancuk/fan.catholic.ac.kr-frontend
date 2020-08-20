@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Header from "./components/views/Header/Header";
+
 import Register from "./components/views/Register/Register";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";
@@ -17,7 +17,6 @@ import MainSlide from "./components/views/Home/MainSlide";
 const App = () => {
     return (
         <>
-            <Header/>
             <Router>
                 <div>
                     <Switch>
