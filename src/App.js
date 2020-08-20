@@ -13,6 +13,8 @@ import FanBoard from "./components/views/FanBoard/FanBoard";
 import StudyBoard from "./components/views/StudyBoard/StudyBoard";
 import './App.css';
 import MainSlide from "./components/views/Home/MainSlide";
+import MyPage from "./components/views/Profile/Mypage"
+import Edit from "./components/views/Profile/Edit"
 
 const App = () => {
     return (
