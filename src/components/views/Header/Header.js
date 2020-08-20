@@ -7,13 +7,11 @@ class Header extends Component {
         return (
             <div>
                 <div id="header">
-
                     <div id="head-util">
                         <ul>
                             <li><a href="/mypage" >마이페이지</a></li>
                             <li><button>로그아웃</button></li>
                         </ul>
-
                     </div>
                     <nav role="navigation">
                         <ul id="main-menu">
