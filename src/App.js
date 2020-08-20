@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Register from "./components/views/Join/Register";
+
+import Register from "./components/views/Register/Register";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";
 import RentBookList from "./components/views/library/RentBookList";
@@ -19,6 +20,8 @@ const App = () => {
             <Router>
                 <div>
                     <Switch>
+                        <Route path="/mypage" component={MyPage}/>
+                        <Route path="/edit" component={Edit}/>
                         <Route path="/home" component={MainSlide}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/login" component={Login}/>

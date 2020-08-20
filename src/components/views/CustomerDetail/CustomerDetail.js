@@ -77,10 +77,10 @@ class CustomerDetail extends Component{
                                 <TableCell align='center'>전화번호</TableCell>
                                 <TableCell align='center'>이메일</TableCell>
                                 <TableCell align='center'>도서대출</TableCell>
-                                <TableCell align='center'>회비납부</TableCell>
                                 <TableCell align='center'>회원등급</TableCell>
+                                <TableCell align='center'>비밀번호</TableCell>
+                                <TableCell align='center'>회원삭제</TableCell>
                                 <TableCell align='center'>저장</TableCell>
-                                <TableCell align='center'>삭제</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
