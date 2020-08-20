@@ -1,6 +1,7 @@
 import React from "react";
 import Rental from "./Rental";
 import BookDelete from "./BookDelete";
+import BookEdit from "./BookEdit";
 
 function Bookcard({ image, title, writer, count }) {
     return (
@@ -12,6 +13,7 @@ function Bookcard({ image, title, writer, count }) {
             <p>저자 : {writer}</p>
             <p>남은 도서 : {count} 권</p>
             <Rental image={image} title={title} writer={writer} count={count}/>
+            <BookEdit image={image} title={title} writer={writer} count={count}/>
             <BookDelete title={title} />
         </li>
     );

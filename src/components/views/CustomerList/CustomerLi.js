@@ -2,15 +2,33 @@ import React, {Component} from"react";
 import Button from '@material-ui/core/Button';
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import axios from "axios";
 
-/*
-const modi = ({match}) => {
-    <Link to "/member_management/'({match.params.name})'"> </Link>
-}
-*/
 
 
 class CustomerLi extends Component{
+    state = {
+        loading: false,
+        customers: []
+    };
+    loadCustomer = async () => {
+        axios.get('http://fan.catholic.ac.kr:5000/member')
+            .then(({ data }) => {
+                this.setState({
+                    loading: true,
+                    customers: data
+                });
+            })
+            .catch(e => {
+                console.error(e);
+                this.setState({
+                    loading: false
+                });
+            });
+    };
+    componentDidMount() {
+        this.loadCustomer();
+    }
     render(){
         return(
             <TableRow>
