@@ -4,7 +4,6 @@ import { withRouter, Link } from 'react-router-dom';
 import styled from "styled-components";
 import { AiFillHome } from "react-icons/ai";
 import logo from "../../logo.png";
-// 마이페이지에서 부분 수정 및 저장을 하기 위해서 put을 사용함, 단 해당 저장이 다포함인지는 문의 해야함
 
 class Edit extends Component {
     state = {
@@ -45,40 +44,38 @@ class Edit extends Component {
         })
     }
 
+// 업데이트가 전체 인건지 해당되는 것 만 인지 질문 해야함.
+//(학번, 비번, 전번, 이메일, 학년) 이라고 함
+
     handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('user_id', this.state.user_id);
-        formData.append('user_pwd', this.state.user_pwd);
         formData.append('name', this.state.name);
-        formData.append('student_id', this.state.student_id);
         formData.append('grade', this.state.grade);
-        formData.append('semester', this.state.semester);
-        formData.append('phone', this.state.phone);
-        formData.append('email', this.state.email);
-
-        const fan_cuk = this.setState({
-            user_id:this.data.user_id,
+        const fan_updated = this.setState({
             user_pwd:this.data.user_pwd,
-            name:this.data.name,
             student_id:this.data.student_id,
-            grade:this.data.grade,
-            semester:this.data.semester,
             phone:this.data.phone,
-            email:this.data.email,
-
+            grade:this.data.grade,
+            email:this.data.email
         });
 
+        if (fan_updated) {
+            formData.append('user_pwd', this.state.user_pwd);
+            formData.append('student_id', this.state.student_id);
+            formData.append('grade', this.state.grade);
+            formData.append('phone', this.state.phone);
+            formData.append('email', this.state.email);
+        }
+
         const result = await Axios.put(`http://fan.catholic.ac.kr:5000/api/profile/edit`, formData, { withCredentials: true });
-        if (fan_cuk) {
+        if (fan_updated) {
             this.setState({
-                user_id:result.data.user_id,
                 user_pwd: result.data.user_pwd,
-                name:result.data.name,
                 student_id: result.data.student_id,
-                grade:result.data.grade,
-                semester:result.data.semester,
                 phone: result.data.phone,
+                grade: result.data.grade,
                 email:result.data.email
             });
         }
@@ -87,8 +84,7 @@ class Edit extends Component {
     handleDelete = async (e) => {
         e.preventDefault();
         if(window.confirm('정말 탈퇴하시겠습니까?')) {
-            // api에서는 delete로 표시 구글에선 post로 읽게 됨...
-            await Axios.post(`http://fan.catholic.ac.kr:5000/api/delete/user`, {} , { withCredentials: true });
+            await Axios.delete(`http://fan.catholic.ac.kr:5000/api/delete/user`, {} , { withCredentials: true });
             this.props.history.push('/');
         }
     }
@@ -105,8 +101,8 @@ class Edit extends Component {
                      width="35%"
                      height="35%"
                 /><br/><br/>
-                <form className="Edit">
-                <div onSubmit={this.handleSubmit}>
+                <div className="Edit">
+                <form onSubmit={this.handleSubmit}>
                     아이디
                     <Input
                         type='text'
@@ -139,6 +135,14 @@ class Edit extends Component {
                         value={this.state.student_id}
                         onInput={this.handleInput}
                     /><br/>
+                    학년
+                    <Input
+                        type='text'
+                        name='grade'
+                        placeholder='학년'
+                        value={this.state.grade}
+                        onInput={this.handleInput}
+                    /><br/>
                     학기
                     <Input
                         type='text'
@@ -165,8 +169,8 @@ class Edit extends Component {
                     /><br/>
                     <Button>수정</Button>
                     <Button onClick={this.handleDelete}>탈퇴</Button>
-                </div>
-             </form>
+                </form>
+             </div>
             </Div>
 
         );
