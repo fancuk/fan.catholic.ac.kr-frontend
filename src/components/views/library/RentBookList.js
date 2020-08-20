@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BookAdd from "../libfunc/BookAdd";
 import axios from 'axios';
-import Listpage from "../libfunc/Listpage";
+import RentListPage from "../libfunc/RentListPage";
 import './style.css';
 import { withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
@@ -75,12 +75,12 @@ class RentBook extends Component {
                 <AppBar position="static">
                     <Toolbar>
                         <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            <img src={imgA} width='30' height='30' align='center'/> F.A.N 책방 - 도서 목록
+                            <img src={imgA} width='30' height='30' align='center'/> F.A.N 책방 - 대여 목록
                             <BookAdd />
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <Listpage Books={this.state.books} />
+                <RentListPage Books={this.state.books} />
             </div>
         );
     }
