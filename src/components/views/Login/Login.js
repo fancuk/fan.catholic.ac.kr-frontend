@@ -47,19 +47,21 @@ class Login extends Component {
                 <h3><BsFillLockFill />&nbsp;Login</h3>
                 <h5>Free meeting Active studying Nice ending</h5>
                 <form onSubmit={this.handleSubmit}>
+                    아이디&nbsp;
                     <Input
                         type='text'
                         name='user_id'
                         placeholder='아이디'
                         onInput={this.handleInput}
-                    />
+                    /><br/>
+                    비밀번호&nbsp;
                     <Input
                         type='password'
                         name='password'
                         placeholder='비밀번호'
                         onInput={this.handleInput}
                     />
-                    <Link to="./register">
+                    <Link to="./register"><br/>
                         <Button>회원가입</Button>
                     </Link>
                     <Button type='submit'>로그인</Button>
@@ -74,7 +76,6 @@ class Login extends Component {
 }
 const Div = styled.div`
 margin:200px;
-display:block;
 text-align:center;
 `;
 const Button =styled.button`
@@ -91,7 +92,10 @@ const Input = styled.input`
 width:30%;
 padding:10px;
 margin:1% auto;
-display:block;
 text-align: center;
+border: none;
+border-bottom: solid 2px #4263eb; 
+-webkit-transition: 0.5s; 
+transition: 0.5s;
 `;
 export default withRouter(Login);

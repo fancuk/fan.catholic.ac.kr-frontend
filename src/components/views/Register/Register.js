@@ -56,15 +56,15 @@ class Register extends Component {
     render() {
         return (
             <Div>
-                <h1><BsFillPersonPlusFill/>&nbsp;Join</h1>
+                <h1><BsFillPersonPlusFill/>&nbsp;Register</h1>
                 <h4>Free meeting Active studying Nice ending</h4>
                 <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 !</h5>
                 <img src={logo}
                      className="Login-logo"
                      alt="logo"
                      align="left"
-                     width="30%"
-                     height="30%"
+                     width="40%"
+                     height="40%"
                 /><br/><br/>
                 <form className="Register">
                     <div onSubmit={this.handleSubmit}>
@@ -72,48 +72,56 @@ class Register extends Component {
                         <Input
                             text='text'
                             name="user_id"
+                            placeholder='아이디'
                             onChange={this.handleInput}
                         /><br/>
                         비밀번호
                         <Input
                             text='password'
                             name="user_pwd"
+                            placeholder='비밀번호'
                             onChange={this.handleInput}
                         /><br/>
                         이름
                         <Input
                             text='text'
                             name="name"
+                            placeholder='이름'
                             onChange={this.handleInput}
                         /><br/>
                         학번
                         <Input
                             text='text'
                             name="student_id"
+                            placeholder='학번'
                             onChange={this.handleInput}
                         /><br/>
                         학년
                         <Input
                             text='text'
                             name="grade"
+                            placeholder='학년'
                             onChange={this.handleInput}
                         /><br/>
                         학기
                         <Input
                             text='text'
                             name="semester"
+                            placeholder='학기'
                             onChange={this.handleInput}
                         /><br/>
                         휴대폰 번호
                         <Input
                             text='text'
                             name="phone"
+                            placeholder='휴대폰 번호'
                             onChange={this.handleInput}
                         /><br/>
                         이메일
                         <Input
                             text='text'
                             name="email"
+                            placeholder='이메일'
                             onChange={this.handleInput}
                         /><br/>
                     </div>
@@ -134,22 +142,13 @@ class Register extends Component {
     }
 }
 const Div = styled.div`
-    padding:0px;
+    padding:10% auto;
+    margin:auto;
     text-align:center;
     display:block;
     `;
 
-const Input = styled.input`
-width: 15%;
-border: none;
-margin-top:10px;
-margin-bottom:10px;
-border-bottom: solid 2px #4263eb; 
--webkit-transition: 0.5s; 
-transition: 0.5s;
-`;
-
-const Button = styled.button`
+const Button =styled.button`
     display:inline-block;
     border-radius:10px;
     border-color:#0080ff;
@@ -157,6 +156,17 @@ const Button = styled.button`
     padding:5px;
     font-weight:600;
     background-color:#afdaff;
-   `;
+    text-align: center;
+    `;
+const Input = styled.input`
+width:20%;
+border: none;
+margin:1% auto;
+padding:1% auto;
+text-align: center;
+border-bottom: solid 2px #4263eb; 
+-webkit-transition: 0.5s; 
+transition: 0.5s;
+`;
 
 export default withRouter(Register);
