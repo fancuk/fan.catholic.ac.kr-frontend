@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import MyPage from "./components/views/Profile/Mypage";
+import Edit from "./components/views/Profile/Edit";
 import Register from "./components/views/Register/Register";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";
@@ -31,7 +32,7 @@ const App = () => {
                         <Route path="/library" component={BookList}/>
                         <Route path="/rentbook" component={RentBookList}/>
                         <Route exact path="/member" component={CustomerList}/>
-                        <Route path="/member/detail" component={CustomerDetail}/>
+                        <Route path="/detail" component={CustomerDetail}/>
                         <Route path="/notice" component={Notice}/>
                         <Route path="/fanboard" component={FanBoard}/>
                         <Route path="/studyboard" component={StudyBoard}/>
