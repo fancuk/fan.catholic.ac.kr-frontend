@@ -16,7 +16,8 @@ class Register extends Component {
         semester: '',
         phone: '',
         email: '',
-        errorMessage: '',
+        errorMessage: ''
+
     }
 
     handleSubmit = async (e) => {
@@ -35,7 +36,11 @@ class Register extends Component {
 
         try {
             Validator(body);
-            await axios.post('http://fan.catholic.ac.kr:5000/api/register', body);
+            await axios.post('http://fan.catholic.ac.kr:5000/api/register', body, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             this.props.history.push('/login');
         } catch (catchedError) {
             const errorMessage = (catchedError.response && catchedError.response.data)
@@ -66,8 +71,7 @@ class Register extends Component {
                      width="40%"
                      height="40%"
                 /><br/><br/>
-                <form className="Register">
-                    <div onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
                         아이디
                         <Input
                             text='text'
@@ -124,15 +128,12 @@ class Register extends Component {
                             placeholder='이메일'
                             onChange={this.handleInput}
                         /><br/>
-                    </div>
                     <Link to="./home">
                         <Button>취소</Button>
                     </Link>
-                    <Link to onClick={this.handleSubmit}>
                         <Button type='Submit'>
                             회원가입
                         </Button>
-                    </Link>
                     <div style={{color: 'red'}}>
                         {this.state.errorMessage}
                     </div>

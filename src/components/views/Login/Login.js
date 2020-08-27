@@ -19,7 +19,12 @@ class Login extends Component {
         }
         try {
             Validator(body);
-            await Axios.post('http://fan.catholic.ac.kr:5000/api/login', body, { withCredentials: true })
+            await Axios.post('http://fan.catholic.ac.kr:5000/api/login', body, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'withCredentials':'true' // 필요하다고 해서 일단 적어둠
+                }
+            })
             this.props.history.push('/');
         } catch (catchedError) {
             const errorMessage = (catchedError.response && catchedError.response.data)
