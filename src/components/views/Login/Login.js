@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import styled from 'styled-components';
 import { Link, Redirect, withRouter } from "react-router-dom";
-import logo from '../../logo.png';
 import { BsFillLockFill } from "react-icons/bs";
 import {Validator} from "./Validator";
+import { Button, Form, FormGroup, Label, Input, Card } from 'reactstrap';
+
 class Login extends Component {
     state = {
         user_id: '',
@@ -17,10 +18,17 @@ class Login extends Component {
             user_id: this.state.user_id,
             user_pwd: this.state.user_pwd,
         }
+        // 비동기 안써도 됨
         try {
             Validator(body);
-            await Axios.post('http://fan.catholic.ac.kr:5000/api/login', body, { withCredentials: true })
+                await Axios.post('http://fan.catholic.ac.kr:5000/api/login', body, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'withCredentials': 'true' // 필요하다고 해서 일단 적어둠
+                    }
+                })
             this.props.history.push('/');
+
         } catch (catchedError) {
             const errorMessage = (catchedError.response && catchedError.response.data)
                 ? catchedError.response.data.errorMessage
@@ -38,64 +46,46 @@ class Login extends Component {
     render() {
         return (
             <Div>
-                <img src={logo}
-                     className="Login-logo"
-                     alt="logo"
-                     width="30%"
-                     height="30%"
-                /><br/><br/>
+                <Card body outline color="primary">
                 <h3><BsFillLockFill />&nbsp;Login</h3>
                 <h5>Free meeting Active studying Nice ending</h5>
-                <form onSubmit={this.handleSubmit}>
-                    아이디&nbsp;
+                <Form inline onSubmit={this.handleSubmit}>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                    <Label for="user_id" className="mr-sm-2">아이디</Label>
                     <Input
                         type='text'
                         name='user_id'
                         placeholder='아이디'
                         onInput={this.handleInput}
-                    /><br/>
-                    비밀번호&nbsp;
+                    />
+                </FormGroup>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                    <Label for="user_id" className="mr-sm-2">패스워드</Label>
                     <Input
                         type='password'
-                        name='password'
-                        placeholder='비밀번호'
+                        name='user_pwd'
+                        placeholder='패스워드'
                         onInput={this.handleInput}
                     />
-                    <Link to="./register"><br/>
-                        <Button>회원가입</Button>
+                </FormGroup>
+                    <Link >
+                        <Button outline color="primary" to="./register">회원가입</Button>{' '}
                     </Link>
-                    <Button type='submit'>로그인</Button>
+                    <Button outline color="primary" type='submit'>로그인</Button>
                     <div style={{color: 'red'}}>
                         {this.state.errorMessage}
                     </div>
-                </form>
-                <h6>비밀번호 분실 시, 운영진에게 문의 해주세요! </h6>
+            </Form>
+                    <h6>비밀번호 분실 시, 운영진에게 문의 해주세요! </h6>
+                </Card>
             </Div>
         );
     }
 }
 const Div = styled.div`
-margin:200px;
-text-align:center;
-`;
-const Button =styled.button`
-    display:inline-block;
-    border-radius:10px;
-    border-color:#0080ff;
-    margin:10px;
-    padding:5px;
-    font-weight:600;
-    background-color:#afdaff;
-    text-align: center;
+    width: 55%;
+    margin: 50% auto;
+    padding:20% auto;
     `;
-const Input = styled.input`
-width:30%;
-padding:10px;
-margin:1% auto;
-text-align: center;
-border: none;
-border-bottom: solid 2px #4263eb; 
--webkit-transition: 0.5s; 
-transition: 0.5s;
-`;
+
 export default withRouter(Login);
