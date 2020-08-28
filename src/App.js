@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import MyPage from "./components/views/Profile/Mypage";
-import Edit from "./components/views/Profile/Edit";
 import Register from "./components/views/Register/Register";
 import Login from "./components/views/Login/Login";
 import Logout from "./components/views/Logout/LogoutButton";

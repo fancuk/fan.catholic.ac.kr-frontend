@@ -1,125 +1,138 @@
 import React, {Component} from "react";
 import "./MainSlide.css"
-import News from "./News";
-import slider_list from "./slider_list";
-
+import catholic from "../../catholic.PNG"
+import contest from "../../contest.jpg"
 class MainSlide extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            contactData: [
-                {name: "슬라이드1", img: "http://www.dhnews.co.kr/news/photo/202008/126930_130521_449.jpg"},
-                {name: "슬라이드2", img:"http://www.dhnews.co.kr/news/photo/202008/126930_130522_449.jpg" },
-                {name: "슬라이드3", img: "http://www.dhnews.co.kr/news/photo/202008/126930_130523_450.jpg"}]
-        };
-        this.state = {
-            contactData: [
-                {news: "가톨릭대학교", img1: "http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg"},
-                {news: "수시", img1:"http://www.dhnews.co.kr/news/photo/202008/126930_130525_451.jpg" },
-                {news: "정시", img1: "http://www.dhnews.co.kr/news/photo/202008/126930_130526_451.jpg"}]
-        };
-    }
     render() {
         window.onload = function(){
-        let slideWrapper = document.getElementById('slider-wrap');
-        let slideIndex = 0;
-        let slides = document.querySelectorAll('#slider-wrap ul li');
-        let totalSlides = slides.length;
-        let sliderWidth = slideWrapper.clientWidth;
-        slides.forEach(function (element) {
-            element.style.width = sliderWidth + 'px';
-        })
-        let slider = document.querySelector('#slider-wrap ul#slider');
-        slider.style.width = sliderWidth * totalSlides + 'px';
+            let slideWrapper = document.getElementById('slider-wrap');
+            let slideIndex = 0;
+            let slides = document.querySelectorAll('#slider-wrap ul li');
+            let totalSlides = slides.length;
+            let sliderWidth = slideWrapper.clientWidth;
+            slides.forEach(function (element) {
+                element.style.width = sliderWidth + 'px';
+            })
+            let slider = document.querySelector('#slider-wrap ul#slider');
+            slider.style.width = sliderWidth * totalSlides + 'px';
 
 // 다음, 이전
-        let nextBtn = document.getElementById('next');
-        let prevBtn = document.getElementById('previous');
-        nextBtn.addEventListener('click', function () {
-            plusSlides(1);
-        });
-        prevBtn.addEventListener('click', function () {
-            plusSlides(-1);
-        });
+            let nextBtn = document.getElementById('next');
+            let prevBtn = document.getElementById('previous');
+            nextBtn.addEventListener('click', function () {
+                plusSlides(1);
+            });
+            prevBtn.addEventListener('click', function () {
+                plusSlides(-1);
+            });
 
 // hover
-        slideWrapper.addEventListener('mouseover', function () {
-            this.classList.add('active');
-            clearInterval(autoSlider);
-        });
-        slideWrapper.addEventListener('mouseleave', function () {
-            this.classList.remove('active');
-            autoSlider = setInterval(function () {
-                plusSlides(1);
-            }, 3000);
-        });
+            slideWrapper.addEventListener('mouseover', function () {
+                this.classList.add('active');
+                clearInterval(autoSlider);
+            });
+            slideWrapper.addEventListener('mouseleave', function () {
+                this.classList.remove('active');
+                autoSlider = setInterval(function () {
+                    plusSlides(1);
+                }, 3000);
+            });
 
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function showSlides(n) {
-            slideIndex = n;
-            if (slideIndex == -1) {
-                slideIndex = totalSlides - 1;
-            } else if (slideIndex === totalSlides) {
-                slideIndex = 0;
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
             }
 
-            slider.style.left = -(sliderWidth * slideIndex) + 'px';
-            pagination();
-        }
+            function showSlides(n) {
+                slideIndex = n;
+                if (slideIndex == -1) {
+                    slideIndex = totalSlides - 1;
+                } else if (slideIndex === totalSlides) {
+                    slideIndex = 0;
+                }
+
+                slider.style.left = -(sliderWidth * slideIndex) + 'px';
+                pagination();
+            }
 
 //페이징
-        slides.forEach(function () {
-            let li = document.createElement('li');
-            document.querySelector('#slider-pagination-wrap ul').appendChild(li);
-        })
+            slides.forEach(function () {
+                let li = document.createElement('li');
+                document.querySelector('#slider-pagination-wrap ul').appendChild(li);
+            })
 
-        function pagination() {
-            let dots = document.querySelectorAll('#slider-pagination-wrap ul li');
-            dots.forEach(function (element) {
-                element.classList.remove('active');
-            });
-            dots[slideIndex].classList.add('active');
+            function pagination() {
+                let dots = document.querySelectorAll('#slider-pagination-wrap ul li');
+                dots.forEach(function (element) {
+                    element.classList.remove('active');
+                });
+                dots[slideIndex].classList.add('active');
+            }
+
+            pagination();
+            let autoSlider = setInterval(function () {
+                plusSlides(1);
+            }, 3000);
         }
-
-        pagination();
-        let autoSlider = setInterval(function () {
-            plusSlides(1);
-        }, 3000);
-    }
         return (
-            <div id="slider-wrap">
-                <ul id="slider">
-                    {this.state.contactData.map((contact, i) => {
-                        return (<slider_list name={contact.name}
-                                             img={contact.img}
-                                             key={i}/>);
-                    })}
-                </ul>
-                <div className="slider-btns" id="next"><span>▶</span></div>
-                <div className="slider-btns" id="previous"><span>◀</span></div>
-
-                <div id="slider-pagination-wrap">
-                    <ul>
+            <div id="main-wrap">
+                <div id="slider-wrap">
+                    <ul id="slider">
+                        <li>
+                            <img src="http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg"  alt=""/>
+                        </li>
+                        <li>
+                            <img src={catholic} alt=""/>
+                        </li>
+                        <li>
+                            <img src={contest} alt=""/>
+                        </li>
                     </ul>
-                </div>
-                <div id="contents">
-                    <div className="section1">
-                        <h2>소식 및 행사 <span>NEWS &amp; EVENTS</span></h2>
+                    <div className="slider-btns" id="next"><span>▶</span></div>
+                    <div className="slider-btns" id="previous"><span>◀</span></div>
+                    <div id="slider-pagination-wrap">
                         <ul>
-                            {this.state.contactData.map((c, i) => {
-                                return (<News name={c.news}
-                                                     img={c.img1}
-                                                     key={i}/>);
-                            })}
                         </ul>
-                        <a href="#" className="more">MORE</a>
                     </div>
                 </div>
+                    <div id="contents">
+                        <div className="section1">
+                            <h2> 행사 <span> EVENTS</span></h2>
+                            <ul>
+                                <li><span className="thumb">
+                                    <img src="https://image.yes24.com/goods/67883659/800x0" alt="" width="204" height="133"/>
+                                </span>생활코딩 PHP+MySQL</li>
+
+                                <li><span className="thumb">
+                                    <img src="https://image.yes24.com/momo/TopCate2096/MidCate008/209579489.jpg" alt="" width="204" height="133"/>
+                                </span>생활코딩 CSS+HTML+자바스크립트</li>
+
+                                <li><span className="thumb">
+                                    <img src="https://img.ridicdn.net/cover/1160000018/xxlarge" alt="" width="204" height="133"/>
+                                </span>생활코딩 자바스크립트 입문</li>
+                            </ul>
+                            <a href="#" className="more">MORE</a>
+                        </div>
+                        <div className="section2">
+                            <div className="board1">
+                                <h2> 공지사항 <span> NOTICE </span></h2>
+                                <ul>
+                                    <li><a herf="#">  F.A.N 개강총회 일정안내 </a> <span>[20.08.28] </span></li>
+                                    <li><a herf="#">  F.A.N실 이용안내 </a> <span>[20.08.28] </span></li>
+                                    <li><a herf="#">  F.A.N 회비납부 안내 </a> <span>[20.08.28] </span></li>
+                                </ul>
+                            </div>
+                            <div className="board2">
+                                <h2> 스터디 <span> STUDY </span></h2>
+                                <ul>
+                                    <li><a herf="#">  스터디게시판 이용규칙 </a> <span>[20.08.28] </span></li>
+                                    <li><a herf="#">  스터디 수요조사 </a> <span>[20.08.28] </span></li>
+                                    <li><a herf="#">  스터디 활동 인증 </a> <span>[20.08.28] </span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
             </div>
-            );
-         }
+        );
     }
+}
 export default (MainSlide);
