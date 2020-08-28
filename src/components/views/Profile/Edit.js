@@ -98,8 +98,8 @@ class Edit extends Component {
                      className="Login-logo"
                      alt="logo"
                      align="left"
-                     width="35%"
-                     height="35%"
+                     width="40%"
+                     height="40%"
                 /><br/><br/>
                 <div className="Edit">
                 <form onSubmit={this.handleSubmit}>
@@ -178,17 +178,18 @@ class Edit extends Component {
 }
 
 const Div = styled.div`
-    margin:30px;
+    padding:10% auto;
+    margin:auto;
     text-align:center;
     display:block;
     `;
 
 const Input = styled.input`
-text-align:left;
-width: 15%;
+width:20%;
 border: none;
-margin-top:10px;
-margin-bottom:10px;
+margin:1% auto;
+padding:1% auto;
+text-align: center;
 border-bottom: solid 2px #4263eb; 
 -webkit-transition: 0.5s; 
 transition: 0.5s;

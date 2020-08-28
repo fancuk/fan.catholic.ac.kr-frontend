@@ -9,9 +9,6 @@ function MyPage() {
             <Link to="/edit">
                 <Button>수정</Button>
             </Link>
-            <Link to="/rentbook">
-                <Button>내도서</Button>
-            </Link>
         </Div>
     )
 
