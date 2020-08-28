@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Register from "./components/views/Register/Register";
-import Login from "./components/views/Login/Login";
-import Logout from "./components/views/Logout/LogoutButton";
+import Controls from "./components/views/Login/LoginControls";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
 import CustomerList from "./components/views/CustomerList/CustomerList";
