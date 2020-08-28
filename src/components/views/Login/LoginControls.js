@@ -33,7 +33,7 @@ class LoginControls extends React.Component {
         } else {
             system = <Login onClick={this.handleLoginClick} />;
             // 만약 로그 아웃 상태로 보이고자 했다면 - 조건부 렌더링이 안되니 되니를 보고자 만약 예시를
-            //system = <LogoutButton onClick={this.handleLogoutClick} />;
+            // system = <LogoutButton onClick={this.handleLogoutClick} />;
         }
 
         return (
