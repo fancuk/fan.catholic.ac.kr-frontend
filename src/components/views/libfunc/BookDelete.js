@@ -15,11 +15,8 @@ class BookDelete extends React.Component{
         }
     }
     deleteBook = () => {
-        let url = 'http://fan.catholic.ac.kr:5000/api/library/delete';
-        const post = {
-            title: this.props.title
-        }
-        axios.post(url, post)
+        let url = 'http://fan.catholic.ac.kr:5000/api/library/delete?title='+this.props.title;
+        axios.delete(url)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
             })
@@ -43,8 +40,8 @@ class BookDelete extends React.Component{
     }
     render() {
         return (
-            <div>
-                <Button variant="contained" color="secondary" onClick={this.handleClickOpen}>삭제</Button>
+            <span>
+                <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>삭제</Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle onClose={this.handleClose}>
                         삭제 경고
@@ -59,7 +56,7 @@ class BookDelete extends React.Component{
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>
-            </div>
+            </span>
         );
     }
 };

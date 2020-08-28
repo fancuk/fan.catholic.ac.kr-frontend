@@ -5,10 +5,8 @@ import Listpage from "../libfunc/Listpage";
 import './style.css';
 import { withStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import imgA from '../../logo.png';
 import {Link} from "react-router-dom";
 
 const styles = theme => ({
@@ -29,6 +27,7 @@ const styles = theme => ({
         margin: theme.spacing.unit * 2
     },
     title: {
+
         display: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
@@ -36,13 +35,18 @@ const styles = theme => ({
     },
 });
 
+const bookadd = {
+    position: "fixed",
+    top: "100px"
+}
+
 class BookList extends Component {
     state = {
         loading: false,
         books: []
     };
     loadBook = async () => {
-        axios.get('http://fan.catholic.ac.kr:5000/api/library/list')
+        await axios.get('http://fan.catholic.ac.kr:5000/api/library/list')
             .then(({ data }) => {
                 this.setState({
                     loading: true,
@@ -65,21 +69,7 @@ class BookList extends Component {
         console.log(this.state.books);
         return (
             <div>
-                <Link to="./library">
-                    <Button>도서 목록</Button>
-                </Link>
-                <Link to="./rentbook">
-                    <Button>대여 목록</Button>
-                </Link>
-
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            <img src={imgA} width='30' height='30' align='center'/> F.A.N 책방 - 도서 목록
-                            <BookAdd />
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <BookAdd style={bookadd}/>
                 <Listpage Books={this.state.books} />
             </div>
         );

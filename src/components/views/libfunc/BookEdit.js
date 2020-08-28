@@ -35,6 +35,8 @@ class BookEdit extends React.Component {
         e.preventDefault()
         let url = 'http://fan.catholic.ac.kr:5000/api/library/edit';
         const post = {
+            title: this.state.title,
+            writer: this.state.writer,
             edit_image: this.state.image,
             edit_count: Number(this.state.count)
         }
@@ -77,14 +79,14 @@ class BookEdit extends React.Component {
         const { classes } = this.props;
         return (
             <span className="menu">
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     도서 수정하기
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>도서 수정</DialogTitle>
                     <DialogContent>
-                        <TextField label="title" type="text" name="title"  value={this.state.title} onChange={this.handleValueChange} /><br/>
-                        <TextField label="writer" type="text" name="writer"  value={this.state.writer} onChange={this.handleValueChange} /><br/>
+                        <TextField label="Title" type="text" name="title"  value={this.state.title} onChange={this.handleValueChange} /><br/>
+                        <TextField label="Writer" type="text" name="writer"  value={this.state.writer} onChange={this.handleValueChange} /><br/>
                         <TextField label="imageURL" type="text" name="image"  value={this.state.image} onChange={this.handleValueChange} /><br/>
                         <TextField label="count" type="text" name="count"  value={this.state.count} onChange={this.handleValueChange} /><br/>
                     </DialogContent>

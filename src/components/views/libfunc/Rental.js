@@ -66,7 +66,7 @@ class Rental extends React.Component {
 
         return (
             <span className="menu">
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     도서 대여하기
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>

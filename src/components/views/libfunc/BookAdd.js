@@ -81,7 +81,7 @@ class BookAdd extends React.Component {
         const { classes } = this.props;
         return (
             <span className="menu">
-                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
                     도서 추가하기
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
