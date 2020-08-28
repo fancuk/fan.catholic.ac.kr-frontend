@@ -65,21 +65,12 @@ class RentBook extends Component {
         console.log(this.state.books);
         return (
             <div>
-                <Link to="./library">
-                    <Button>도서 목록</Button>
-                </Link>
-                <Link to="./rentbook">
-                    <Button>대여 목록</Button>
-                </Link>
-
-                <AppBar position="static">
-                    <Toolbar>
-                        <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            <img src={imgA} width='30' height='30' align='center'/> F.A.N 책방 - 대여 목록
-                            <BookAdd />
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+                <Toolbar>
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                        F.A.N 책방 - 대여 목록
+                    </Typography>
+                </Toolbar>
+                <BookAdd />
                 <RentListPage Books={this.state.books} />
             </div>
         );
