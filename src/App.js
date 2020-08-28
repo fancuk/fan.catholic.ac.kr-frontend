@@ -25,8 +25,7 @@ const App = () => {
                         <Route path="/edit" component={Edit}/>
                         <Route path="/home" component={MainSlide}/>
                         <Route path="/register" component={Register}/>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/logout" component={Logout}/>
+                        <Route path="/control" component={Controls}/>
                         <Route path="/library" component={BookList}/>
                         <Route path="/rentbook" component={RentBookList}/>
                         <Route exact path="/member" component={CustomerList}/>
