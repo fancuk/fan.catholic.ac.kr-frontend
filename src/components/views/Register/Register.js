@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 import { Link, withRouter } from "react-router-dom"
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { Validator } from './Validator';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import styled from "styled-components";
 
 class Register extends Component {
     state = {
@@ -61,6 +61,7 @@ class Register extends Component {
     render() {
         return (
             <Div>
+            <Card body outline color="primary">
                 <h1><BsFillPersonPlusFill/>&nbsp;Register</h1>
                 <h4>Free meeting Active studying Nice ending</h4>
                 <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 !</h5>
@@ -147,13 +148,16 @@ class Register extends Component {
                         {this.state.errorMessage}
                     </div>
                 </Form>
+            </Card>
             </Div>
         );
     }
 }
+
 const Div = styled.div`
-    width: 40%;
-    margin: 20% auto;
+    text-align:left;
+    width:40%;
+    margin: 10% auto;
     `;
 
 export default withRouter(Register);

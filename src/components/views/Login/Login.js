@@ -47,7 +47,7 @@ class Login extends Component {
         return (
             <Div>
                 <Card body outline color="primary">
-                <h3><BsFillLockFill />&nbsp;Login</h3>
+                <h3><BsFillLockFill/> Login <BsFillLockFill/></h3>
                 <h5>Free meeting Active studying Nice ending</h5>
                 <Form inline onSubmit={this.handleSubmit}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -68,10 +68,12 @@ class Login extends Component {
                         onInput={this.handleInput}
                     />
                 </FormGroup>
-                    <Link >
-                        <Button outline color="primary" to="./register">회원가입</Button>{' '}
+                    <Link to="./register">
+                        <Button outline color="primary">회원가입</Button>
                     </Link>
-                    <Button outline color="primary" type='submit'>로그인</Button>
+                    <Button outline color="primary" type='Submit'>
+                        로그인
+                    </Button>
                     <div style={{color: 'red'}}>
                         {this.state.errorMessage}
                     </div>
@@ -82,10 +84,12 @@ class Login extends Component {
         );
     }
 }
+
 const Div = styled.div`
-    width: 55%;
-    margin: 50% auto;
-    padding:20% auto;
-    `;
+padding:10%
+text-align:left;
+width:50%;
+margin: 20% auto;
+`;
 
 export default withRouter(Login);
