@@ -91,9 +91,6 @@ class Edit extends Component {
                         <Button outline color="primary" type='Submit'>
                             수정완료
                         </Button>
-                        <div style={{color: 'red'}}>
-                            {this.state.errorMessage}
-                        </div>
                     </Form>
                 </Card>
             </Div>
