@@ -1,22 +1,15 @@
 import React from "react"
-import { withRouter } from "react-router-dom"
-import styled from "styled-components";
+import {Link, withRouter} from "react-router-dom"
+import {Button} from "reactstrap";
 
 function LogoutButton({ logout, history }) {
     const handleClick = () => {
         logout()
         history.push("/")
     }
-    return <Button onClick={handleClick}>Logout</Button>
+    return <>
+    <Button outline color="primary" onClick={handleClick}>로그아웃</Button>
+        </>
 }
-const Button =styled.button`
-    display:inline-block;
-    border-radius:10px;
-    border-color:#0080ff;
-    margin:10px;
-    padding:5px;
-    font-weight:600;
-    background-color:#afdaff;
-   `;
 
 export default withRouter(LogoutButton)
