@@ -1,208 +1,161 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-import { withRouter, Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, withRouter } from "react-router-dom"
+import { AiFillEdit } from "react-icons/ai";
+import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from "styled-components";
-import { AiFillHome } from "react-icons/ai";
-import logo from "../../logo.png";
+
 
 class Edit extends Component {
     state = {
-        user_id:'',
-        user_pwd:'',
-        name:'',
-        student_id:'',
-        grade:'',
-        semester:'',
-        phone:'',
+        user_id: '',
+        user_pwd: '',
+        name: '',
+        student_id: '',
+        grade: '',
+        semester: '',
+        phone: '',
         email: '',
-    };
+        errorMessage: ''
 
-    constructor(props) {
-        super(props);
-        this.FanCuk();
     }
 
-    FanCuk = async () => {
-        const {data: { member }} = (await Axios.put('http://fan.catholic.ac.kr:5000/api/profile/edit', { withCredentials: true }));
-        if (!member) {
+    handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const body = {
+            user_id: this.state.user_id,
+            user_pwd: this.state.user_pwd,
+            name: this.state.name,
+            student_id: this.state.student_id,
+            grade: this.state.grade,
+            semester: this.state.semester,
+            phone: this.state.phone,
+            email: this.state.email
+        };
+
+        try {
+            await axios.post('http://fan.catholic.ac.kr:5000/api/register', body, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
             this.props.history.push('/login');
+        } catch (catchedError) {
+            const errorMessage = (catchedError.response && catchedError.response.data)
+                ? catchedError.response.data.errorMessage
+                : catchedError.message;
+            this.setState({
+                errorMessage
+            });
         }
-        this.setState({
-            user_id:member.user_id,
-            user_pwd:member.user_pwd,
-            name:member.name,
-            student_id:member.student_id,
-            grade:member.grade,
-            semester:member.semester,
-            phone:member.phone,
-            email: member.email,
-        });
     }
+
     handleInput = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-// 업데이트가 전체 인건지 해당되는 것 만 인지 질문 해야함.
-//(학번, 비번, 전번, 이메일, 학년) 이라고 함
-
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('user_id', this.state.user_id);
-        formData.append('name', this.state.name);
-        formData.append('grade', this.state.grade);
-        const fan_updated = this.setState({
-            user_pwd:this.data.user_pwd,
-            student_id:this.data.student_id,
-            phone:this.data.phone,
-            grade:this.data.grade,
-            email:this.data.email
-        });
-
-        if (fan_updated) {
-            formData.append('user_pwd', this.state.user_pwd);
-            formData.append('student_id', this.state.student_id);
-            formData.append('grade', this.state.grade);
-            formData.append('phone', this.state.phone);
-            formData.append('email', this.state.email);
-        }
-
-        const result = await Axios.put(`http://fan.catholic.ac.kr:5000/api/profile/edit`, formData, { withCredentials: true });
-        if (fan_updated) {
-            this.setState({
-                user_pwd: result.data.user_pwd,
-                student_id: result.data.student_id,
-                phone: result.data.phone,
-                grade: result.data.grade,
-                email:result.data.email
-            });
-        }
-    }
-
-    handleDelete = async (e) => {
-        e.preventDefault();
-        if(window.confirm('정말 탈퇴하시겠습니까?')) {
-            await Axios.delete(`http://fan.catholic.ac.kr:5000/api/delete/user`, {} , { withCredentials: true });
-            this.props.history.push('/');
-        }
-    }
-
     render() {
         return (
             <Div>
-                <h2>MyPage - Profile <AiFillHome/></h2>
-                <h4>Free meeting Active studying Nice ending</h4>
-                <img src={logo}
-                     className="Login-logo"
-                     alt="logo"
-                     align="left"
-                     width="40%"
-                     height="40%"
-                /><br/><br/>
-                <div className="Edit">
-                <form onSubmit={this.handleSubmit}>
-                    아이디
-                    <Input
-                        type='text'
-                        name='user_id'
-                        placeholder='아이디'
-                        value={this.state.user_id}
-                        onInput={this.handleInput}
-                    /><br/>
-                    비밀번호
-                    <Input
-                        type='password'
-                        name='user_pwd'
-                        placeholder='비밀번호'
-                        value={this.state.user_pwd}
-                        onInput={this.handleInput}
-                    /><br/>
-                    이름
-                    <Input
-                        type='text'
-                        name='name'
-                        placeholder='이름'
-                        value={this.state.name}
-                        onInput={this.handleInput}
-                    /><br/>
-                    학번
-                    <Input
-                        type='text'
-                        name='student_id'
-                        placeholder='학번'
-                        value={this.state.student_id}
-                        onInput={this.handleInput}
-                    /><br/>
-                    학년
-                    <Input
-                        type='text'
-                        name='grade'
-                        placeholder='학년'
-                        value={this.state.grade}
-                        onInput={this.handleInput}
-                    /><br/>
-                    학기
-                    <Input
-                        type='text'
-                        name='semester'
-                        placeholder='학기'
-                        value={this.state.semester}
-                        onInput={this.handleInput}
-                    /><br/>
-                    전화번호
-                    <Input
-                        type='text'
-                        name='phone'
-                        placeholder='010-xxxx-xxxx'
-                        value={this.state.phone}
-                        onInput={this.handleInput}
-                    /><br/>
-                    이메일
-                    <Input
-                        type='text'
-                        name='email'
-                        placeholder='abc@text.com'
-                        value={this.state.email}
-                        onInput={this.handleInput}
-                    /><br/>
-                    <Button>수정</Button>
-                    <Button onClick={this.handleDelete}>탈퇴</Button>
-                </form>
-             </div>
+                <Card body outline color="primary">
+                    <h1><AiFillEdit/> My Page - E.D.I.T <AiFillEdit/></h1>
+                    <h4>Free meeting Active studying Nice ending</h4>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label for="user_id">아이디</Label>
+                            <Input
+                                text='text'
+                                name="user_id"
+                                placeholder='아이디'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="user_pwd">비밀번호</Label>
+                            <Input
+                                text='password'
+                                name="user_pwd"
+                                placeholder='비밀번호'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="name">이름</Label>
+                            <Input
+                                text='text'
+                                name="name"
+                                placeholder='이름'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="student_id">학번</Label>
+                            <Input
+                                text='text'
+                                name="student_id"
+                                placeholder='학번'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="grade">학년</Label>
+                            <Input
+                                text='text'
+                                name="grade"
+                                placeholder='학년'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="semester">학기</Label>
+                            <Input
+                                text='text'
+                                name="semester"
+                                placeholder='학기'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="phone">번호</Label>
+                            <Input
+                                text='text'
+                                name="phone"
+                                placeholder='휴대폰 번호'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="email">이메일</Label>
+                            <Input
+                                text='text'
+                                name="email"
+                                placeholder='이메일'
+                                onChange={this.handleInput}
+                            />
+                        </FormGroup>
+                        <Link to="/">
+                            <Button outline color="primary">취소</Button>{' '}
+                        </Link>
+                        <Button outline color="primary" type='Submit'>
+                            수정완료
+                        </Button>
+                        <div style={{color: 'red'}}>
+                            {this.state.errorMessage}
+                        </div>
+                    </Form>
+                </Card>
             </Div>
-
         );
     }
 }
 
 const Div = styled.div`
-    padding:10% auto;
-    margin:auto;
-    text-align:center;
-    display:block;
+    text-align:left;
+    width:40%;
+    margin: 10% auto;
     `;
-
-const Input = styled.input`
-width:20%;
-border: none;
-margin:1% auto;
-padding:1% auto;
-text-align: center;
-border-bottom: solid 2px #4263eb; 
--webkit-transition: 0.5s; 
-transition: 0.5s;
-`;
-
-const Button = styled.button`
-    display:inline-block;
-    border-radius:10px;
-    border-color:#0080ff;
-    margin:10px;
-    padding:5px;
-    font-weight:600;
-    background-color:#afdaff;
-   `;
 
 export default withRouter(Edit);
