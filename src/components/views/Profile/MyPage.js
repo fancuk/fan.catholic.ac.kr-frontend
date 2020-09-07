@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { Link, withRouter } from "react-router-dom";
 import {Button, Card } from 'reactstrap';
 import {BsFillHouseFill} from "react-icons/bs";
+import NoticeList from "../Notice/NoticeList";
 
 
 class MyPage extends Component {
     render() {
+        const {Notice} = this.props;
         return (
             <Div>
                 <Card body outline color="primary">
@@ -18,17 +20,21 @@ class MyPage extends Component {
                     <div className="board1">
                         <a href={"./notice"}><h5><strong>공지사항</strong></h5></a>
                         <ul>
-                            <li><a herf="#">  F.A.N 개강총회 일정안내 </a> <span>[20.08.28] </span></li>
-                            <li><a herf="#">  F.A.N실 이용안내 </a> <span>[20.08.29] </span></li>
-                            <li><a herf="#">  F.A.N 회비납부 안내 </a> <span>[20.08.30] </span></li>
+                            <li> {Notice &&
+                            Notice.map((board) => {
+                                return (
+                                    <NoticeList
+                                        title={board.title}
+                                    />
+                                );
+                            })}</li>
+                            <li>F.A.N 개강총회 일정안내</li>
                         </ul>
                     </div>
                     <div className="board2">
                         <a href={"./rentbook"}><h5><strong>내도서목록</strong></h5></a>
                         <ul>
                             <li>생활코딩 PHP+MySQL</li>
-                            <li>생활코딩 CSS+HTML+자바스크립트</li>
-                            <li>생활코딩 자바스크립트 입문</li>
                         </ul>
                         <Link to="/edit">
                             <Button outline color="primary">수정</Button>{' '}
