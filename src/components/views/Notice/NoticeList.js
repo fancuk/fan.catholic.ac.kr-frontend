@@ -1,40 +1,72 @@
 import React from 'react';
 import {Button, Table} from 'reactstrap';
 import { AiFillAlert } from "react-icons/ai";
-import { Link} from "react-router-dom";
+import { Link} from "react-router-dom"
+import axios from "axios";
+import NoticeAdd from "./NoticeAdd";
 
-const NoticeList = () => {
-    return (
-        <div>
-        <h2><AiFillAlert/> 공지사항 <AiFillAlert/></h2>
-            <h6><strong> - 팬이랑 공지랑 - </strong></h6>
-        <Table hover>
-            <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>날짜</th>
-                <th>수정</th>
-                <th>삭제</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>게시판 글쓴이 입니다.</td>
-                <td>임효진</td>
-                <td>20.08.30</td>
-                <td><Link to="./noticeadd"><Button outline color="primary" >수정</Button></Link></td>
-                <td><Button outline color="danger">삭제</Button></td>
-            </tr>
-            </tbody>
-        </Table>
-            <Link to="./noticeadd">
-            <Button outline color="primary" type='submit'>글쓰기</Button>
-            </Link>
-        </div>
-    );
+class StudyList extends React.Component {
+    state = {
+        loading: false,
+        board_name:''
+    };
+    boardList = async () => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/board/list')
+            .then(({data}) => {
+                this.setState({
+                    loading: true,
+                    board_name: data
+                });
+            })
+            .catch(e => {
+                console.error(e);
+                this.setState({
+                    loading: false
+                });
+            });
+    };
+    componentDidMount() {
+        this.boardList();
+    }
+
+    render() {
+        const {Notice} = this.props;
+        return (
+            <div>
+                <h2>< AiFillAlert/> 공지사항 <AiFillAlert/></h2>
+                <h6> <strong> - 팬과 함께 공지를! - </strong> </h6>
+                <Table hover>
+                    <thead>
+                    <tr>
+                        <th>게시판 명</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>수정</th>
+                        <th>삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {Notice &&
+                        Notice.map((notice) => {
+                        return (
+                            <NoticeAdd
+                                board_name={notice.board_name}
+                                title={notice.title}
+                                writer={notice.writer}
+                            />
+
+                        );
+                    })}
+                    <td><Link to="./studyadd"><Button outline color="primary" >수정</Button></Link></td>
+                    <td><Button outline color="danger">삭제</Button></td>
+                    </tbody>
+                </Table>
+                <Link to="./studyadd">
+                    <Button outline color="primary" type='submit'>글쓰기</Button>
+                </Link>
+            </div>
+        );
+    }
 }
 
-export default NoticeList;
+export default StudyList;
