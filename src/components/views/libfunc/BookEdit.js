@@ -35,8 +35,8 @@ class BookEdit extends React.Component {
         e.preventDefault()
         let url = 'http://fan.catholic.ac.kr:5000/api/library/edit';
         const post = {
-            title: this.state.title,
-            writer: this.state.writer,
+            edit_title: this.state.title,
+            edit_writer: this.state.writer,
             edit_image: this.state.image,
             edit_count: Number(this.state.count)
         }
@@ -48,6 +48,8 @@ class BookEdit extends React.Component {
                 console.log(e);
             })
         this.setState({
+            title: this.state.title,
+            writer: this.state.writer,
             image: this.state.image,
             count: this.state.count,
             open: false
