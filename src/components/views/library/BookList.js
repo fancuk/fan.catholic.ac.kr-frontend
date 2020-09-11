@@ -46,7 +46,7 @@ class BookList extends Component {
         books: []
     };
     loadBook = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/library/list')
+        await axios.get('http://fan.catholic.ac.kr:5000/api/library/list?page=1')
             .then(({ data }) => {
                 this.setState({
                     loading: true,
