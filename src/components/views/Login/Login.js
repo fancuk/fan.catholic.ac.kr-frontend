@@ -72,7 +72,7 @@ class Login extends Component {
                     />
                 </FormGroup>
                     <Link to="./register" >
-                        <Button outline color="primary" >회원가입</Button>{' '}
+                        <Button outline color="primary" >회원가입</Button>
                     </Link>
                     <Button outline color="primary" type='submit'>로그인</Button>
             </Form>
@@ -84,7 +84,7 @@ class Login extends Component {
 }
 const Div = styled.div`
     width: 50%;
-    margin: 20% auto;
+    margin: 5% auto;
     `;
 
 export default withRouter(Login);
