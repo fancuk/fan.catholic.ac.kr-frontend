@@ -1,14 +1,13 @@
 import React, {Component} from "react";
-class slid_list extends Component {
+
+
+class slider_list extends Component {
     render() {
-        console.log(this.props.img)
         return(
-            <div>
-                <li>
-                    <img src = {this.props.img}  alt=""/>
-                </li>
-            </div>
+            <li>
+                <img src = {this.props.img} width="1002" height="316" alt=""/>
+            </li>
         );
     }
 }
-export default slid_list;
+export default (slider_list)
