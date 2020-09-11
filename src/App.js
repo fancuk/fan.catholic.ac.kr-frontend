@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MainSlide from "./components/views/Home/MainSlide";
 import MyPage from "./components/views/Profile/MyPage";
 import Edit from "./components/views/Profile/Edit";
-import Register from "./components/views/Register/Register";
+import Register from "./components/views/Login/Register";
 import Login from "./components/views/Login/Login";
 import LoginControls from "./components/views/Login/LoginControls";
 import LogoutButton from "./components/views/Login/LogoutButton";
@@ -36,8 +36,8 @@ const App = () => {
                         <Route path="/detail" component={CustomerDetail}/>
                         <Route path="/notice" component={NoticeList}/>
                         <Route path="/noticeadd" component={NoticeAdd}/>
-                        <Route path="/fan" component={FanList}/>
-                        <Route path="/fanadd" component={FanAdd}/>
+                        <Route path="/free" component={FanList}/>
+                        <Route path="/freeadd" component={FanAdd}/>
                         <Route path="/studyadd" component={StudyAdd}/>
                         <Route path="/study" component={StudyList}/>
                     </Switch>
