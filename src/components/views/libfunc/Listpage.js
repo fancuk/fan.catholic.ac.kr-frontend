@@ -7,8 +7,7 @@ const tablestyle = {
     width: "80%",
     margin: "1% auto",
 }
-const tablehead ={
-    position: "fixed",
+const tablebody ={
 }
 
 class Listpage extends Component {

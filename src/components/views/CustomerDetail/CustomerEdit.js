@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
-
 const styles = theme => ({
     hidden: {
         display: 'none'
@@ -18,7 +17,6 @@ const styles = theme => ({
         justifyContent: 'center'
     }
 });
-
 class CustomerEdit extends React.Component {
     constructor(props) {
         super(props);
@@ -31,7 +29,6 @@ class CustomerEdit extends React.Component {
             open: false
         }
     }
-
     handleFormSubmit = (e) => {
         e.preventDefault()
         let url = 'http://fan.catholic.ac.kr:5000/api/manage/edit';
@@ -58,19 +55,16 @@ class CustomerEdit extends React.Component {
             open: false
         })
     }
-
     handleValueChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
     }
-
     handleClickOpen = () => {
         this.setState({
             open: true
         });
     }
-
     handleClose = () => {
         this.setState({
             student_id: this.state.student_id,
@@ -81,7 +75,6 @@ class CustomerEdit extends React.Component {
             open: false
         })
     }
-
     render() {
         const { classes } = this.props;
         return (
@@ -103,7 +96,6 @@ class CustomerEdit extends React.Component {
                             <option value={2}>정회원</option>
                             <option value={3}>관리자</option>
                         </Select>
-
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>저장</Button>
@@ -113,7 +105,5 @@ class CustomerEdit extends React.Component {
             </span>
         );
     }
-
 }
-
 export default withStyles(styles)(CustomerEdit);

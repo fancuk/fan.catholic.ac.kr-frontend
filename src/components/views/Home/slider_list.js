@@ -1,11 +1,7 @@
 import React, {Component} from "react";
-
-
-
-
 class slid_list extends Component {
     render() {
-        console.log(this.props)
+        console.log(this.props.img)
         return(
             <div>
                 <li>
@@ -13,7 +9,6 @@ class slid_list extends Component {
                 </li>
             </div>
         );
-
     }
 }
 export default slid_list;
