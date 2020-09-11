@@ -1,22 +1,11 @@
+// 컴포먼트 화 만들기 이전 상태로 만듦 ( 관리자에서 게시물 받는 형태로 변하게 되면 달라지기 때문에)
+
 import React, {Component} from "react";
 import "./MainSlide.css"
 import catholic from "../../catholic.PNG"
 import contest from "../../contest.jpg"
-import slid_list from "./slider_list";
-const slideImages =[
-    {
-        img: "http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg"
-    },
-    {
-        img: {catholic}
-    },
-    {
-        img: {contest}
-    }
-]
 class MainSlide extends Component {
     render() {
-        const{classes}=this.props;
         window.onload = function(){
             let slideWrapper = document.getElementById('slider-wrap');
             let slideIndex = 0;
@@ -28,6 +17,7 @@ class MainSlide extends Component {
             })
             let slider = document.querySelector('#slider-wrap ul#slider');
             slider.style.width = sliderWidth * totalSlides + 'px';
+
 // 다음, 이전
             let nextBtn = document.getElementById('next');
             let prevBtn = document.getElementById('previous');
@@ -37,6 +27,7 @@ class MainSlide extends Component {
             prevBtn.addEventListener('click', function () {
                 plusSlides(-1);
             });
+
 // hover
             slideWrapper.addEventListener('mouseover', function () {
                 this.classList.add('active');
@@ -48,9 +39,11 @@ class MainSlide extends Component {
                     plusSlides(1);
                 }, 3000);
             });
+
             function plusSlides(n) {
                 showSlides(slideIndex += n);
             }
+
             function showSlides(n) {
                 slideIndex = n;
                 if (slideIndex == -1) {
@@ -58,12 +51,26 @@ class MainSlide extends Component {
                 } else if (slideIndex === totalSlides) {
                     slideIndex = 0;
                 }
+
                 slider.style.left = -(sliderWidth * slideIndex) + 'px';
+                pagination();
             }
+
+//페이징
             slides.forEach(function () {
                 let li = document.createElement('li');
                 document.querySelector('#slider-pagination-wrap ul').appendChild(li);
             })
+
+            function pagination() {
+                let dots = document.querySelectorAll('#slider-pagination-wrap ul li');
+                dots.forEach(function (element) {
+                    element.classList.remove('active');
+                });
+                dots[slideIndex].classList.add('active');
+            }
+
+            pagination();
             let autoSlider = setInterval(function () {
                 plusSlides(1);
             }, 3000);
@@ -72,11 +79,15 @@ class MainSlide extends Component {
             <div id="main-wrap">
                 <div id="slider-wrap">
                     <ul id="slider">
-                        {slideImages.map(s=>{
-                            return(
-                                <slid_list img= {s.img}/>
-                            );
-                        })}
+                        <li>
+                            <img src="http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg"  alt=""/>
+                        </li>
+                        <li>
+                            <img src={catholic} alt=""/>
+                        </li>
+                        <li>
+                            <img src={contest} alt=""/>
+                        </li>
                     </ul>
                     <div className="slider-btns" id="next"><span>▶</span></div>
                     <div className="slider-btns" id="previous"><span>◀</span></div>
@@ -92,9 +103,11 @@ class MainSlide extends Component {
                                 <li><span className="thumb">
                                     <img src="https://image.yes24.com/goods/67883659/800x0" alt="" width="204" height="133"/>
                                 </span>생활코딩 PHP+MySQL</li>
+
                                 <li><span className="thumb">
                                     <img src="https://image.yes24.com/momo/TopCate2096/MidCate008/209579489.jpg" alt="" width="204" height="133"/>
                                 </span>생활코딩 CSS+HTML+자바스크립트</li>
+
                                 <li><span className="thumb">
                                     <img src="https://img.ridicdn.net/cover/1160000018/xxlarge" alt="" width="204" height="133"/>
                                 </span>생활코딩 자바스크립트 입문</li>
