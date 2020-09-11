@@ -5,7 +5,6 @@ import Login from "./components/views/Login/Login";
 import LoginControls from "./components/views/Login/LoginControls";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
-import CustomerList from "./components/views/CustomerList/CustomerList";
 import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail";
 import Notice from "./components/views/Notice/Notice";
 import FanBoard from "./components/views/FanBoard/FanBoard";
@@ -29,8 +28,7 @@ const App = () => {
                         <Route path="/login" component={Login}/>
                         <Route path="/library" component={BookList}/>
                         <Route path="/rentbook" component={RentBookList}/>
-                        <Route exact path="/member" component={CustomerList}/>
-                        <Route path="/detail" component={CustomerDetail}/>
+                        <Route path="/admin" component={CustomerDetail}/>
                         <Route path="/notice" component={Notice}/>
                         <Route path="/fanboard" component={FanBoard}/>
                         <Route path="/studyboard" component={StudyBoard}/>

@@ -4,11 +4,13 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
 import CustomerDelete from "./CustomerDelete";
+import CustomerEdit from "./CustomerEdit";
 
 class CustomerDe extends Component{
     state = {
         loading: false,
-        details: []
+        details: [],
+        levels: []
     };
     loadList = async () => {
         axios.get('http://fan.catholic.ac.kr:5000/api/manage/list')
@@ -30,7 +32,7 @@ class CustomerDe extends Component{
             .then(({ data }) => {
                 this.setState({
                     loading: true,
-                    details: data
+                    levels: data
                 });
             })
             .catch(e => {
@@ -65,21 +67,16 @@ class CustomerDe extends Component{
             <TableRow>
                 <TableCell align ='center'> {this.props.student_id} </TableCell>
                 <TableCell align='center'>{this.props.name} </TableCell>
-                <TableCell align='center'>{this.props.id} </TableCell>
+                <TableCell align='center'>{this.props.user_id} </TableCell>
                 <TableCell align='center'>{this.props.grade} </TableCell>
                 <TableCell align='center'>{this.props.semester} </TableCell>
                 <TableCell align='center'>{this.props.phone} </TableCell>
                 <TableCell align='center'>{this.props.email} </TableCell>
                 <TableCell align='center'>{this.props.rent} </TableCell>{/*내 도서 대출 페이지로 링크 이동*/}
-                <TableCell align='center'>
-                    <select id="level">
-                        <option>정회원</option>
-                        <option>준회원</option>
-                    </select>{/*값이 false이면 준회원, 값이 true이면 정회원 {this.props.level}*/}
-                </TableCell>
+                <TableCell align='center'>{this.props.level}</TableCell>
                 <TableCell align='center'><Button variant="contained" color= "primary">Reset</Button></TableCell>
-                <TableCell align='center'><CustomerDelete stateRefresh={this.props.stateRefresh} id={this.props.id}/></TableCell>
-                <TableCell align='center'><Button variant="contained" color= "primary" /*onclick={modi()}*/>저장</Button></TableCell>
+                <TableCell align='center'><CustomerDelete stateRefresh={this.props.stateRefresh} user_id={this.props.user_id}/></TableCell>
+                <TableCell align='center'><CustomerEdit student_id={this.props.student_id} name={this.props.name} grade={this.props.grade} semester={this.props.semester} level={this.props.level}/></TableCell>
             </TableRow>
         );
     }

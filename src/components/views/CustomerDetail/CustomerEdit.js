@@ -1,0 +1,118 @@
+import React from "react";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import Select from '@material-ui/core/Select';
+import axios from 'axios';
+
+const styles = theme => ({
+    hidden: {
+        display: 'none'
+    },
+    menu: {
+        display: 'flex',
+        justifyContent: 'center'
+    }
+});
+
+class CustomerEdit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            student_id: this.props.student_id,
+            name: this.props.name,
+            grade: this.props.grade,
+            semester: this.props.semester,
+            level: this.props.level,
+            open: false
+        }
+    }
+
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        let url = 'http://fan.catholic.ac.kr:5000/api/manage/edit';
+        const post = {
+            student_id: this.state.student_id,
+            name: this.state.name,
+            grade: this.state.grade,
+            semester: this.state.semester,
+            level: this.state.level,
+        }
+        axios.post(url, post)
+            .then(response => {
+                console.log('response : ', JSON.stringify(response))
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        this.setState({
+            student_id: this.state.student_id,
+            name: this.state.name,
+            grade: this.state.grade,
+            semester: this.state.semester,
+            level: this.state.level,
+            open: false
+        })
+    }
+
+    handleValueChange = (e) => {
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
+    }
+
+    handleClickOpen = () => {
+        this.setState({
+            open: true
+        });
+    }
+
+    handleClose = () => {
+        this.setState({
+            student_id: this.state.student_id,
+            name: this.state.name,
+            grade: this.state.grade,
+            semester: this.state.semester,
+            level: this.state.level,
+            open: false
+        })
+    }
+
+    render() {
+        const { classes } = this.props;
+        return (
+            <span className="menu">
+                <Button variant="contained" color="primary" onClick={this.handleClickOpen}>수정</Button>
+                <Dialog open={this.state.open} onClose={this.handleClose}>
+                    <DialogTitle>회원 정보 수정</DialogTitle>
+                    <DialogContent>
+                        <input label="학번" type="text" name="title"  value={this.state.student_id}/><br/>
+                        <TextField label="이름" type="text" name="writer"  value={this.state.name}/><br/>
+                        <TextField label="학년" type="text" name="image"  value={this.state.grade} onChange={this.handleValueChange} /><br/>
+                        <TextField label="학기" type="text" name="image"  value={this.state.semester} onChange={this.handleValueChange} /><br/>
+                        <Select
+                            native
+                            value={this.state.level}
+                            onChange={this.handleValueChange}>
+                            <option value={1}>준회원</option>
+                            <option value={2}>정회원</option>
+                            <option value={3}>관리자</option>
+                        </Select>
+
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>저장</Button>
+                        <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
+                    </DialogActions>
+                </Dialog>
+            </span>
+        );
+    }
+
+}
+
+export default withStyles(styles)(CustomerEdit);
