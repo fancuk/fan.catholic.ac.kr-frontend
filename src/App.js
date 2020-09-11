@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import MainSlide from "./components/views/Home/MainSlide";
+import MyPage from "./components/views/Profile/MyPage";
+import Edit from "./components/views/Profile/Edit";
 import Register from "./components/views/Register/Register";
 import Login from "./components/views/Login/Login";
 import LoginControls from "./components/views/Login/LoginControls";
+import LogoutButton from "./components/views/Login/LogoutButton";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
 import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail";
-import Notice from "./components/views/Notice/Notice";
-import FanBoard from "./components/views/FanBoard/FanBoard";
-import StudyBoard from "./components/views/StudyBoard/StudyBoard";
+import NoticeAdd from "./components/views/Notice/NoticeAdd";
+import NoticeList from "./components/views/Notice/NoticeList";
+import FanAdd from "./components/views/FanBoard/FanAdd";
+import FanList from "./components/views/FanBoard/FanList";
+import StudyAdd from "./components/views/StudyBoard/StudyAdd";
+import StudyList from "./components/views/StudyBoard/StudyList";
 import './App.css';
-import MainSlide from "./components/views/Home/MainSlide";
-import MyPage from "./components/views/Profile/Mypage";
-import Edit from "./components/views/Profile/Edit";
 
 const App = () => {
     return (
@@ -26,12 +30,16 @@ const App = () => {
                         <Route path="/register" component={Register}/>
                         <Route path="/control" component={LoginControls}/>
                         <Route path="/login" component={Login}/>
+                        <Route path="/logout" component={LogoutButton}/>
                         <Route path="/library" component={BookList}/>
                         <Route path="/rentbook" component={RentBookList}/>
                         <Route path="/detail" component={CustomerDetail}/>
-                        <Route path="/notice" component={Notice}/>
-                        <Route path="/fanboard" component={FanBoard}/>
-                        <Route path="/studyboard" component={StudyBoard}/>
+                        <Route path="/notice" component={NoticeList}/>
+                        <Route path="/noticeadd" component={NoticeAdd}/>
+                        <Route path="/fan" component={FanList}/>
+                        <Route path="/fanadd" component={FanAdd}/>
+                        <Route path="/studyadd" component={StudyAdd}/>
+                        <Route path="/study" component={StudyList}/>
                     </Switch>
                 </div>
             </Router>
