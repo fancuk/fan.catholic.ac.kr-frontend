@@ -65,7 +65,6 @@ class BookList extends Component {
     }
 
     render() {
-        const { classes } = this.props;
         console.log(this.state.books);
         return (
             <div>
