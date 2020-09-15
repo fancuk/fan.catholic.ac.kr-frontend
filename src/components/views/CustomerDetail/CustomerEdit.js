@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
-
 const styles = theme => ({
     hidden: {
         display: 'none'
@@ -18,7 +17,6 @@ const styles = theme => ({
         justifyContent: 'center'
     }
 });
-
 class CustomerEdit extends React.Component {
     constructor(props) {
         super(props);
@@ -31,10 +29,9 @@ class CustomerEdit extends React.Component {
             open: false
         }
     }
-
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url = 'http://fan.catholic.ac.kr:5000/api/manage/edit';
+        let url = 'http://fan.catholic.ac.kr:5000/api/user/edit';
         const post = {
             student_id: this.state.student_id,
             name: this.state.name,
@@ -42,7 +39,7 @@ class CustomerEdit extends React.Component {
             semester: this.state.semester,
             level: this.state.level,
         }
-        axios.post(url, post)
+        axios.put(url, post)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
             })
@@ -58,19 +55,16 @@ class CustomerEdit extends React.Component {
             open: false
         })
     }
-
     handleValueChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
     }
-
     handleClickOpen = () => {
         this.setState({
             open: true
         });
     }
-
     handleClose = () => {
         this.setState({
             student_id: this.state.student_id,
@@ -81,7 +75,6 @@ class CustomerEdit extends React.Component {
             open: false
         })
     }
-
     render() {
         const { classes } = this.props;
         return (
@@ -90,11 +83,12 @@ class CustomerEdit extends React.Component {
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>회원 정보 수정</DialogTitle>
                     <DialogContent>
-                        <input label="학번" type="text" name="title"  value={this.state.student_id}/><br/>
-                        <TextField label="이름" type="text" name="writer"  value={this.state.name}/><br/>
-                        <TextField label="학년" type="text" name="image"  value={this.state.grade} onChange={this.handleValueChange} /><br/>
-                        <TextField label="학기" type="text" name="image"  value={this.state.semester} onChange={this.handleValueChange} /><br/>
+                        <TextField label="student_id" type="text" name="student_id"  value={this.state.student_id} onChange={this.handleValueChange} /><br/>
+                        <TextField label="name" type="text" name="name"  value={this.state.name}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="grade" type="text" name="grade"  value={this.state.grade} onChange={this.handleValueChange} /><br/>
+                        <TextField label="semester" type="text" name="semester"  value={this.state.semester} onChange={this.handleValueChange} /><br/>
                         <Select
+                            label="level" type="text" name="level"
                             native
                             value={this.state.level}
                             onChange={this.handleValueChange}>
@@ -102,7 +96,6 @@ class CustomerEdit extends React.Component {
                             <option value={2}>정회원</option>
                             <option value={3}>관리자</option>
                         </Select>
-
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>저장</Button>
@@ -112,7 +105,5 @@ class CustomerEdit extends React.Component {
             </span>
         );
     }
-
 }
-
 export default withStyles(styles)(CustomerEdit);

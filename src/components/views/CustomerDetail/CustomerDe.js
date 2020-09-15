@@ -10,7 +10,6 @@ class CustomerDe extends Component{
     state = {
         loading: false,
         details: [],
-        levels: []
     };
     loadList = async () => {
         axios.get('http://fan.catholic.ac.kr:5000/api/manage/list')
@@ -18,21 +17,6 @@ class CustomerDe extends Component{
                 this.setState({
                     loading: true,
                     details: data
-                });
-            })
-            .catch(e => {
-                console.error(e);
-                this.setState({
-                    loading: false
-                });
-            });
-    };
-    levelEdit = async () => {
-        axios.put('http://fan.catholic.ac.kr:5000/api/manage/edit')
-            .then(({ data }) => {
-                this.setState({
-                    loading: true,
-                    levels: data
                 });
             })
             .catch(e => {
@@ -59,7 +43,6 @@ class CustomerDe extends Component{
     };
     componentDidMount() {
         this.loadList();
-        this.levelEdit();
         this.pwReset();
     }
     render(){

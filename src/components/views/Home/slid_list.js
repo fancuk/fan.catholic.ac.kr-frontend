@@ -1,11 +1,9 @@
 import React, {Component} from "react";
 
 
-
-
-class slid_list extends Component {
+class slid_list extends React.Component {
     render() {
-        console.log(this.props)
+        console.log(this.props.img)
         return(
             <div>
                 <li>
