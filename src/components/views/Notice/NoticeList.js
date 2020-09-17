@@ -1,67 +1,44 @@
-import React from 'react';
-import {Button, Table} from 'reactstrap';
-import { AiFillAlert } from "react-icons/ai";
-import { Link} from "react-router-dom"
+import React, {Component} from 'react';
+import {Button} from 'reactstrap';
+import { Link} from "react-router-dom";
 import axios from "axios";
-import NoticeAdd from "./NoticeAdd";
+import NoticePage from "./NoticePage"
 
-class StudyList extends React.Component {
+class NoticeList extends Component {
     state = {
-        loading: false,
-        board_name:''
+        list: false,
+        board_name: 'noticeBoard',
+        data:[]
+
     };
     boardList = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/board/list')
+        await axios.get('http://fan.catholic.ac.kr:5000/api/board/list?board_name=noticeBoard')
             .then(({data}) => {
                 this.setState({
-                    loading: true,
-                    board_name: data
+                    board_name: 'noticeBoard',
+                    list: true,
+                    data:data
                 });
+                console.log(this.state.data)
             })
             .catch(e => {
                 console.error(e);
                 this.setState({
-                    loading: false
+                    list: false
                 });
             });
     };
+
     componentDidMount() {
         this.boardList();
     }
 
     render() {
-        const {Notice} = this.props;
+        console.log(this.state.data); // 조건부 렌더링으로 주고 받아야함
         return (
             <div>
-                <h2>< AiFillAlert/> 공지사항 <AiFillAlert/></h2>
-                <h6> <strong> - 팬과 함께 공지를! - </strong> </h6>
-                <Table hover>
-                    <thead>
-                    <tr>
-                        <th>게시판 명</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>수정</th>
-                        <th>삭제</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {Notice &&
-                        Notice.map((notice) => {
-                        return (
-                            <NoticeAdd
-                                board_name={notice.board_name}
-                                title={notice.title}
-                                writer={notice.writer}
-                            />
-
-                        );
-                    })}
-                    <td><Link to="./studyadd"><Button outline color="primary" >수정</Button></Link></td>
-                    <td><Button outline color="danger">삭제</Button></td>
-                    </tbody>
-                </Table>
-                <Link to="./studyadd">
+                <NoticePage data={this.state.data}/>
+                <Link to="./noticeadd">
                     <Button outline color="primary" type='submit'>글쓰기</Button>
                 </Link>
             </div>
@@ -69,4 +46,4 @@ class StudyList extends React.Component {
     }
 }
 
-export default StudyList;
+export default NoticeList;
