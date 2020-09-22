@@ -10,7 +10,6 @@ class CustomerDe extends Component{
     state = {
         loading: false,
         details: [],
-        levels: []
     };
     loadList = async () => {
         axios.get('http://fan.catholic.ac.kr:5000/api/manage/list')
@@ -27,28 +26,14 @@ class CustomerDe extends Component{
                 });
             });
     };
-    levelEdit = async () => {
-        axios.put('http://fan.catholic.ac.kr:5000/api/manage/edit')
-            .then(({ data }) => {
-                this.setState({
-                    loading: true,
-                    levels: data
-                });
-            })
-            .catch(e => {
-                console.error(e);
-                this.setState({
-                    loading: false
-                });
-            });
-    };
     pwReset = async () => {
-        axios.put('http://fan.catholic.ac.kr:5000/api/reset/pwd')
+        axios.post('http://fan.catholic.ac.kr:5000/api/reset/pwd')
             .then(({ data }) => {
                 this.setState({
                     loading: true,
-                    details: data
-                });
+                    details: data,
+                },
+                this.getPosts());
             })
             .catch(e => {
                 console.error(e);
@@ -59,7 +44,6 @@ class CustomerDe extends Component{
     };
     componentDidMount() {
         this.loadList();
-        this.levelEdit();
         this.pwReset();
     }
     render(){
@@ -76,7 +60,7 @@ class CustomerDe extends Component{
                 <TableCell align='center'>{this.props.level}</TableCell>
                 <TableCell align='center'><Button variant="contained" color= "primary">Reset</Button></TableCell>
                 <TableCell align='center'><CustomerDelete stateRefresh={this.props.stateRefresh} user_id={this.props.user_id}/></TableCell>
-                <TableCell align='center'><CustomerEdit student_id={this.props.student_id} name={this.props.name} grade={this.props.grade} semester={this.props.semester} level={this.props.level}/></TableCell>
+                <TableCell align='center'><CustomerEdit stateRefresh={this.props.stateRefresh} user_id={this.props.user_id} name={this.props.name} student_id={this.props.student_id} grade={this.props.grade} semester={this.props.semester} level={this.props.level}/></TableCell>
             </TableRow>
         );
     }

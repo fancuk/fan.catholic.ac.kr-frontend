@@ -20,6 +20,7 @@ class CustomerDelete extends Component {
         axios.delete(url)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
+                this.props.stateRefresh();
             })
             .catch(e => {
                 console.log(e);
@@ -27,6 +28,7 @@ class CustomerDelete extends Component {
         this.setState({
             open: false
         })
+
     }
     handleClickOpen = () => {
         this.setState({

@@ -116,4 +116,6 @@ class CustomerEdit extends React.Component {
         );
     }
 }
+
 export default withStyles(styles)(CustomerEdit);
+

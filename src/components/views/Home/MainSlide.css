@@ -127,26 +127,35 @@
     -o-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
     transition: all 0.3s cubic-bezier(1, .01, .32, 1);
 }
-/*---미완성*/
-#contents {width:1002px; margin:40px auto 16px; height:558px; background: #edf2ff no-repeat;}
-#contents h2 {margin:0 0 24px 0; font-size:18px; font-weight:600; color:#252525;}
+
+/* main_contents */
+#contents {width:1002px; margin:40px auto 16px; height:558px; background: #edf2ff no-repeat; border-radius: 10px / 10px;}
+#contents h2 { text-align: left; margin:0 0 24px 0; font-size:18px; font-weight:600; color:#252525;}
 #contents h2 span {color:#bababa; padding:0 0 0 21px;}
 .section1 {position:relative; width:926px; margin:0 auto; padding:34px 0 10px 0; background: 0 100%  repeat-x;}
-.section1 > ul {*zoom:1;}
-.section1 > ul:after {content:" "; display:block; clear:both;}
+
+
+.section1 > ul { display: inline-block;}
 .section1 > ul li {float:left; width:205px; height:216px; margin:0 0 0 30px; font-size:13px; line-height:17px; font-weight:normal;}
 .section1 > ul li a {display:block; text-decoration:none; color:#313131;}
 .section1 > ul li:first-child {margin:0;}
 .section1 > ul li .thumb {display:block; font-size:14px; font-weight:normal; padding:0 0 14px 0;}
-.section1 > ul li .thumb img {margin:0 0 20px 0;}
-.section1 a.more {position:absolute; top:37px; right:0; font-size:12px; font-weight:normal; color:#8b0029;}
+.section1 > ul li .thumb img {margin:0 20px 20px 0; padding: 0 10px 0 10px;}
+.section1 > ul li .thumb a {color:#9a0a14; }
+
+
 
 .section2 {*zoom:1; width:926px; margin:0 auto; padding:37px 0 0;}
 .section2:after {content:" "; display:block; clear:both;}
-.section2 ul li {position:relative; width:450px; overflow:hidden; font-size:13px; line-height:24px; font-weight:normal;}
+.section2 .board1 {float:left; width:448px; position:relative;}
+.section2 .board2 {float:left; width:443px; margin:0 0 0 35px; position:relative;}
+.section2 a.more2 {position:absolute; top:0; right:0; font-size:12px; font-weight:normal; color:#1971c2;}
+.section2 ul li {position:relative; width:450px; overflow:hidden; font-size:13px; line-height:24px; font-weight:normal; text-align: left;}
 .section2 ul li a {color:#6a6a6a;}
 .section2 strong {font-weight:normal; color:#7d0101;}
 .section2 ul li span {position:absolute; top:0; right:0; color:#9a9a9a; font-size:13px; line-height:24px;}
-.section2 .board1 {float:left; width:448px; position:relative;}
-.section2 .board2 {float:left; width:443px; margin:0 0 0 35px; position:relative;}
+
+
+
+
 
