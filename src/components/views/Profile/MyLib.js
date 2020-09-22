@@ -1,78 +1,59 @@
-import React, { Component } from 'react';
-import BookAdd from "../libfunc/BookAdd";
-import axios from 'axios';
-import Listpage from "../libfunc/Listpage";
-import './style.css';
-import { withStyles } from '@material-ui/core/styles';
+import React,{Component}from"react";
+import {withStyles} from "@material-ui/core/styles";
+import axios from "axios";
+import Table from "@material-ui/core/Table";
+import Paper from "@material-ui/core/Paper";
+import MyCard from "./MyCard";
 
-class MyLib extends Component {
-    constructor(props){
+class MyLib extends Component{
+    constructor(props) {
         super(props);
         this.state = {
-            completed: 0,
-            loading: false,
-            books: [],
-            page:0,
-            currentPage: 1
+            user_id:this.props.user_id,
+            list:[]
         }
         this.stateRefresh = this.stateRefresh.bind(this);
     }
-    stateRefresh = (page) => {
-        this.setState({
-            books: [],
-            page: 0,
-            completed: 0
-        })
-        this.loadBook(page);
+    stateRefresh() {
+        this.state = {
+            user_id:this.props.user_id,
+            list:[]
+        }
+        this.loadLib();
     }
 
-    loadBook = async (page) => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/library/list?page='+page)
+    loadLib = async () => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/user/library?user_id='+this.props.user_id)
             .then(({ data }) => {
                 this.setState({
-                    loading: true,
-                    books: data[0].books,
-                    page: data[1].page
+                    user_id:this.state.user_id,
+                    list:data
                 });
-                console.log(this.state.books[0].renter)
-                console.log(this.state.page)
             })
             .catch(e => {
                 console.error(e);
                 this.setState({
-                    loading: false
+                    user_id:this.props.user_id,
+                    list:[]
                 });
             });
     };
     componentDidMount() {
-        this.loadBook(1);
+        this.loadLib();
     }
-
-    pageHandler = page => {
-        this.setState({ currentPage: page });
-        this.stateRefresh(page)
-    }
-
-    render() {
-        const {
-            currentPage
-        } = this.state;
-        return (
-            <>
-                <div>
-
-                    <Listpage Books={this.state.books} stateRefresh={this.stateRefresh} />
-                </div>
-                <div><BookAdd stateRefresh={this.stateRefresh}/></div>
-                <PaginationButton
-                    page={this.state.page}
-                    onClick={this.pageHandler}
-                    currentPage={currentPage}
-                    stateRefresh={this.stateRefresh}
-                />
-            </>
+    render(){
+        const{classes}=this.props;
+        console.log(this.state.user_id);
+        return(
+            <div>
+                <h3>내 도서 목록</h3>
+                <Paper>
+                    <Table>
+                        <MyCard stateRefresh={this.stateRefresh} user_id={this.state.user_id}/>
+                    </Table>
+                </Paper>
+            </div>
         );
     }
 }
-
-export default withStyles(styles)(MyLib)
+export default withStyles(MyLib);
