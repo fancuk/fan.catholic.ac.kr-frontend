@@ -34,7 +34,7 @@ class CustomerPage extends Component {
                     Customers.map(c=>{
                         return(
                             <CustomerDe
-                                stateRefresh={this.stateRefresh}
+                                stateRefresh={this.props.stateRefresh}
                                 student_id= {c.student_id}
                                 name={c.name}
                                 user_id={c.user_id}

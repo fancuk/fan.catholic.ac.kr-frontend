@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-class slid_list extends React.Component {
+class Slide_list extends Component {
     render() {
         console.log(this.props.img)
         return(
@@ -14,4 +14,4 @@ class slid_list extends React.Component {
 
     }
 }
-export default slid_list;
+export default Slide_list;

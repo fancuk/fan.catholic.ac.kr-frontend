@@ -21,39 +21,47 @@ class CustomerEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            student_id: this.props.student_id,
+            user_id: this.props.user_id,
             name: this.props.name,
+            student_id: this.props.student_id,
             grade: this.props.grade,
             semester: this.props.semester,
             level: this.props.level,
             open: false
         }
     }
+
+
     handleFormSubmit = (e) => {
         e.preventDefault()
         let url = 'http://fan.catholic.ac.kr:5000/api/user/edit';
-        const post = {
-            student_id: this.state.student_id,
+        const put = {
+            user_id: this.state.user_id,
             name: this.state.name,
+            student_id: this.state.student_id,
             grade: this.state.grade,
             semester: this.state.semester,
             level: this.state.level,
         }
-        axios.put(url, post)
+        console.log(put)
+        axios.put(url, put)
             .then(response => {
-                console.log('response : ', JSON.stringify(response))
+                console.log('response : ', JSON.stringify(response));
+                this.props.stateRefresh();
             })
             .catch(e => {
                 console.log(e);
             })
         this.setState({
-            student_id: this.state.student_id,
+            user_id: this.state.user_id,
             name: this.state.name,
+            student_id: this.state.student_id,
             grade: this.state.grade,
             semester: this.state.semester,
             level: this.state.level,
             open: false
         })
+        this.props.stateRefresh();
     }
     handleValueChange = (e) => {
         let nextState = {};
@@ -67,8 +75,9 @@ class CustomerEdit extends React.Component {
     }
     handleClose = () => {
         this.setState({
-            student_id: this.state.student_id,
+            user_id: this.state.user_id,
             name: this.state.name,
+            student_id: this.state.student_id,
             grade: this.state.grade,
             semester: this.state.semester,
             level: this.state.level,
@@ -83,8 +92,9 @@ class CustomerEdit extends React.Component {
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>회원 정보 수정</DialogTitle>
                     <DialogContent>
-                        <TextField label="student_id" type="text" name="student_id"  value={this.state.student_id} onChange={this.handleValueChange} /><br/>
+                        <TextField label="user_id" type="text" name="user_id"  value={this.state.user_id} onChange={this.handleValueChange} /><br/>
                         <TextField label="name" type="text" name="name"  value={this.state.name}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="student_id" type="text" name="student_id"  value={this.state.student_id}  onChange={this.handleValueChange} /><br/>
                         <TextField label="grade" type="text" name="grade"  value={this.state.grade} onChange={this.handleValueChange} /><br/>
                         <TextField label="semester" type="text" name="semester"  value={this.state.semester} onChange={this.handleValueChange} /><br/>
                         <Select

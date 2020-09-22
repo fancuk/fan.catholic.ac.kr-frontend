@@ -17,11 +17,26 @@ const styles= theme =>({
     },
 });
 
+
 class CustomerDetail extends Component{
-    state = {
-        loading: false,
-        customers:[]
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            customers:[],
+            details: []
+        }
+        this.stateRefresh = this.stateRefresh.bind(this);
+    }
+    stateRefresh() {
+        this.state = {
+            loading: false,
+            customers:[]
+        }
+        this.loadCus();
+    }
+
+
     loadCus = async () => {
         await axios.get('http://fan.catholic.ac.kr:5000/api/user/list')
             .then(({ data }) => {
@@ -48,7 +63,7 @@ class CustomerDetail extends Component{
                 <h3 className="member">&nbsp; 회원 관리-관리자 페이지</h3>
                 <Paper className = {classes.root}>
                     <Table className = {classes.table}>
-                        <CustomerPage Customers={this.state.customers}/>
+                        <CustomerPage stateRefresh={this.stateRefresh} Customers={this.state.customers}/>
                     </Table>
                 </Paper>
             </div>
