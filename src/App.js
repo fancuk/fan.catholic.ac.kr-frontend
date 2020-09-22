@@ -16,6 +16,7 @@ import FanAdd from "./components/views/FanBoard/FanAdd";
 import FanList from "./components/views/FanBoard/FanList";
 import StudyAdd from "./components/views/StudyBoard/StudyAdd";
 import StudyList from "./components/views/StudyBoard/StudyList";
+import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
 
 const App = () => {
@@ -23,24 +24,26 @@ const App = () => {
         <>
             <Router>
                 <div>
-                    <Switch>
-                        <Route path="/mypage" component={MyPage}/>
-                        <Route path="/edit" component={Edit}/>
-                        <Route exact path="/" component={MainSlide}/>
-                        <Route path="/register" component={Register}/>
-                        <Route path="/control" component={LoginControls}/>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/logout" component={LogoutButton}/>
-                        <Route path="/library" component={BookList}/>
-                        <Route path="/rentbook" component={RentBookList}/>
-                        <Route path="/detail" component={CustomerDetail}/>
-                        <Route path="/notice" component={NoticeList}/>
-                        <Route path="/noticeadd" component={NoticeAdd}/>
-                        <Route path="/free" component={FanList}/>
-                        <Route path="/freeadd" component={FanAdd}/>
-                        <Route path="/studyadd" component={StudyAdd}/>
-                        <Route path="/study" component={StudyList}/>
-                    </Switch>
+                    <ScrollToTop>
+                        <Switch>
+                            <Route path="/mypage" component={MyPage}/>
+                            <Route path="/edit" component={Edit}/>
+                            <Route exact path="/" component={MainSlide}/>
+                            <Route path="/register" component={Register}/>
+                            <Route path="/control" component={LoginControls}/>
+                            <Route path="/login" component={Login}/>
+                            <Route path="/logout" component={LogoutButton}/>
+                            <Route path="/library" component={BookList}/>
+                            <Route path="/rentbook" component={RentBookList}/>
+                            <Route path="/detail" component={CustomerDetail}/>
+                            <Route path="/notice" component={NoticeList}/>
+                            <Route path="/noticeadd" component={NoticeAdd}/>
+                            <Route path="/free" component={FanList}/>
+                            <Route path="/freeadd" component={FanAdd}/>
+                            <Route path="/studyadd" component={StudyAdd}/>
+                            <Route path="/study" component={StudyList}/>
+                        </Switch>
+                    </ScrollToTop>
                 </div>
             </Router>
         </>

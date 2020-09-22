@@ -18,7 +18,8 @@ class BookDelete extends React.Component{
         let url = 'http://fan.catholic.ac.kr:5000/api/library/delete?title='+this.props.title;
         axios.delete(url)
             .then(response => {
-                console.log('response : ', JSON.stringify(response))
+                console.log('response : ', JSON.stringify(response));
+                this.props.stateRefresh(1);
             })
             .catch(e => {
                 console.log(e);
@@ -52,7 +53,7 @@ class BookDelete extends React.Component{
                         </Typography>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={(e) => {this.deleteBook(this.props.title)}}>삭제</Button>
+                        <Button variant="contained" color="primary" onClick={() => {this.deleteBook(this.props.title)}}>삭제</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>

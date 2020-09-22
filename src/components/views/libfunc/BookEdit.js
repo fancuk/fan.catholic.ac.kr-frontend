@@ -35,6 +35,7 @@ class BookEdit extends React.Component {
         e.preventDefault()
         let url = 'http://fan.catholic.ac.kr:5000/api/library/edit';
         const post = {
+            title: this.props.title,
             edit_title: this.state.title,
             edit_writer: this.state.writer,
             edit_image: this.state.image,
@@ -42,7 +43,8 @@ class BookEdit extends React.Component {
         }
         axios.post(url, post)
             .then(response => {
-                console.log('response : ', JSON.stringify(response))
+                console.log('response : ', JSON.stringify(response));
+                this.props.stateRefresh(1);
             })
             .catch(e => {
                 console.log(e);
