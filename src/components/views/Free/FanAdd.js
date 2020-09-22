@@ -2,70 +2,61 @@ import React from 'react';
 import {Button, Form, FormGroup, Label, Input, Card} from 'reactstrap';
 import styled from 'styled-components';
 import { Link, withRouter } from "react-router-dom";
-import {RiPencilLine} from "react-icons/ri";
-import axios from 'axios';
+import axios from "axios";
+import {BsFillBellFill} from "react-icons/bs";
 
 class StudyAdd extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            seqNo:null,
-            board_name: '',
+            board_name: 'freeBoard',
             title: '',
             writer: '',
-            content: ''
+            content: '',
+            add:false
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
         let url='http://fan.catholic.ac.kr:5000/api/board/add';
-        const Study = {
-            seqNo:Number(this.state.seqNo),
-            board_name: this.state.board_name,
+        const board = {
+            board_name: 'freeBoard',
             title: this.state.title,
             writer: this.state.writer,
             content: this.state.content
         }
-        axios.post(url, Study)
+        axios.post(url, board)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-                document.location.href="./study";
+                document.location.href="./free";
             })
             .catch(e => {
                 console.log(e);
             })
         this.setState({
-            seqNo:null,
-            board_name: '',
+            board_name: 'freeBoard',
             title: '',
             writer: '',
-            content: ''
+            content: '',
+            add:false
         })
     }
 
     handleInput = (e) => {
-        let success = {};
-        success[e.target.name] = e.target.value;
-        this.setState(success);
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
     }
 
     render() {
-        const {Study} = this.props;
+        const { Fan } = this.props;
         return (
             <Div>
                 <Card body outline color="primary">
-                    <h1><RiPencilLine/>스터디 게시판 글쓰기<RiPencilLine/></h1>
+                    <h1><BsFillBellFill/> 자유 게시판 <BsFillBellFill/></h1>
                     <Label for="StudyAdd"> <strong> - 팬이랑 공부랑 - </strong> </Label>
                     <Form onSubmit={this.handleFormSubmit}>
-                        <FormGroup>
-                            <Label for="seqNo"> 번호 </Label>
-                            <Input type="text" name="seqNo" value={this.state.seqNo} onChange={this.handleInput} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="board_name"> 게시판명 </Label>
-                            <Input type="text" name="board_name" value={this.state.board_name} onChange={this.handleInput} />
-                        </FormGroup>
                         <FormGroup>
                             <Label for="title"> 제목 </Label>
                             <Input type="text" name="title" value={this.state.title} onChange={this.handleInput} />
@@ -78,9 +69,10 @@ class StudyAdd extends React.Component {
                             <Label for="content"> 내용 </Label>
                             <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
                         </FormGroup>
-                        <Link to="./study">
-                            <Button outline color="primary">취소</Button></Link>{' '}
-                            <Button outline color="primary" type='submit'>글쓰기</Button>
+                        <Link to="./free">
+                            <Button outline color="primary">취소</Button>
+                        </Link>{' '}
+                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>
                     </Form>
                 </Card>
             </Div>

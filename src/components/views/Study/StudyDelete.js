@@ -7,18 +7,19 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 
-class NoticeDelete extends React.Component{
+class StudyDelete extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            board_name:'',
-            title:'',
-            writer:'',
-            open: false
+            board_name:'studyBoard',
+            title:this.props.title,
+            writer:this.props.writer,
+            date:this.props.date,
+            delete: false
         }
     }
-    deleteNotice = () => {
-        let url = 'http://fan.catholic.ac.kr:5000/api/board/delete?title='+this.props.title;
+    deleteBoard = () => {
+        let url = 'http://fan.catholic.ac.kr:5000/api/board/delete?board_name=studyBoard'
         axios.delete(url)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
@@ -27,7 +28,11 @@ class NoticeDelete extends React.Component{
                 console.log(e);
             })
         this.setState({
-            open: false
+            board_name:'studyBoard',
+            title: this.state.title,
+            writer: this.state.writer,
+            date: this.state.date,
+            delete:false
         })
     }
     handleClickOpen = () => {
@@ -55,7 +60,7 @@ class NoticeDelete extends React.Component{
                         </Typography>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={(e) => {this.deleteNotice(this.props.title)}}>삭제</Button>
+                        <Button variant="contained" color="primary" onClick={(e) => {this.deleteBoard(this.props.title)}}>삭제</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>
@@ -64,4 +69,4 @@ class NoticeDelete extends React.Component{
     }
 };
 
-export default NoticeDelete;
+export default StudyDelete;

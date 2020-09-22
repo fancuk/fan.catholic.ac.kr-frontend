@@ -12,10 +12,10 @@ import BookList from "./components/views/library/BookList";
 import CustomerDetail from "./components/views/CustomerDetail/CustomerDetail";
 import NoticeAdd from "./components/views/Notice/NoticeAdd";
 import NoticeList from "./components/views/Notice/NoticeList";
-import FanAdd from "./components/views/FanBoard/FanAdd";
-import FanList from "./components/views/FanBoard/FanList";
-import StudyAdd from "./components/views/StudyBoard/StudyAdd";
-import StudyList from "./components/views/StudyBoard/StudyList";
+import FanAdd from "./components/views/Free/FanAdd";
+import FanList from "./components/views/Free/FanList";
+import StudyAdd from "./components/views/Study/StudyAdd";
+import StudyList from "./components/views/Study/StudyList";
 import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
 

@@ -1,49 +1,56 @@
-import React from 'react';
-import {Button, Form, FormGroup, Label, Input, Card} from 'reactstrap';
-import styled from 'styled-components';
-import { Link, withRouter } from "react-router-dom";
-import axios from "axios";
-import { AiFillAlert } from "react-icons/ai";
+import React from "react";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import axios from 'axios';
+import 'url-search-params-polyfill';
+import {Card, Form, FormGroup, Input, Label} from "reactstrap";
+import {RiPencilLine} from "react-icons/ri";
+import {Link} from "react-router-dom";
+import styled from "styled-components";
 
-class StudyAdd extends React.Component {
+class StudyEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            board_name: 'noticeBoard',
-            title: '',
-            writer: '',
-            content: '',
-            add:false
+            board_name:'studyBoard',
+            title: this.props.title,
+            writer: this.props.writer,
+            date: this.props.date,
+            content:this.props.content,
+            edit: false
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url='http://fan.catholic.ac.kr:5000/api/board/add';
+        let url = 'http://fan.catholic.ac.kr:5000/api/library/edit';
         const board = {
-            board_name: 'noticeBoard',
+            board_name:'studyBoard',
             title: this.state.title,
             writer: this.state.writer,
-            content: this.state.content
+            date: this.state.date,
+            edit_title: this.state.title,
+            edit_content: this.state.content,
+            edit:false
         }
-        axios.post(url, board)
+        axios.put(url, board)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-                document.location.href="./notice";
             })
             .catch(e => {
                 console.log(e);
             })
         this.setState({
-            board_name: 'noticeBoard',
-            title: '',
-            writer: '',
-            content: '',
-            add:false
+            board_name:'studyBoard',
+            title: this.state.title,
+            writer: this.state.writer,
+            date: this.state.date,
+            content: this.state.content,
+            edit:false
         })
     }
 
-    handleInput = (e) => {
+    handleValueChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
@@ -54,8 +61,8 @@ class StudyAdd extends React.Component {
         return (
             <Div>
                 <Card body outline color="primary">
-                    <h1>< AiFillAlert/> 공지사항 <AiFillAlert/></h1>
-                    <Label for="StudyAdd"> <strong> - 팬과 함께 공지를! - </strong> </Label>
+                    <h1><RiPencilLine/> 스터디 게시판 글쓰기<RiPencilLine/></h1>
+                    <Label for="StudyAdd"> <strong> - 팬이랑 공부랑 - </strong> </Label>
                     <Form onSubmit={this.handleFormSubmit}>
                         <FormGroup>
                             <Label for="title"> 제목 </Label>
@@ -69,7 +76,7 @@ class StudyAdd extends React.Component {
                             <Label for="content"> 내용 </Label>
                             <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
                         </FormGroup>
-                        <Link to="./free">
+                        <Link to="./study">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
                         <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>
@@ -88,4 +95,4 @@ height:100%;
 margin: 10% auto;
 `;
 
-export default withRouter(StudyAdd);
+export default withStyles(StudyEdit);
