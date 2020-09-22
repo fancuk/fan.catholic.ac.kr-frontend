@@ -33,7 +33,7 @@ class Login extends Component {
             .then(response => {
                 console.log('response : ',(response))
                 cookie.load(this.state.token)
-                //document.location.href = "./"
+                document.location.href = "./"
             })
             .catch(e => {
                 console.log(e);
