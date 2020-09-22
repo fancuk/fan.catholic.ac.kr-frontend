@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import Bookcard from "./Bookcard";
 import { Table } from "reactstrap";
-import BookAdd from "./BookAdd";
 
 const tablestyle = {
     width: "80%",
     margin: "1% auto",
-}
-const tablehead ={
-    position: "fixed",
 }
 
 class Listpage extends Component {
@@ -36,6 +32,7 @@ class Listpage extends Component {
                                     title={book.title}
                                     writer={book.writer}
                                     count={book.count}
+                                    stateRefresh = {this.props.stateRefresh}
                                 />
                             );
                         })}

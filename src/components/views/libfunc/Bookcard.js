@@ -2,35 +2,42 @@ import React from "react";
 import Rental from "./Rental";
 import BookDelete from "./BookDelete";
 import BookEdit from "./BookEdit";
-import { Table } from "reactstrap";
+const tablestyle = {
+    lineHeight: "165px"
+}
+const tableButtonStyle ={
+    marginTop:"14.25px"
+}
 
-function Bookcard({ image, title, writer, count }) {
-    return (
+class Bookcard extends React.Component {
+    render() {
+        return (
             <tr>
-                <td>
-                    <img width='100' height='130' src={image} alt="" />
+                <td style={tablestyle}>
+                    <img width='130' height='165' src={this.props.image} alt=""/>
+                </td>
+                <td style={tablestyle}>
+                    {this.props.title}
+                </td >
+                <td style={tablestyle}>
+                    {this.props.writer}
+                </td>
+                <td style={tablestyle}>
+                    {this.props.count} 권
                 </td>
                 <td>
-                    {title}
+                    <div style={tableButtonStyle}>
+                        <Rental image={this.props.image} title={this.props.title} writer={this.props.writer} count={this.props.count} stateRefresh={this.props.stateRefresh}/>
+                    </div>
+                    <div style={tableButtonStyle}>
+                        <BookEdit image={this.props.image} title={this.props.title} writer={this.props.writer} count={this.props.count} stateRefresh={this.props.stateRefresh}/>
+                    </div>
+                    <div style={tableButtonStyle}>
+                        <BookDelete title={this.props.title} stateRefresh={this.props.stateRefresh}/>
+                    </div>
                 </td>
-                <td>
-                    {writer}
-                </td>
-                <td>
-                    {count} 권
-                </td>
-                <td>
-                    <Rental image={image} title={title} writer={writer} count={count} />
-                    <BookEdit image={image} title={title} writer={writer} count={count} />
-                    <BookDelete title={title} />
-                </td>
-                {/*<p>
-                    도서명 : <span className="text--brand"></span>
-                </p>
-                <p>저자 : </p>
-                <p>남은 도서 : </p>*/}
-
             </tr>
-    );
+        );
+    }
 }
 export default Bookcard;

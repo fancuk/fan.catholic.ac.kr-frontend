@@ -23,7 +23,7 @@ class Rental extends React.Component {
         super(props);
         this.state = {
             open: false,
-            renter: 'don_gun_official'
+            renter: 'test'
         }
     }
 
@@ -36,7 +36,9 @@ class Rental extends React.Component {
         }
         axios.post(url, post)
             .then(response => {
-                console.log('response : ', JSON.stringify(response))
+                console.log('response : ', JSON.stringify(response));
+                alert("도서를 대여했습니다.");
+                this.props.stateRefresh(1);
             })
             .catch(e => {
                 console.log(e);
@@ -45,7 +47,7 @@ class Rental extends React.Component {
             renter: '',
             open: false
         })
-        alert("도서를 대여했습니다.");
+
     }
     handleClickOpen = () => {
         this.setState({
@@ -61,9 +63,6 @@ class Rental extends React.Component {
     }
 
     render() {
-        console.log(this.state);
-        console.log(this.props);
-
         return (
             <span className="menu">
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>

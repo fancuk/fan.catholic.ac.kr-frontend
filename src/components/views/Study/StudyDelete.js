@@ -7,25 +7,32 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 
-class BookDelete extends React.Component{
+class StudyDelete extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            board_name:'studyBoard',
+            title:this.props.title,
+            writer:this.props.writer,
+            date:this.props.date,
+            delete: false
         }
     }
-    deleteBook = () => {
-        let url = 'http://fan.catholic.ac.kr:5000/api/library/delete?title='+this.props.title;
+    deleteBoard = () => {
+        let url = 'http://fan.catholic.ac.kr:5000/api/board/delete?board_name=studyBoard'
         axios.delete(url)
             .then(response => {
-                console.log('response : ', JSON.stringify(response));
-                this.props.stateRefresh(1);
+                console.log('response : ', JSON.stringify(response))
             })
             .catch(e => {
                 console.log(e);
             })
         this.setState({
-            open: false
+            board_name:'studyBoard',
+            title: this.state.title,
+            writer: this.state.writer,
+            date: this.state.date,
+            delete:false
         })
     }
     handleClickOpen = () => {
@@ -49,11 +56,11 @@ class BookDelete extends React.Component{
                     </DialogTitle>
                     <DialogContent>
                         <Typography gutterBottom>
-                            선택한 도서가 삭제됩니다.
+                            선택한 게시물이 삭제됩니다.
                         </Typography>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={() => {this.deleteBook(this.props.title)}}>삭제</Button>
+                        <Button variant="contained" color="primary" onClick={(e) => {this.deleteBoard(this.props.title)}}>삭제</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>
@@ -62,4 +69,4 @@ class BookDelete extends React.Component{
     }
 };
 
-export default BookDelete;
+export default StudyDelete;

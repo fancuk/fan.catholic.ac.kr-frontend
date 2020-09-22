@@ -9,58 +9,47 @@ import { withStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import 'url-search-params-polyfill';
 
-const styles = theme => ({
-    hidden: {
-        display: 'none'
-    },
-    menu: {
-        display: 'flex',
-        justifyContent: 'center'
-    }
-});
-
-class BookAdd extends React.Component {
+class NoticeEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: '',
-            title: '',
-            writer: '',
-            count: null,
+            board_name:this.props.board_name,
+            title: this.props.title,
+            writer: this.props.writer,
+            content:this.props.content,
+            date:this.props.date,
             open: false
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url = 'http://fan.catholic.ac.kr:5000/api/library/add'
-        const post = {
-            image: this.state.image,
-            title: this.state.title,
-            writer: this.state.writer,
-            count: Number(this.state.count)
+        let url = 'fan.catholic.ac.kr:5000/api/board/edit'
+        const board = {
+            edit_title: this.state.title,
+            edit_content: this.state.content,
         }
-        axios.post(url, post)
+        axios.put(url, board)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-                this.props.stateRefresh(1);
             })
             .catch(e => {
-                console.log(e)
+                console.log(e);
             })
         this.setState({
-            image: null,
-            title: '',
-            writer: '',
-            count: null,
+            board_name:this.state.board_name,
+            title: this.state.title,
+            writer: this.state.writer,
+            date:this.state.date,
+            content:this.state.content,
             open: false
         })
     }
 
     handleValueChange = (e) => {
         let nextState = {};
-        nextState[e.target.name] = e.target.value
-        this.setState(nextState)
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
     }
 
     handleClickOpen = () => {
@@ -71,29 +60,32 @@ class BookAdd extends React.Component {
 
     handleClose = () => {
         this.setState({
+            board_name:'',
             title: '',
             writer: '',
-            count: null,
+            date:'',
             open: false
         })
     }
 
     render() {
+        const { classes } = this.props;
         return (
             <span className="menu">
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    도서 추가하기
+                    공지 수정하기
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
-                    <DialogTitle>도서 추가</DialogTitle>
+                    <DialogTitle>공지 수정</DialogTitle>
                     <DialogContent>
-                        <TextField label="imageURL" type="text" name="image"  value={this.state.image} onChange={this.handleValueChange} /><br/>
-                        <TextField label="title" type="text" name="title"  value={this.state.title} onChange={this.handleValueChange} /><br/>
+                        <TextField label="board_name" type="text" name="board_name"  value={this.state.board_name} onChange={this.handleValueChange} /><br/>
                         <TextField label="writer" type="text" name="writer"  value={this.state.writer} onChange={this.handleValueChange} /><br/>
-                        <TextField label="count" type="text" name="count"  value={this.state.count} onChange={this.handleValueChange} /><br/>
+                        <TextField label="title" type="text" name="title"  value={this.state.title} onChange={this.handleValueChange} /><br/>
+                        <TextField label="date" type="text" name="date"  value={this.state.date} onChange={this.handleValueChange} /><br/>
+                        <TextField label="content" type="text" name="content"  value={this.state.content} onChange={this.handleValueChange} /><br/>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>추가</Button>
+                        <Button variant="contained" color="primary" onClick={this.handleFormSubmit}>수정</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>
@@ -103,4 +95,4 @@ class BookAdd extends React.Component {
 
 }
 
-export default withStyles(styles)(BookAdd);
+export default withStyles(NoticeEdit);
