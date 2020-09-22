@@ -1,21 +1,29 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
-import { Link, withRouter } from "react-router-dom";
-import { BsFillLockFill } from "react-icons/bs";
-import { Button, Form, FormGroup, Label, Input, Card } from 'reactstrap';
+import {Link, withRouter} from "react-router-dom";
+import {BsFillLockFill} from "react-icons/bs";
+import {Button, Form, FormGroup, Label, Input, Card} from 'reactstrap';
 import axios from "axios";
+import cookie from 'react-cookies'
 
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             user_id: '',
             user_pwd: '',
+            token:'',
+            login: false
         }
     }
 
     handleClick = (e) => {
         e.preventDefault()
+        if (!/^([a-z0-9]+)$/.test(this.state.user_id)) {
+            alert('소문자와 숫자가 아닌 아이디 인지 확인을 해주세요.')
+        } else if (!/([a-zA-Z0-9_-])/.test(this.state.user_pwd)) {
+            alert('비밀번호를 다시 확인해주세요.')
+        }
         let url = 'http://fan.catholic.ac.kr:5000/api/login';
         const login = {
             user_id: this.state.user_id,
@@ -23,65 +31,78 @@ class Login extends Component {
         }
         axios.post(url, login)
             .then(response => {
-                console.log('response : ', JSON.stringify(response))
-                document.location.href="./mypage";
+                console.log('response : ',(response))
+                cookie.load(this.state.token)
+                //document.location.href = "./"
             })
             .catch(e => {
                 console.log(e);
             })
 
         this.setState({
-            user_id: '',
-            user_pwd: '',
+            login: false
         })
 
+        const expires = new Date()
+            expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
+            cookie.save(
+                this.state.user_id,
+                cookie.load(this.state.token),
+                {
+                    path: '/',
+                    expires,
+                    httpOnly: false
+                }
+            )
+        console.log()
     }
 
     handleInput = (e) => {
-        let success = {};
-        success[e.target.name] = e.target.value;
-        this.setState(success);
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
     }
 
     render() {
-        const { } = this.props;
+        const {classes} = this.props;
         return (
             <Div>
                 <Card body outline color="primary">
-                <h3><BsFillLockFill /> LOGIN <BsFillLockFill /></h3>
-                <h5>Free meeting Active studying Nice ending</h5>
-                <Form inline onSubmit={this.handleClick}>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label for="user_id" className="mr-sm-2">아이디</Label>
-                    <Input
-                        type='text'
-                        name='user_id'
-                        placeholder='아이디'
-                        value={this.state.user_id}
-                        onInput={this.handleInput}
-                    />
-                </FormGroup>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label for="user_id" className="mr-sm-2">패스워드</Label>
-                    <Input
-                        type='password'
-                        name='user_pwd'
-                        placeholder='패스워드'
-                        value={this.state.user_pwd}
-                        onInput={this.handleInput}
-                    />
-                </FormGroup>
-                    <Link to="./register" >
-                        <Button outline color="primary" >회원가입</Button>
-                    </Link>
-                    <Button outline color="primary" type='submit'>로그인</Button>
-            </Form>
+                    <h3><BsFillLockFill/> LOGIN <BsFillLockFill/></h3>
+                    <h5>Free meeting Active studying Nice ending</h5>
+                    <Form inline onSubmit={this.handleClick}>
+                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                            <Label for="user_id" className="mr-sm-2">아이디</Label>
+                            <Input
+                                type='text'
+                                name='user_id'
+                                placeholder='아이디'
+                                defaultValue={this.state.user_id}
+                                onInput={this.handleInput}
+                            />
+                        </FormGroup>
+                        <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                            <Label for="user_id" className="mr-sm-2">패스워드</Label>
+                            <Input
+                                type='password'
+                                name='user_pwd'
+                                placeholder='패스워드'
+                                defaultValue={this.state.user_pwd}
+                                onInput={this.handleInput}
+                            />
+                        </FormGroup>
+                        <Link to="./register">
+                            <Button outline color="primary">회원가입</Button>
+                        </Link>
+                        <Button outline color="primary" type='submit'>로그인</Button>
+                    </Form>
                     <h6>비밀번호 분실 시, 운영진에게 문의 해주세요! </h6>
                 </Card>
             </Div>
         );
     }
 }
+
 const Div = styled.div`
     width: 50%;
     margin: 5% auto;
