@@ -12,7 +12,7 @@ class NoticeList extends Component {
 
     };
     boardList = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/board/list?board_name=noticeBoard')
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=noticeBoard')
             .then(({data}) => {
                 this.setState({
                     board_name: 'noticeBoard',

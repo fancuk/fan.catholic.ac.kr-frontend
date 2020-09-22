@@ -12,7 +12,7 @@ class FanList extends Component {
 
     };
     boardList = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/board/list?board_name=freeBoard')
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=freeBoard')
             .then(({data}) => {
                 this.setState({
                     board_name: 'freeBoard',
