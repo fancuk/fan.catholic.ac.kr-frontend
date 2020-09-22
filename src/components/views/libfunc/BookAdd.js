@@ -33,7 +33,7 @@ class BookAdd extends React.Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url = 'http://fan.catholic.ac.kr:5000/api/library/add';
+        let url = 'http://fan.catholic.ac.kr:5000/api/library/add'
         const post = {
             image: this.state.image,
             title: this.state.title,
@@ -43,9 +43,10 @@ class BookAdd extends React.Component {
         axios.post(url, post)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
+                this.props.stateRefresh(1);
             })
             .catch(e => {
-                console.log(e);
+                console.log(e)
             })
         this.setState({
             image: null,
@@ -58,8 +59,8 @@ class BookAdd extends React.Component {
 
     handleValueChange = (e) => {
         let nextState = {};
-        nextState[e.target.name] = e.target.value;
-        this.setState(nextState);
+        nextState[e.target.name] = e.target.value
+        this.setState(nextState)
     }
 
     handleClickOpen = () => {
@@ -78,7 +79,6 @@ class BookAdd extends React.Component {
     }
 
     render() {
-        const { classes } = this.props;
         return (
             <span className="menu">
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>

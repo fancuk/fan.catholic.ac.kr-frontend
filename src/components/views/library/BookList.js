@@ -4,19 +4,13 @@ import axios from 'axios';
 import Listpage from "../libfunc/Listpage";
 import './style.css';
 import { withStyles } from '@material-ui/core/styles';
+import PaginationButton from '../../PaginationButton';
 import Button from "@material-ui/core/Button";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import {Link} from "react-router-dom";
 
 const styles = theme => ({
     root: {
         width: "100%",
         minWidth: 1080
-    },
-    menu: {
-        display: 'flex',
-        justifyContent: 'center'
     },
     paper: {
         marginTop: 20,
@@ -26,32 +20,43 @@ const styles = theme => ({
     progress: {
         margin: theme.spacing.unit * 2
     },
-    title: {
-
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
+    page: {
+        display: 'flex',
+        justifyContent: 'center'
+    }
 });
 
-const bookadd = {
-    position: "fixed",
-    top: "100px"
-}
-
 class BookList extends Component {
-    state = {
-        loading: false,
-        books: []
-    };
-    loadBook = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/library/list?page=1')
+    constructor(props){
+        super(props);
+        this.state = {
+            completed: 0,
+            loading: false,
+            books: [],
+            page:0,
+            currentPage: 1
+        }
+        this.stateRefresh = this.stateRefresh.bind(this);
+    }
+    stateRefresh = (page) => {
+        this.setState({
+            books: [],
+            page: 0,
+            completed: 0
+        })
+        this.loadBook(page);
+    }
+
+    loadBook = async (page) => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/library/list?page='+page)
             .then(({ data }) => {
                 this.setState({
                     loading: true,
-                    books: data
+                    books: data[0].books,
+                    page: data[1].page
                 });
+                console.log(this.state.books[0].renter)
+                console.log(this.state.page)
             })
             .catch(e => {
                 console.error(e);
@@ -61,16 +66,32 @@ class BookList extends Component {
             });
         };
     componentDidMount() {
-        this.loadBook();
+        this.loadBook(1);
+    }
+
+    pageHandler = page => {
+        this.setState({ currentPage: page });
+        this.stateRefresh(page)
     }
 
     render() {
-        console.log(this.state.books);
+        const {
+            currentPage
+        } = this.state;
         return (
-            <div>
-                <BookAdd style={bookadd}/>
-                <Listpage Books={this.state.books} />
-            </div>
+            <>
+                <div>
+
+                    <Listpage Books={this.state.books} stateRefresh={this.stateRefresh} />
+                </div>
+                <div><BookAdd stateRefresh={this.stateRefresh}/></div>
+                <PaginationButton
+                    page={this.state.page}
+                    onClick={this.pageHandler}
+                    currentPage={currentPage}
+                    stateRefresh={this.stateRefresh}
+                />
+            </>
         );
     }
 }
