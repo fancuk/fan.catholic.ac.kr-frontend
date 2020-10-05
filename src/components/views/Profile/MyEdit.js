@@ -6,28 +6,46 @@ import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import {Button} from 'reactstrap';
 import axios from 'axios';
+import cookie from "react-cookies";
 
 class MyEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user_id: 'test',
+            user_id: this.props.user_id,
+            token:cookie.load("token"),
             user_pwd:this.props.user_pwd,
             name: this.props.name,
             student_id: this.props.student_id,
-            grade: this.props.grade,
+            grade:this.props.grade,
             semester: this.props.semester,
             phone:this.props.phone,
             email:this.props.email,
             edit: false
         }
+        console.log(this.props)
     }
-
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url = 'http://fan.catholic.ac.kr:5000/api/profile/edit';
-        const edit = {
+            if (!/([a-zA-Z0-9_-])/.test(this.state.user_pwd)) {
+                alert('비밀번호를 다시 확인해주세요.')
+            } else if (!/^([가-힣]*)$/.test(this.state.name)) {
+                alert('이름을 다시 확인해주세요.')
+            } else if (!/^([0-9])+$/.test(this.state.student_id) && this.state.student_id.length !== 9) {
+                alert('학번은 총 9자리며 숫자만 입력해주세요')
+            } else if (!/^([0-9])+$/.test(this.state.grade) && this.state.grade < 5) {
+                alert('학년은 1~4학년까지 있습니다.')
+            } else if (!/(\d)/.test(this.state.semester) && this.state.semester < 3) {
+                alert('학기는 1~2학기만 가능합니다.')
+            } else if (!/(\d{2,3}-\d{3,4}-\d{4})/.test(this.state.phone) && this.state.phone.length !== 13) {
+                alert('전화번호를 다시 확인해주세요')
+            } else if (!/([a-zA-Z0-9_-]+@[a-z]+.[a-z]+)/.test(this.state.email)) {
+                alert('이메일을 확인해주세요')
+            }
+
+        let url = 'http://fan.catholic.ac.kr:5000/api/profile/edit'
+        const put = {
             user_id: this.state.user_id,
             user_pwd:this.state.user_pwd,
             name: this.state.name,
@@ -37,18 +55,36 @@ class MyEdit extends React.Component {
             phone:this.state.phone,
             email:this.state.email
         }
-        console.log(edit)
-        axios.put(url, edit)
+        const config ={
+                headers:{authorization:this.state.token}
+        }
+        axios.put(url, put, config)
             .then(response => {
-                console.log('response : ', JSON.stringify(response));
+                if (response.data.edit==="True"){
+                    console.log('response : ', JSON.stringify(response));
+                    window.location.href='/mypage'
+                }
+                else if (!response.data.edit){
+                    console.log('response : ', JSON.stringify(response));
+                    alert("다시 수정 하세요")
+                }
             })
             .catch(e => {
                 console.log(e);
             })
+
+
         this.setState({
-            edit:false
+            user_id: this.state.user_id,
+            name: this.state.name,
+            student_id: this.state.student_id,
+            grade: this.state.grade,
+            semester: this.state.semester,
+            level: this.state.level,
+            edit: false
         })
     }
+
     handleValueChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
@@ -65,21 +101,20 @@ class MyEdit extends React.Component {
         })
     }
     render() {
-        const { classes } = this.props;
         return (
             <span>
                 <Button outline color="primary" onClick={this.handleClickOpen}>수정</Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
-                    <DialogTitle>마이페이지 수정</DialogTitle>
+                    <DialogTitle id="alert-dialog-title" onClose={this.handleClose} > 마이페이지 </DialogTitle>
                     <DialogContent>
-                        <TextField label="user_id" type="text" name="user_id"  value={this.state.user_id}/><br/>
-                        <TextField label="user_pwd" type="password" name="user_pwd"  value={this.state.user_pwd}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="name" type="text" name="name"  value={this.state.name}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="student_id" type="text" name="student_id"  value={this.state.student_id}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="grade" type="text" name="grade"  value={this.state.grade}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="semester" type="text" name="semester"  value={this.state.semester}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="phone" type="text" name="phone"  value={this.state.phone} onChange={this.handleValueChange} /><br/>
-                        <TextField label="email" type="text" name="email"  value={this.state.email} onChange={this.handleValueChange} /><br/>
+                        <TextField label="아이디" type="text" name="user_id"  value={this.state.user_id}/><br/>
+                        <TextField label="비밀번호" type="password" name="user_pwd"  value={this.state.user_pwd}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="이름" type="text" name="name"  value={this.state.name}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="학번" type="text" name="student_id"  value={this.state.student_id}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="학년" type="text" name="grade"  value={this.state.grade}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="학기" type="text" name="semester"  value={this.state.semester}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="전화번호" type="text" name="phone"  value={this.state.phone} onChange={this.handleValueChange} /><br/>
+                        <TextField label="이메일" type="text" name="email"  value={this.state.email} onChange={this.handleValueChange} /><br/>
                     </DialogContent>
                     <DialogActions>
                         <Button outline color="primary" onClick={this.handleFormSubmit}>저장</Button>
@@ -91,5 +126,5 @@ class MyEdit extends React.Component {
     }
 }
 
-export default (MyEdit);
+export default MyEdit;
 

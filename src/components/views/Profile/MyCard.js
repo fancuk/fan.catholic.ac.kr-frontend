@@ -1,15 +1,17 @@
 import React from "react";
+import cookie from 'react-cookies'
 
 class MyCard extends React.Component {
     render() {
         return (
                 <tr>
                     <td>
-                        {this.props.user_id}
+                        {cookie.load("user_id")}
                     </td>
                 </tr>
         );
     }
 }
+
 
 export default MyCard;

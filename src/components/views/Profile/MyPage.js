@@ -1,16 +1,47 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {Card} from 'reactstrap';
 import {BsFillHouseFill} from "react-icons/bs";
 import MyList from "./MyList";
 import MyDelete from "./MyDelete";
 import MyEdit from "./MyEdit";
+import cookie from 'react-cookies'
+import axios from "axios";
 
 
 class MyPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user_id: cookie.load("user_id"),
+            token: cookie.load("token"),
+            user: ''
+        };
+    }
+
+    MyFan = async () => {
+        const config = {
+            headers: {authorization: this.state.token}
+        }
+        axios.get('http://fan.catholic.ac.kr:5000/api/profile/info?user_id='+ this.state.user_id, config)
+            .then(response => {
+                this.setState({
+                    user: response.data
+                })
+                console.log(this.state.user)
+            })
+            .catch(e => {
+                console.error(e);
+            })
+    }
+
+    componentDidMount() {
+        this.MyFan()
+    }
+
     render() {
-        const {Users} = this.props;
+        console.log(this.state)
         return (
             <Div>
                 <Card body outline color="primary">
@@ -20,8 +51,8 @@ class MyPage extends Component {
                         <li><strong>안녕하세요 FAN 홈페이지 입니다 !</strong></li>
                         <li><strong>책 대여 기한은 1학기 입니다. 공부 하시고 나서 반납 부탁드립니다.</strong></li>
                     </ul>
-                    <MyList user_id={this.props.user_id} stateRefresh={this.stateRefresh}/>
-                    <p><MyEdit/>{' '}<MyDelete/></p>
+                    <MyList user_id={this.state.user}/>
+                    <p><MyEdit user={this.state.user}/>{' '}<MyDelete/></p>
                 </Card>
             </Div>
         );

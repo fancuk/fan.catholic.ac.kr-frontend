@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import MyCard from "./MyCard";
+import cookie from 'react-cookies'
 
 class MyList extends Component {
     state = {};
@@ -19,7 +20,7 @@ class MyList extends Component {
                 Users.map((user) => {
                     return (
                         <MyCard
-                            user_id={user.user_id}
+                            user_id={cookie.load("user_id")}
                             stateRefresh = {this.props.stateRefresh}
                         />
                     );
@@ -29,4 +30,5 @@ class MyList extends Component {
         );
     }
 }
+
 export default MyList;
