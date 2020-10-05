@@ -81,10 +81,8 @@ class BookList extends Component {
         return (
             <>
                 <div>
-
                     <Listpage Books={this.state.books} stateRefresh={this.stateRefresh} />
                 </div>
-                <div><BookAdd stateRefresh={this.stateRefresh}/></div>
                 <PaginationButton
                     page={this.state.page}
                     onClick={this.pageHandler}

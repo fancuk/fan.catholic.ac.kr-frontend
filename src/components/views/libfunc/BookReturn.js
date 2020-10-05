@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import cookie from "react-cookies";
 
+// props로 title 필요함
 class BookDelete extends React.Component{
     constructor(props) {
         super(props);
@@ -18,17 +19,13 @@ class BookDelete extends React.Component{
         }
     }
     deleteBook = () => {
-        if (this.state.user_id !== 'fancuk'){
-            alert("관리자만 도서를 삭제할 수 있습니다.")
-            return
-        }
-        let url = 'http://fan.catholic.ac.kr:5000/api/library/delete?title='+this.props.title;
+        let url = 'fan.catholic.ac.kr:5000/api/library/return?title='+this.props.title;
         const config = {
             headers: {
                 Authorization: this.state.token
             }
         }
-        axios.delete(url, config)
+        axios.put(url, config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response));
                 this.props.stateRefresh(1);
@@ -57,15 +54,15 @@ class BookDelete extends React.Component{
                 <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>삭제</Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle onClose={this.handleClose}>
-                        삭제 경고
+                        도서 반납
                     </DialogTitle>
                     <DialogContent>
                         <Typography gutterBottom>
-                            선택한 도서가 삭제됩니다.
+                            선택한 도서가 반납됩니다.
                         </Typography>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={() => {this.deleteBook(this.props.title)}}>삭제</Button>
+                        <Button variant="contained" color="primary" onClick={() => {this.deleteBook(this.props.title)}}>반납</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>
