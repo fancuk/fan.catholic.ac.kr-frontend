@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 
 class Slide_list extends Component {
+
     render() {
         console.log(this.props.img)
         return(

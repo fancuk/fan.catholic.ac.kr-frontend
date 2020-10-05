@@ -3,27 +3,31 @@ import "./MainSlide.css"
 import Slide_list from "./Slide_list";
 import Events from "./Events";
 import NoticeList from "./NoticeList";
-import StudyList from "./Study";
+import StudyList from "./StudyList";
+import axios from "axios";
+import cookie from "react-cookies";
 
 
 const slideImages =[
     {
         id:1,
-        img: "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FMtZ78%2FbtqwD20cptC%2FgOhvoVW4iWV5F9PKTs51fk%2Fimg.jpg"
+        content: "https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FMtZ78%2FbtqwD20cptC%2FgOhvoVW4iWV5F9PKTs51fk%2Fimg.jpg"
     },
     {
         id:2,
-        img: "http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg"
+        content: 'http://www.dhnews.co.kr/news/photo/202008/126930_130524_450.jpg'
     },
     {
         id:3,
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQQRM-FXyZWIBAyD_ogtOoSvirE5ST7qEOdkg&usqp=CAU"
+        content: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQQRM-FXyZWIBAyD_ogtOoSvirE5ST7qEOdkg&usqp=CAU"
     },
     {
         id:4,
-        img: "http://ipsi.catholic.ac.kr/images/content/img_campus_mapW01.jpg"
+        content: "http://ipsi.catholic.ac.kr/images/content/img_campus_mapW01.jpg"
     }
 ]
+
+
 const NewsImages = [
     {
         id:1,
@@ -85,8 +89,82 @@ const StudyContents = [
 
 
 class MainSlide extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            slides:[],
+            notices:[],
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
+        }
+        this.stateRefresh = this.stateRefresh.bind(this);
+    }
+    stateRefresh() {
+        this.state = {
+            loading: false,
+            slides:[],
+            notices:[],
+            studies:[]
+        }
+        this.loadSli();
+        this.loadNot();
+        this.loadStu()
+    }
+    loadSli = async () => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/detail?board_name=adminBoard&title=1&writer=test12345&date=2020-10-5',{ headers: { Authorization: ` ${cookie.load('token')}` } })
+            .then(({ data }) => {
+                this.setState({
+                    loading: true,
+                    slides: data
+                });
+                console.log(this.state)
+            })
+            .catch(e => {
+                console.error(e);
+                this.setState({
+                    loading: false
+                });
+            });
+    };
+    loadNot = async () => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=noticeBoard',{ headers: { Authorization: ` ${cookie.load('token')}` } })
+            .then(({ data }) => {
+                this.setState({
+                    loading: true,
+                    notices: data
+                });
+            })
+            .catch(e => {
+                console.error(e);
+                this.setState({
+                    loading: false
+                });
+            });
+    };
+    loadStu = async () => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=studyBoard',{ headers: { Authorization: ` ${cookie.load('token')}` } })
+            .then(({ data }) => {
+                this.setState({
+                    loading: true,
+                    studies: data
+                });
+            })
+            .catch(e => {
+                console.error(e);
+                this.setState({
+                    loading: false
+                });
+            });
+    };
+    componentDidMount() {
+        this.loadSli();
+        this.loadNot();
+        this.loadStu();
+    }
+
     render() {
-        const{classes}=this.props;
+        const{slideImage}=this.state;
         window.onload = function(){
             let slideWrapper = document.getElementById('slider-wrap');
             let slideIndex = 0;
@@ -152,7 +230,7 @@ class MainSlide extends Component {
                     <ul id="slider">
                         {slideImages.map((s,index)=>{
                             return(
-                                <Slide_list img= {s.img} key={index}/>
+                                <Slide_list img= {s.content} key={index}/>
                             );
                         })}
                     </ul>

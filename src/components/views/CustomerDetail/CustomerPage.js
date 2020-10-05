@@ -4,7 +4,19 @@ import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import {withStyles} from "@material-ui/core/styles";
 
+const styles= theme =>({
+    root:{
+        margin: "1%auto" ,
+        width:"90%",
+        marginTop:theme.spacing.unit*3,
+        overflowX:"auto"
+    },
+    table:{
+        minWidth:1080
+    },
+});
 
 class CustomerPage extends Component {
     state = {};
@@ -55,4 +67,4 @@ class CustomerPage extends Component {
         );
     }
 }
-export default CustomerPage;
+export default withStyles(styles) (CustomerPage);
