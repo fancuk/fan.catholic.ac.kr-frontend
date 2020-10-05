@@ -13,7 +13,7 @@ class PaginationButton extends Component {
         return (
             <>
                 <span className="page">
-                    <Button variant="outlined" color="primary">
+                    <Button variant="outlined" color="primary" onClick={() => this.props.onClick(this.props.currentPage-1)}>
                         {"<"}
                     </Button>
                     {[...Array(this.props.page)].map((n, index) => {
@@ -24,7 +24,7 @@ class PaginationButton extends Component {
                             {index+1}
                         </Button>
                     })}
-                    <Button variant="outlined" color="primary">
+                    <Button variant="outlined" color="primary" onClick={() => this.props.onClick(this.props.currentPage+1)}>
                         {">"}
                     </Button>
                 </span>

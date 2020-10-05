@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import cookie from "react-cookies";
 
 const styles = theme => ({
     hidden: {
@@ -23,7 +24,9 @@ class Rental extends React.Component {
         super(props);
         this.state = {
             open: false,
-            renter: 'test'
+            renter: 'test',
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
 
@@ -34,7 +37,12 @@ class Rental extends React.Component {
             title: this.props.title,
             renter: this.state.renter,
         }
-        axios.post(url, post)
+        const config = {
+            headers: {
+                Authorization: this.state.token
+            }
+        }
+        axios.post(url, post, config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response));
                 alert("도서를 대여했습니다.");
@@ -69,7 +77,7 @@ class Rental extends React.Component {
                     도서 대여하기
                 </Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
-                    {this.props.count < 1 ?
+                    {(this.props.count < 1 || this.state.user_id === "" || this.state.user_id === null) ?
                         <>
                             <DialogTitle>
                                 도서를 대여할 수 없습니다.

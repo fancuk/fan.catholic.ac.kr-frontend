@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Bookcard from "./Bookcard";
 import { Table } from "reactstrap";
+import BookAdd from "./BookAdd";
 
 const tablestyle = {
     width: "80%",
@@ -24,18 +25,24 @@ class Listpage extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                        {Books &&
-                        Books.map((book) => {
-                            return (
-                                <Bookcard
-                                    image={book.image}
-                                    title={book.title}
-                                    writer={book.writer}
-                                    count={book.count}
-                                    stateRefresh = {this.props.stateRefresh}
-                                />
-                            );
-                        })}
+                    {Books &&
+                    Books.map((book) => {
+                        return (
+                            <Bookcard
+                                image={book.image}
+                                title={book.title}
+                                writer={book.writer}
+                                count={book.count}
+                                stateRefresh = {this.props.stateRefresh}
+                            />
+                        );
+                    })}
+                    {
+
+                    }
+                    <tr colSpan="5" align="center">
+                        <BookAdd stateRefresh={this.props.stateRefresh} />
+                    </tr>
                 </tbody>
 
             </Table>

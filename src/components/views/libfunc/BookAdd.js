@@ -8,7 +8,12 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import 'url-search-params-polyfill';
+import Icon from "@material-ui/core/Icon";
+import cookie from "react-cookies";
 
+const tablestyle = {
+    lineHeight: "165px"
+}
 const styles = theme => ({
     hidden: {
         display: 'none'
@@ -16,6 +21,11 @@ const styles = theme => ({
     menu: {
         display: 'flex',
         justifyContent: 'center'
+    },
+    root: {
+        '& > span' : {
+            margin: theme.spacing(2)
+        }
     }
 });
 
@@ -27,12 +37,18 @@ class BookAdd extends React.Component {
             title: '',
             writer: '',
             count: null,
-            open: false
+            open: false,
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
+        if (this.state.user_id !== 'fancuk'){
+            alert("관리자만 도서를 추가할 수 있습니다.")
+            return
+        }
         let url = 'http://fan.catholic.ac.kr:5000/api/library/add'
         const post = {
             image: this.state.image,
@@ -40,7 +56,12 @@ class BookAdd extends React.Component {
             writer: this.state.writer,
             count: Number(this.state.count)
         }
-        axios.post(url, post)
+        const config = {
+            headers: {
+                Authorization: this.state.token
+            }
+        }
+        axios.post(url, post, config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
                 this.props.stateRefresh(1);
@@ -79,11 +100,12 @@ class BookAdd extends React.Component {
     }
 
     render() {
+        console.log(this.state.token)
         return (
-            <span className="menu">
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    도서 추가하기
-                </Button>
+            <>
+                <td colSpan="5" style={{ fontSize: 30 }} onClick={this.handleClickOpen}>
+                    <Icon className="fa fa-plus-circle" color="primary" />
+                </td>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle>도서 추가</DialogTitle>
                     <DialogContent>
@@ -97,7 +119,7 @@ class BookAdd extends React.Component {
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>
-            </span>
+            </>
         );
     }
 

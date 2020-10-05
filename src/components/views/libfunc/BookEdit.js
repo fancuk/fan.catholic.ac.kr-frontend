@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import 'url-search-params-polyfill';
+import cookie from "react-cookies";
 
 const styles = theme => ({
     hidden: {
@@ -27,11 +28,17 @@ class BookEdit extends React.Component {
             title: this.props.title,
             writer: this.props.writer,
             count: this.props.count,
-            open: false
+            open: false,
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
 
     handleFormSubmit = (e) => {
+        if (this.state.user_id !== 'fancuk'){
+            alert("관리자만 도서를 수정할 수 있습니다.")
+            return
+        }
         e.preventDefault()
         let url = 'http://fan.catholic.ac.kr:5000/api/library/edit';
         const post = {
@@ -41,7 +48,12 @@ class BookEdit extends React.Component {
             edit_image: this.state.image,
             edit_count: Number(this.state.count)
         }
-        axios.post(url, post)
+        const config = {
+            headers: {
+                Authorization: this.state.token
+            }
+        }
+        axios.post(url, post, config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response));
                 this.props.stateRefresh(1);
