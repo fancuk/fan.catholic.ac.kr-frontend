@@ -5,29 +5,19 @@ import TableCell from "@material-ui/core/TableCell";
 import axios from "axios";
 import CustomerDelete from "./CustomerDelete";
 import CustomerEdit from "./CustomerEdit";
+import cookie from 'react-cookies';
+
 
 class CustomerDe extends Component{
     state = {
         loading: false,
         details: [],
+    token:cookie.load('token'),
+    user_id:cookie.load('user_id')
     };
-    loadList = async () => {
-        axios.get('http://fan.catholic.ac.kr:5000/api/manage/list')
-            .then(({ data }) => {
-                this.setState({
-                    loading: true,
-                    details: data
-                });
-            })
-            .catch(e => {
-                console.error(e);
-                this.setState({
-                    loading: false
-                });
-            });
-    };
+
     pwReset = async () => {
-        axios.post('http://fan.catholic.ac.kr:5000/api/reset/pwd')
+        axios.post('http://fan.catholic.ac.kr:5000/api/reset/pwd',{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(({ data }) => {
                 this.setState({
                     loading: true,
@@ -43,7 +33,6 @@ class CustomerDe extends Component{
             });
     };
     componentDidMount() {
-        this.loadList();
         this.pwReset();
     }
     render(){

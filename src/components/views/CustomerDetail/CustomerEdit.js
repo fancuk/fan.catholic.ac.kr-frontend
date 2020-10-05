@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Select from '@material-ui/core/Select';
 import axios from 'axios';
+import cookie from "react-cookies";
 const styles = theme => ({
     hidden: {
         display: 'none'
@@ -27,7 +28,8 @@ class CustomerEdit extends React.Component {
             grade: this.props.grade,
             semester: this.props.semester,
             level: this.props.level,
-            open: false
+            open: false,
+            token:cookie.load('token'),
         }
     }
 
@@ -44,7 +46,7 @@ class CustomerEdit extends React.Component {
             level: this.state.level,
         }
         console.log(put)
-        axios.put(url, put)
+        axios.put(url, put,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
                 console.log('response : ', JSON.stringify(response));
                 this.props.stateRefresh();

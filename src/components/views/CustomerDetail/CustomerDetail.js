@@ -1,14 +1,17 @@
 import React,{Component}from"react";
 import {withStyles} from "@material-ui/core/styles";
 import axios from "axios";
+import { Link, withRouter } from "react-router-dom"
 import CustomerPage from "./CustomerPage";
 import Table from "@material-ui/core/Table";
 import Paper from "@material-ui/core/Paper";
-import "./CustomerDetail.css"
+import "./CustomerDetail.css";
+import cookie from 'react-cookies';
 
 const styles= theme =>({
     root:{
-        width:"100%",
+        width:"70%",
+        margin:"auto",
         marginTop:theme.spacing.unit*3,
         overflowX:"auto"
     },
@@ -24,7 +27,9 @@ class CustomerDetail extends Component{
         this.state = {
             loading: false,
             customers:[],
-            details: []
+            details: [],
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
         this.stateRefresh = this.stateRefresh.bind(this);
     }
@@ -38,7 +43,7 @@ class CustomerDetail extends Component{
 
 
     loadCus = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/user/list')
+        await axios.get('http://fan.catholic.ac.kr:5000/api/user/list',{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(({ data }) => {
                 this.setState({
                     loading: true,
@@ -55,19 +60,24 @@ class CustomerDetail extends Component{
     componentDidMount() {
         this.loadCus();
     }
+
+
+
     render(){
+        const { userId } = this.state.token;
         const{classes}=this.props;
-        console.log(this.state.customers);
-        return(
-            <div>
-                <h3 className="member">&nbsp; 회원 관리-관리자 페이지</h3>
-                <Paper className = {classes.root}>
-                    <Table className = {classes.table}>
-                        <CustomerPage stateRefresh={this.stateRefresh} Customers={this.state.customers}/>
-                    </Table>
-                </Paper>
-            </div>
-        );
+        console.log(this.state);
+            return (
+                <div>
+                    <h3 className="member">&nbsp; 회원 관리-관리자 페이지</h3>
+                    <Paper className={classes.root}>
+                        <Table className={classes.table} >
+                            <CustomerPage stateRefresh={this.stateRefresh} Customers={this.state.customers}/>
+                        </Table>
+                    </Paper>
+                </div>
+            );
+
     }
 }
 export default withStyles(styles) (CustomerDetail);

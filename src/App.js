@@ -18,6 +18,8 @@ import StudyAdd from "./components/views/Study/StudyAdd";
 import StudyList from "./components/views/Study/StudyList";
 import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
+import AdminList from "./components/views/AdminBoard/AdminList";
+import AdminAdd from "./components/views/AdminBoard/AdminAdd";
 
 const App = () => {
     return (
@@ -42,6 +44,8 @@ const App = () => {
                             <Route path="/freeadd" component={FanAdd}/>
                             <Route path="/studyadd" component={StudyAdd}/>
                             <Route path="/study" component={StudyList}/>
+                            <Route path="/adminadd" component={AdminAdd}/>
+                            <Route path="/admin" component={AdminList}/>
                         </Switch>
                     </ScrollToTop>
                 </div>
