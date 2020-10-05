@@ -14,47 +14,52 @@ class Login extends Component {
             user_pwd: '',
             token:'',
             login: false
-        }
+        };
     }
 
     handleClick = (e) => {
         e.preventDefault()
         if (!/^([a-z0-9]+)$/.test(this.state.user_id)) {
-            alert('소문자와 숫자가 아닌 아이디 인지 확인을 해주세요.')
+            alert('아이디를 확인해주세요.')
         } else if (!/([a-zA-Z0-9_-])/.test(this.state.user_pwd)) {
-            alert('비밀번호를 다시 확인해주세요.')
+            alert('비밀번호를 확인해주세요.')
         }
         let url = 'http://fan.catholic.ac.kr:5000/api/login';
-        const login = {
+        const post = {
             user_id: this.state.user_id,
             user_pwd: this.state.user_pwd
         }
-        axios.post(url, login)
+        axios.post(url, post)
             .then(response => {
-                console.log('response : ',(response))
-                cookie.load(this.state.token)
-                document.location.href = "./"
+                if (response.data.login==="True"){
+                    this.setState({
+                        token:response.data.token,
+                        user_id:response.data.user_id
+                    })
+                    let expires = new Date();
+                    let tmp = expires.getDate();
+                    expires.setDate(tmp+1);
+                    const cookieOptions = {
+                        path:'/',
+                        expires,
+                        httponly:false,
+                    }
+                    cookie.save("user_id",this.state.user_id,cookieOptions);
+                    cookie.save("token",this.state.token,cookieOptions);
+                    window.location.href='/mypage'
+                }
+                else if (!response.data.login){
+                    alert("다시 로그인 하세요")
+                }
             })
             .catch(e => {
                 console.log(e);
             })
 
+
         this.setState({
             login: false
         })
-
-        const expires = new Date()
-            expires.setDate(Date.now() + 1000 * 60 * 60 * 24 * 14)
-            cookie.save(
-                this.state.user_id,
-                cookie.load(this.state.token),
-                {
-                    path: '/',
-                    expires,
-                    httpOnly: false
-                }
-            )
-        console.log()
     }
 
     handleInput = (e) => {
@@ -64,7 +69,6 @@ class Login extends Component {
     }
 
     render() {
-        const {classes} = this.props;
         return (
             <Div>
                 <Card body outline color="primary">

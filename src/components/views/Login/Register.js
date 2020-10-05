@@ -4,7 +4,6 @@ import { Link, withRouter } from "react-router-dom"
 import {BsFillPersonPlusFill} from "react-icons/bs";
 import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from "styled-components";
-import CheckId from "./CheckId"
 
 class Register extends Component {
     constructor(props) {
@@ -18,8 +17,34 @@ class Register extends Component {
             semester: '',
             phone: '',
             email: '',
+            id:false,
             register:false
         }
+    }
+
+    idCheck = () => {
+        axios.get('http://fan.catholic.ac.kr:5000/api/check/id?user_id='+this.state.user_id)
+            .then (response => {
+                console.log(response)
+                if (response.data.id) {
+                    alert("사용 가능한 아이디 입니다.")
+                    console.log(this.state.user_id)
+                    console.log(response.data.id)
+                }
+                else {
+                    alert("중복 아이디 입니다.")
+                    console.log(this.state.user_id)
+                    console.log(response.data.id)
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
+
+
+        this.setState({
+            id: false
+        })
     }
 
     handleFormSubmit = (e) => {
@@ -40,6 +65,8 @@ class Register extends Component {
                 alert('전화번호를 다시 확인해주세요')
             } else if (!/([a-zA-Z0-9_-]+@[a-z]+.[a-z]+)/.test(this.state.email)) {
                 alert('이메일을 확인해주세요')
+            } else if (this.state.id!=="True") {
+                alert('중복 아이디를 확인 해주세요')
             }
 
         let url = 'http://fan.catholic.ac.kr:5000/api/register';
@@ -56,7 +83,6 @@ class Register extends Component {
         axios.post(url, register)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-                document.location.href = "./login"
             })
             .catch(e => {
                 console.log(e);
@@ -73,7 +99,6 @@ class Register extends Component {
         }
 
     render() {
-        const {classes} = this.props;
         return (
             <Div>
             <Card body outline color="primary">
@@ -90,7 +115,9 @@ class Register extends Component {
                                 value={this.state.user_id}
                                 onChange={this.handleInput}
                             />
-                            <CheckId/>
+                            <Button outline color="primary" onClick={this.idCheck}>
+                                중복확인
+                            </Button>
                         </FormGroup>
                         <FormGroup>
                             <Label for="user_pwd">비밀번호</Label>

@@ -2,43 +2,44 @@ import React, {Component} from 'react';
 import {Button} from 'reactstrap';
 import axios from "axios";
 import cookie from 'react-cookies'
+import {withRouter} from "react-router-dom";
 
 class Logout extends Component {
     state = {
-        user_id:this.props.user_id,
+        user_id:cookie.load("user_id"),
+        token:cookie.load("token"),
         logout:false,
-        data:[],
-
     };
-    logout = async () => {
-        axios.get('http://fan.catholic.ac.kr:5000/api/logout?user_id='+this.props.user_id)
-            .then(({data}) => {
-                this.setState({
-                    user_id: this.state.user_id,
-                    data: data,
-                });
-                console.log(this.state.data)
+    handleClick = () => {
+        axios.get('http://fan.catholic.ac.kr:5000/api/logout?user_id='+cookie.load("user_id"))
+            .then(response => {
+                console.log('response : ', JSON.stringify(response))
+                if (response.data.logout==="True"){
+                    const cookieOptions = {
+                        path:'/',
+                        httponly:false,
+                    }
+                    cookie.remove("user_id",cookieOptions);
+                    cookie.remove("token",cookieOptions);
+                    window.location.href='/'
+                }
+                else if (!response.data.logout){
+                    alert("다시 로그아웃 하세요")
+                }
             })
             .catch(e => {
-                console.error(e);
-                this.setState({
-                    logout: false
-                });
+                console.log(e);
             })
-        cookie.remove(this.state.user_id,{path:'/'});
-        /** Clear all cookies starting with 'session' (to get all cookies, omit regex argument) */
-        Object.keys(cookie.select(/^session.*/i)).forEach(user_id => cookie.remove(user_id, { path: '/' }))
-    }
 
-    componentDidMount() {
-        this.logout();
+        this.setState({
+            logout: false
+        })
     }
-
     render() {
         return (
-            <Button outline color="primary" type='submit' onClick={this.logout}>로그아웃</Button>
+            <Button outline color="primary" type='submit' onClick={this.handleClick}>로그아웃</Button>
         );
     }
 }
 
-export default Logout;
+export default withRouter(Logout);
