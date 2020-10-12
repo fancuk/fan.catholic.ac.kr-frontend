@@ -11,19 +11,15 @@ class Logout extends Component {
         logout:false,
     };
     handleClick = () => {
-        axios.get('http://fan.catholic.ac.kr:5000/api/logout?user_id='+cookie.load("user_id"))
+        axios.get('http://fan.catholic.ac.kr:5000/api/logout?user_id='+this.state.user_id)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-                if (response.data.logout==="True"){
-                    const cookieOptions = {
-                        path:'/',
-                        httponly:false,
-                    }
-                    cookie.remove("user_id",cookieOptions);
-                    cookie.remove("token",cookieOptions);
-                    window.location.href='/'
+                if (response.data.logout){
+                    cookie.remove("user_id",{path:'/'});
+                    cookie.remove("token",{path:'/'});
+                    window.location.href='./'
                 }
-                else if (!response.data.logout){
+                else {
                     alert("다시 로그아웃 하세요")
                 }
             })
