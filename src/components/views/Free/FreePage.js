@@ -1,13 +1,13 @@
 import React, {Component} from "react";
-import FanCard from "./FanCard";
+import FreeCard from "./FreeCard";
 import {Table} from "reactstrap";
 import {BsFillBellFill} from "react-icons/bs";
 
-class FanPage extends Component {
+class FreePage extends Component {
     state = {};
 
     render() {
-        const {data} = this.props;
+        const {Free} = this.props;
         return (
             <div>
                 <h2><BsFillBellFill/> 자유 게시판 <BsFillBellFill/></h2>
@@ -15,6 +15,7 @@ class FanPage extends Component {
                 <Table hover>
                     <thead>
                     <tr>
+                        <th>게시판명</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>날짜</th>
@@ -22,10 +23,11 @@ class FanPage extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {data &&
-                    data.map((board) => {
+                    {Free &&
+                    Free.map((board) => {
                         return (
-                            <FanCard
+                            <FreeCard
+                                board_name={board.board_name}
                                 title={board.title}
                                 writer={board.writer}
                                 date={board.date}
@@ -39,4 +41,4 @@ class FanPage extends Component {
     }
 }
 
-export default FanPage;
+export default FreePage;

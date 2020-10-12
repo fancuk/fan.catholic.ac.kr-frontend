@@ -11,15 +11,14 @@ class StudyDelete extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            board_name:'studyBoard',
-            title:this.props.title,
-            writer:this.props.writer,
-            date:this.props.date,
-            delete: false
+            board_name:'',
+            title:'',
+            writer:'',
+            open: false
         }
     }
-    deleteBoard = () => {
-        let url = 'http://fan.catholic.ac.kr:5000/api/board/delete?board_name=studyBoard'
+    deleteNotice = () => {
+        let url = 'http://fan.catholic.ac.kr:5000/api/board/delete?title='+this.props.title;
         axios.delete(url)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
@@ -28,11 +27,7 @@ class StudyDelete extends React.Component{
                 console.log(e);
             })
         this.setState({
-            board_name:'studyBoard',
-            title: this.state.title,
-            writer: this.state.writer,
-            date: this.state.date,
-            delete:false
+            open: false
         })
     }
     handleClickOpen = () => {
@@ -60,7 +55,7 @@ class StudyDelete extends React.Component{
                         </Typography>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={(e) => {this.deleteBoard(this.props.title)}}>삭제</Button>
+                        <Button variant="contained" color="primary" onClick={(e) => {this.deleteNotice(this.props.title)}}>삭제</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>

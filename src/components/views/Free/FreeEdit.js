@@ -9,7 +9,7 @@ import { withStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import 'url-search-params-polyfill';
 
-class StudyEdit extends React.Component {
+class FreeEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -95,4 +95,4 @@ class StudyEdit extends React.Component {
 
 }
 
-export default withStyles(StudyEdit);
+export default withStyles(FreeEdit);

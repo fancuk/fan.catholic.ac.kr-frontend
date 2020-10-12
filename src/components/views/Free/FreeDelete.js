@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 
-class NoticeDelete extends React.Component{
+class FreeDelete extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -42,7 +42,6 @@ class NoticeDelete extends React.Component{
         })
     }
     render() {
-        const {Users} = this.props;
         return (
             <span>
                 <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>삭제</Button>
@@ -65,4 +64,4 @@ class NoticeDelete extends React.Component{
     }
 };
 
-export default NoticeDelete;
+export default FreeDelete;
