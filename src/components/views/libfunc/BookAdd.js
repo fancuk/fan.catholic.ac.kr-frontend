@@ -45,10 +45,6 @@ class BookAdd extends React.Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        if (this.state.user_id !== 'fancuk'){
-            alert("관리자만 도서를 추가할 수 있습니다.")
-            return
-        }
         let url = 'http://fan.catholic.ac.kr:5000/api/library/add'
         const post = {
             image: this.state.image,
@@ -85,6 +81,10 @@ class BookAdd extends React.Component {
     }
 
     handleClickOpen = () => {
+        if (this.state.user_id !== 'fancuk'){
+            alert("관리자만 도서를 추가할 수 있습니다.")
+            return
+        }
         this.setState({
             open: true
         });
@@ -100,7 +100,6 @@ class BookAdd extends React.Component {
     }
 
     render() {
-        console.log(this.state.token)
         return (
             <>
                 <td colSpan="5" style={{ fontSize: 30 }} onClick={this.handleClickOpen}>

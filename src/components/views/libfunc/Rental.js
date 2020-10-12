@@ -4,7 +4,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import cookie from "react-cookies";
@@ -58,6 +57,11 @@ class Rental extends React.Component {
 
     }
     handleClickOpen = () => {
+        if(!this.state.user_id){
+            alert('로그인이 필요한 서비스입니다.')
+            document.location.href = "./login"
+            return
+        }
         this.setState({
             open: true
         });

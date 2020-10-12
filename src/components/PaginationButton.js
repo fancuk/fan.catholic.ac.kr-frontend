@@ -13,9 +13,9 @@ class PaginationButton extends Component {
         return (
             <>
                 <span className="page">
-                    <Button variant="outlined" color="primary" onClick={() => this.props.onClick(this.props.currentPage-1)}>
+                    {this.props.currentPage!==1?<Button variant="outlined" color="primary" onClick={() => this.props.onClick(this.props.currentPage-1)}>
                         {"<"}
-                    </Button>
+                    </Button>:""}
                     {[...Array(this.props.page)].map((n, index) => {
                         return <Button className={this.props.currentPage === n+1 ? "page-item active" : "page-item"}
                                        onClick={() => this.props.onClick(index+1)}
@@ -24,9 +24,9 @@ class PaginationButton extends Component {
                             {index+1}
                         </Button>
                     })}
-                    <Button variant="outlined" color="primary" onClick={() => this.props.onClick(this.props.currentPage+1)}>
+                    {this.props.page!==this.props.currentPage?<Button variant="outlined" color="primary" onClick={() => this.props.onClick(this.props.currentPage+1)}>
                         {">"}
-                    </Button>
+                    </Button>:""}
                 </span>
            </>
         );
