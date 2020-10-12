@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
-import BookAdd from "../libfunc/BookAdd";
 import axios from 'axios';
-import RentListPage from "../libfunc/RentListPage";
+import Listpage from "../libfunc/Listpage";
 import './style.css';
 import { withStyles } from '@material-ui/core/styles';
-import Button from "@material-ui/core/Button";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import imgA from '../../logo.png';
-import {Link} from "react-router-dom";
+import PaginationButton from '../../PaginationButton';
+import BookSearch from "../libfunc/BookSearch";
+import RenterSearch from "../libfunc/RenterSearch";
 
 const styles = theme => ({
     root: {
         width: "100%",
         minWidth: 1080
-    },
-    menu: {
-        display: 'flex',
-        justifyContent: 'center'
     },
     paper: {
         marginTop: 20,
@@ -28,26 +20,46 @@ const styles = theme => ({
     progress: {
         margin: theme.spacing.unit * 2
     },
-    title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
+    page: {
+        display: 'flex',
+        justifyContent: 'center'
+    }
 });
 
-class RentBook extends Component {
-    state = {
-        loading: false,
-        books: []
-    };
-    loadBook = async () => {
-        axios.get('http://fan.catholic.ac.kr:5000/api/library/list')
+class RentBookList extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            completed: 0,
+            loading: false,
+            books: [],
+            page:0,
+            currentPage: 1,
+            search_place:'',
+            search_open:false,
+            search_Books: []
+        }
+        this.stateRefresh = this.stateRefresh.bind(this);
+    }
+    stateRefresh = (page) => {
+        this.setState({
+            books: [],
+            page: 0,
+            completed: 0
+        })
+        this.loadRentBook(page);
+    }
+
+    loadRentBook = async (page) => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/library/rent_list?page='+page)
             .then(({ data }) => {
                 this.setState({
                     loading: true,
-                    books: data
+                    books: data[0].books,
+                    page: data[1].page
                 });
+                console.log(this.state.books[0].renter)
+                console.log(this.state.page)
             })
             .catch(e => {
                 console.error(e);
@@ -56,25 +68,32 @@ class RentBook extends Component {
                 });
             });
     };
+
     componentDidMount() {
-        this.loadBook();
+        this.loadRentBook(1);
+    }
+
+    pageHandler = page => {
+        this.setState({ currentPage: page });
+        this.stateRefresh(page)
     }
 
     render() {
-        const { classes } = this.props;
-        console.log(this.state.books);
         return (
-            <div>
-                <Toolbar>
-                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                        F.A.N 책방 - 대여 목록
-                    </Typography>
-                </Toolbar>
-                <BookAdd />
-                <RentListPage Books={this.state.books} />
-            </div>
+            <>
+                <div>
+                    <Listpage Books={this.state.books} rented={true} stateRefresh={this.stateRefresh} />
+                </div>
+                <RenterSearch />
+                <PaginationButton
+                    page={this.state.page}
+                    onClick={this.pageHandler}
+                    currentPage={this.state.currentPage}
+                    stateRefresh={this.stateRefresh}
+                />
+            </>
         );
     }
 }
 
-export default withStyles(styles)(RentBook)
+export default withStyles(styles)(RentBookList)

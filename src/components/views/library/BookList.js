@@ -5,7 +5,7 @@ import Listpage from "../libfunc/Listpage";
 import './style.css';
 import { withStyles } from '@material-ui/core/styles';
 import PaginationButton from '../../PaginationButton';
-import Button from "@material-ui/core/Button";
+import BookSearch from "../libfunc/BookSearch";
 
 const styles = theme => ({
     root: {
@@ -34,7 +34,10 @@ class BookList extends Component {
             loading: false,
             books: [],
             page:0,
-            currentPage: 1
+            currentPage: 1,
+            search_place:'',
+            search_open:false,
+            search_Books: []
         }
         this.stateRefresh = this.stateRefresh.bind(this);
     }
@@ -55,8 +58,6 @@ class BookList extends Component {
                     books: data[0].books,
                     page: data[1].page
                 });
-                console.log(this.state.books[0].renter)
-                console.log(this.state.page)
             })
             .catch(e => {
                 console.error(e);
@@ -64,7 +65,8 @@ class BookList extends Component {
                     loading: false
                 });
             });
-        };
+    };
+
     componentDidMount() {
         this.loadBook(1);
     }
@@ -75,18 +77,16 @@ class BookList extends Component {
     }
 
     render() {
-        const {
-            currentPage
-        } = this.state;
         return (
             <>
                 <div>
-                    <Listpage Books={this.state.books} stateRefresh={this.stateRefresh} />
+                    <Listpage Books={this.state.books} rented={false} stateRefresh={this.stateRefresh} />
                 </div>
+                <BookSearch />
                 <PaginationButton
                     page={this.state.page}
                     onClick={this.pageHandler}
-                    currentPage={currentPage}
+                    currentPage={this.state.currentPage}
                     stateRefresh={this.stateRefresh}
                 />
             </>

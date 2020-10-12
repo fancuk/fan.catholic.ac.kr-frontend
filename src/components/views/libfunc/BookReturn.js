@@ -15,17 +15,23 @@ class BookDelete extends React.Component{
         this.state = {
             open: false,
             token:cookie.load('token'),
-            user_id:cookie.load('user_id')
+            user_id:cookie.load('user_id'),
+            title: this.props.title
         }
+        console.log(this.state.title)
     }
-    deleteBook = () => {
-        let url = 'fan.catholic.ac.kr:5000/api/library/return?title='+this.props.title;
+    returnBook = () => {
+        let url = 'http://fan.catholic.ac.kr:5000/api/library/return';
         const config = {
             headers: {
                 Authorization: this.state.token
             }
         }
-        axios.put(url, config)
+        const data = {
+            title: this.state.title
+        }
+        console.log(data)
+        axios.put(url, data, config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response));
                 this.props.stateRefresh(1);
@@ -51,7 +57,7 @@ class BookDelete extends React.Component{
     render() {
         return (
             <span>
-                <Button variant="outlined" color="secondary" onClick={this.handleClickOpen}>삭제</Button>
+                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>반납</Button>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle onClose={this.handleClose}>
                         도서 반납
@@ -60,9 +66,10 @@ class BookDelete extends React.Component{
                         <Typography gutterBottom>
                             선택한 도서가 반납됩니다.
                         </Typography>
+                        <img width='130' height='165' src={this.props.image} alt=""/>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="contained" color="primary" onClick={() => {this.deleteBook(this.props.title)}}>반납</Button>
+                        <Button variant="contained" color="primary" onClick={() => {this.returnBook(this.props.title)}}>반납</Button>
                         <Button variant="outlined" color="primary" onClick={this.handleClose}>닫기</Button>
                     </DialogActions>
                 </Dialog>

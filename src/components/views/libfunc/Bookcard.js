@@ -30,9 +30,9 @@ class Bookcard extends React.Component {
                 <td style={tablestyle}>
                     {this.props.writer}
                 </td>
-                <td style={tablestyle}>
+                {this.props.rented?'':<td style={tablestyle}>
                     {this.props.count} 권
-                </td>
+                </td>}
                 <td>
                     {this.state.user_id!=='fancuk'?
                         <div style={tableButtonStyle}>
