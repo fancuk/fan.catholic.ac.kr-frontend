@@ -96,7 +96,8 @@ class MainSlide extends Component {
             slides:[],
             notices:[],
             token:cookie.load('token'),
-            user_id:cookie.load('user_id')
+            user_id:cookie.load('user_id'),
+            level:cookie.load('level')
         }
         this.stateRefresh = this.stateRefresh.bind(this);
     }
@@ -225,6 +226,8 @@ class MainSlide extends Component {
             }, 3000);
         }
         return (
+            <>
+
             <div id="main-wrap">
                 <div id="slider-wrap">
                     <ul id="slider">
@@ -243,6 +246,8 @@ class MainSlide extends Component {
                 </div>
 
                 <div id="contents">
+                    {this.state.level=='3'?
+                        <a id="butt" href="/detail">회원관리</a>:<a></a>}
                     <div className="section1">
                         <h2>F.A.N 소식  <span>NEWS</span></h2>
                             {NewsImages.map((e, index)=>{
@@ -277,11 +282,8 @@ class MainSlide extends Component {
                         </div>
                     </div>
                 </div>
-                <div>
-
-
-                </div>
             </div>
+                </>
         );
     }
 }

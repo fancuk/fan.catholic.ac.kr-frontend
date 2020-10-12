@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import axios from 'axios';
 import 'url-search-params-polyfill';
+import cookie from "react-cookies";
 
 class AdminEdit extends React.Component {
     constructor(props) {
@@ -18,18 +19,20 @@ class AdminEdit extends React.Component {
             writer: this.props.writer,
             content:this.props.content,
             date:this.props.date,
-            open: false
+            open: false,
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url = 'fan.catholic.ac.kr:5000/api/board/edit'
+        let url = 'fan.catholic.ac.kr:5000/api/post/edit'
         const board = {
             edit_title: this.state.title,
             edit_content: this.state.content,
         }
-        axios.put(url, board)
+        axios.put(url, board,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
             })

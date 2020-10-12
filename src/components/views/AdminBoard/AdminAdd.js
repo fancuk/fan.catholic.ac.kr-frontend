@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { AiFillAlert } from "react-icons/ai";
+import cookie from "react-cookies";
 
 class StudyAdd extends React.Component {
     constructor(props) {
@@ -13,20 +14,22 @@ class StudyAdd extends React.Component {
             title: '',
             writer: '',
             content: '',
-            add:false
+            add:false,
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url='http://fan.catholic.ac.kr:5000/api/board/add';
+        let url='http://fan.catholic.ac.kr:5000/api/post/add';
         const board = {
             board_name: 'AdminBoard',
             title: this.state.title,
             writer: this.state.writer,
             content: this.state.content
         }
-        axios.post(url, board)
+        axios.post(url, board,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
                 document.location.href="./admin";

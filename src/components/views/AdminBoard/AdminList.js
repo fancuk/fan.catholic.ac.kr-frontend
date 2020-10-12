@@ -14,7 +14,7 @@ class AdminList extends Component {
         user_id:cookie.load('user_id')
 
     };
-/*
+
     boardList = async () => {
         await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=adminBoard',{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(({data}) => {
@@ -38,7 +38,7 @@ class AdminList extends Component {
     }
 
 
- */
+
 
 
     render() {
