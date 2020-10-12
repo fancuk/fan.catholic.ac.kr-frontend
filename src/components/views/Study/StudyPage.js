@@ -7,7 +7,7 @@ class StudyPage extends Component {
     state = {};
 
     render() {
-        const {data} = this.props;
+        const {Study} = this.props;
         return (
             <div>
                 <h2><RiPencilLine/> 스터디 게시판 <RiPencilLine/></h2>
@@ -15,6 +15,7 @@ class StudyPage extends Component {
                 <Table hover>
                     <thead>
                     <tr>
+                        <th>게시판명</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>날짜</th>
@@ -22,10 +23,11 @@ class StudyPage extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {data &&
-                    data.map((board) => {
+                    {Study &&
+                    Study.map((board) => {
                         return (
                             <StudyCard
+                                board_name={board.board_name}
                                 title={board.title}
                                 writer={board.writer}
                                 date={board.date}

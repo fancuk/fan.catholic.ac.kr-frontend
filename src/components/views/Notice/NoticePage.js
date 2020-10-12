@@ -7,7 +7,7 @@ class NoticePage extends Component {
     state = {};
 
     render() {
-        const {data} = this.props;
+        const {Notice} = this.props;
         return (
             <div>
                 <h2>< AiFillAlert/> 공지사항 <AiFillAlert/></h2>
@@ -15,6 +15,7 @@ class NoticePage extends Component {
                 <Table hover>
                     <thead>
                     <tr>
+                        <th>게시판명</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>날짜</th>
@@ -22,10 +23,11 @@ class NoticePage extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {data &&
-                    data.map((board) => {
+                    {Notice &&
+                    Notice.map((board) => {
                         return (
                             <NoticeCard
+                                board_name={board.board_name}
                                 title={board.title}
                                 writer={board.writer}
                                 date={board.date}

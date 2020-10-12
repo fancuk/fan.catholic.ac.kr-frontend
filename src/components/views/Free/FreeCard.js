@@ -5,7 +5,7 @@ const tablespace = {
     lineHeight: "165px"
 }
 
-class StudyCard extends React.Component {
+class FreeCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,4 +35,4 @@ class StudyCard extends React.Component {
     }
 }
 
-export default StudyCard;
+export default FreeCard;
