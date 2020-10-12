@@ -36,7 +36,6 @@ class FreeAdd extends React.Component {
         axios.post(url, board,config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-
             })
             .catch(e => {
                 console.log(e);
@@ -76,7 +75,7 @@ class FreeAdd extends React.Component {
                             <Label for="content"> 내용 </Label>
                             <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
                         </FormGroup>
-                        <Link to="./notice">
+                        <Link to="./free">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
                         <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>

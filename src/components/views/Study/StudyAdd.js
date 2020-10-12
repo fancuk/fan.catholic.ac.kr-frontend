@@ -33,7 +33,7 @@ class StudyAdd extends React.Component {
             headers: {authorization: this.state.token}
         }
 
-        axios.post(url, board,config)
+        axios.post(url,board,config)
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
 
@@ -76,7 +76,7 @@ class StudyAdd extends React.Component {
                             <Label for="content"> 내용 </Label>
                             <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
                         </FormGroup>
-                        <Link to="./notice">
+                        <Link to="./study">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
                         <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>

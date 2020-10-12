@@ -15,7 +15,11 @@ class FreeList extends Component {
 
     };
     boardList = async () => {
-        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=freeBoard')
+        const config = {
+            headers: {authorization: this.state.token}
+        }
+
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=freeBoard',config)
             .then(({data}) => {
                 this.setState({
                     board_name: 'freeBoard',
