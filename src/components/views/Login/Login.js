@@ -13,6 +13,7 @@ class Login extends Component {
             user_id: '',
             user_pwd: '',
             token:'',
+            level:'',
             login: false
         };
     }
@@ -34,7 +35,9 @@ class Login extends Component {
                 if (response.data.login==="True"){
                     this.setState({
                         token:response.data.token,
-                        user_id:response.data.user_id
+                        user_id:response.data.user_id,
+                        level:response.data.level,
+                        login:response.data.login
                     })
                     let expires = new Date();
                     let tmp = expires.getDate();
@@ -46,6 +49,9 @@ class Login extends Component {
                     }
                     cookie.save("user_id",this.state.user_id,cookieOptions);
                     cookie.save("token",this.state.token,cookieOptions);
+                    cookie.save("level",this.state.level,cookieOptions);
+                    cookie.save("login",this.state.login,cookieOptions);
+
                     window.location.href='/mypage'
                 }
                 else if (!response.data.login){

@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import cookie from "react-cookies";
 
 class AdminDelete extends React.Component{
     constructor(props) {
@@ -14,12 +15,14 @@ class AdminDelete extends React.Component{
             board_name:'',
             title:'',
             writer:'',
-            open: false
+            open: false,
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
     deleteNotice = () => {
-        let url = 'http://fan.catholic.ac.kr:5000/api/board/delete?title='+this.props.title;
-        axios.delete(url)
+        let url = 'http://fan.catholic.ac.kr:5000/api/post/delete?title='+this.props.title;
+        axios.delete(url,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
             })

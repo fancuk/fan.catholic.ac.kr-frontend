@@ -29,7 +29,7 @@ class CustomerDetail extends Component{
             customers:[],
             details: [],
             token:cookie.load('token'),
-            user_id:cookie.load('user_id')
+            user_id:cookie.load('user_id'),
         }
         this.stateRefresh = this.stateRefresh.bind(this);
     }
@@ -64,14 +64,12 @@ class CustomerDetail extends Component{
 
 
     render(){
-        const { userId } = this.state.token;
         const{classes}=this.props;
-        console.log(this.state);
             return (
                 <div>
                     <h3 className="member">&nbsp; 회원 관리-관리자 페이지</h3>
                     <Paper className={classes.root}>
-                        <Table className={classes.table} >
+                        <Table className={classes.table}>
                             <CustomerPage stateRefresh={this.stateRefresh} Customers={this.state.customers}/>
                         </Table>
                     </Paper>
