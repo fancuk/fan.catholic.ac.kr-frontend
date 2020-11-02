@@ -8,6 +8,8 @@ class Logout extends Component {
     state = {
         user_id:cookie.load("user_id"),
         token:cookie.load("token"),
+        level:cookie.load("level"),
+        login:cookie.load("login"),
         logout:false,
     };
     handleClick = () => {
@@ -17,6 +19,8 @@ class Logout extends Component {
                 if (response.data.logout){
                     cookie.remove("user_id",{path:'/'});
                     cookie.remove("token",{path:'/'});
+                    cookie.remove("level",{path:'/'});
+                    cookie.remove("login",{path:'/'});
                     window.location.href='./'
                 }
                 else {
