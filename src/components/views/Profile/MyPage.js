@@ -8,15 +8,18 @@ import MyEdit from "./MyEdit";
 import cookie from 'react-cookies'
 import axios from "axios";
 import MyBook from "../MyBook/MyBook";
+
 class MyPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user_id: cookie.load("user_id"),
             token: cookie.load("token"),
-            user:[]
+            level:cookie.load('level'),
+            user: []
         };
     }
+
     MyFan = async () => {
         const config = {
             headers: {Authorization: this.state.token}
@@ -36,27 +39,37 @@ class MyPage extends Component {
                 console.error(e);
             })
     }
+
     componentDidMount() {
         this.MyFan()
     }
+
     render() {
         console.log(this.state.user)
+        // const {user} = this.props;
         return (
             <Div>
-                <Card body outline color="primary">
-                    <h1><BsFillHouseFill/>My Page - HOME<BsFillHouseFill/></h1>
-                    <h3>Free meeting Active studying Nice ending</h3>
-                    <ul>
-                        <li><strong>안녕하세요 FAN 홈페이지 입니다 !</strong></li>
-                        <li><strong>책 대여 기한은 1학기 입니다. 공부 하시고 나서 반납 부탁드립니다.</strong></li>
-                    </ul>
-                    <MyBook user={this.state.user}/>
-                    <p><MyEdit user={this.state.user}/>{' '}<MyDelete/></p>
-                </Card>
+                {this.state.level === '' ?
+                    <h3>&nbsp; 페이지 접근 권한이 없습니다.</h3> :
+                    <>
+                        <Card body outline color="primary">
+                            <h1><BsFillHouseFill/>My Page - HOME<BsFillHouseFill/></h1>
+                            <h3>Free meeting Active studying Nice ending</h3>
+                            <ul>
+                                <li><strong>안녕하세요 FAN 홈페이지 입니다 !</strong></li>
+                                <li><strong>책 대여 기한은 1학기 입니다. 공부 하시고 나서 반납 부탁드립니다.</strong></li>
+                            </ul>
+                            <MyBook user={this.state.user}/>
+                            <p><MyEdit user={this.state.user}/>{' '}<MyDelete/></p>
+                        </Card>
+                    </>
+                }
             </Div>
+
         );
     }
 }
+
 const Div = styled.div`
     text-align:left;
     width:45%;
