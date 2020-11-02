@@ -19,10 +19,12 @@ import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
 import AdminList from "./components/views/AdminBoard/AdminList";
 import AdminAdd from "./components/views/AdminBoard/AdminAdd";
+import Header from "./components/views/Header/Header";
 
 const App = () => {
     return (
         <>
+            <Header/>
             <Router>
                 <div>
                     <ScrollToTop>

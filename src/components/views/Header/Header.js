@@ -1,27 +1,30 @@
 import React, {Component} from "react";
 import "./Header.css";
 import logo from "../../logo.png";
-
-
 class Header extends Component {
     render() {
         return (
             <div>
+                <button type="button" className="mobile-nav-toggle d-lg-none">
+                    <i className="fa fa-bars"></i>
+                </button>
+                <div id="head-util">
+                    <ul>
+                        <a href="/mypage" >마이페이지</a>
+                        <button>로그아웃</button>
+                    </ul>
+                </div>
                 <div id="header">
-                    <div id="head-util">
-                        <ul>
-                            <li><a href="/mypage" >마이페이지</a></li>
-                            <li><button>로그아웃</button></li>
-                        </ul>
-                    </div>
                     <nav role="navigation">
                         <ul id="main-menu">
-                            <li><a href="/home">Home</a></li>
+                            <li><img className="logo" src="assets/img/logo.png"/></li>
+                            <li><h1 className="name"><a href="/"> <br/> FAN <br/>CUK</a></h1></li>
+                            <li><a href="/">Home</a></li>
                             <li><a href="#">Board</a>
                                 <ul id="sub-menu">
-                                    <li><a href="#" aria-label="subemenu">notice</a></li>
-                                    <li><a href="#" aria-label="subemenu">study</a></li>
-                                    <li><a href="#" aria-label="subemenu">free</a></li>
+                                    <li><a href="/notice" aria-label="subemenu">notice</a></li>
+                                    <li><a href="/study" aria-label="subemenu">study</a></li>
+                                    <li><a href="/free" aria-label="subemenu">free</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Library</a>
@@ -45,7 +48,4 @@ class Header extends Component {
         );
     }
 }
-
 export default (Header);
-
-
