@@ -25,6 +25,7 @@ import Header from "./components/views/Header/Header";
 const App = () => {
     return (
         <>
+            <Header/>
             <Router>
                 <div>
                     <ScrollToTop>
