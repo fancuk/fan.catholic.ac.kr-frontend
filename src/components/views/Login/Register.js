@@ -65,7 +65,9 @@ class Register extends Component {
                 alert('전화번호를 다시 확인해주세요')
             } else if (!/([a-zA-Z0-9_-]+@[a-z]+.[a-z]+)/.test(this.state.email)) {
                 alert('이메일을 확인해주세요')
-            }
+            } else if (this.state.id!=="true") {
+                alert('중복 아이디를 확인해주세요')
+        }
 
         let url = 'http://fan.catholic.ac.kr:5000/api/register';
         const register = {

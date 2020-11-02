@@ -28,21 +28,21 @@ class MyEdit extends React.Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-            if (!/([a-zA-Z0-9_-])/.test(this.state.user_pwd)) {
-                alert('비밀번호를 다시 확인해주세요.')
-            } else if (!/^([가-힣]*)$/.test(this.state.name)) {
-                alert('이름을 다시 확인해주세요.')
-            } else if (!/^([0-9])+$/.test(this.state.student_id) && this.state.student_id.length !== 9) {
-                alert('학번은 총 9자리며 숫자만 입력해주세요')
-            } else if (!/^([0-9])+$/.test(this.state.grade) && this.state.grade < 5) {
-                alert('학년은 1~4학년까지 있습니다.')
-            } else if (!/(\d)/.test(this.state.semester) && this.state.semester < 3) {
-                alert('학기는 1~2학기만 가능합니다.')
-            } else if (!/(\d{2,3}-\d{3,4}-\d{4})/.test(this.state.phone) && this.state.phone.length !== 13) {
-                alert('전화번호를 다시 확인해주세요')
-            } else if (!/([a-zA-Z0-9_-]+@[a-z]+.[a-z]+)/.test(this.state.email)) {
-                alert('이메일을 확인해주세요')
-            }
+        if (!/([a-zA-Z0-9_-])/.test(this.state.user_pwd)) {
+            alert('비밀번호를 다시 확인해주세요.')
+        } else if (!/^([가-힣]*)$/.test(this.state.name)) {
+            alert('이름을 다시 확인해주세요.')
+        } else if (!/^([0-9])+$/.test(this.state.student_id) && this.state.student_id.length !== 9) {
+            alert('학번은 총 9자리며 숫자만 입력해주세요')
+        } else if (!/^([0-9])+$/.test(this.state.grade) && this.state.grade < 5) {
+            alert('학년은 1~4학년까지 있습니다.')
+        } else if (!/(\d)/.test(this.state.semester) && this.state.semester < 3) {
+            alert('학기는 1~2학기만 가능합니다.')
+        } else if (!/(\d{2,3}-\d{3,4}-\d{4})/.test(this.state.phone) && this.state.phone.length !== 13) {
+            alert('전화번호를 다시 확인해주세요')
+        } else if (!/([a-zA-Z0-9_-]+@[a-z]+.[a-z]+)/.test(this.state.email)) {
+            alert('이메일을 확인해주세요')
+        }
 
         let url = 'http://fan.catholic.ac.kr:5000/api/profile/edit'
         const put = {
@@ -56,7 +56,7 @@ class MyEdit extends React.Component {
             email:this.state.email
         }
         const config ={
-                headers:{authorization:this.state.token}
+            headers:{authorization:this.state.token}
         }
         axios.put(url, put, config)
             .then(response => {
@@ -127,4 +127,3 @@ class MyEdit extends React.Component {
 }
 
 export default MyEdit;
-
