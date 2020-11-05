@@ -4,7 +4,6 @@ import MainSlide from "./components/views/Home/MainSlide";
 import MyPage from "./components/views/Profile/MyPage";
 import Register from "./components/views/Login/Register";
 import Login from "./components/views/Login/Login";
-import LoginControl from "./components/views/Login/LoginControl";
 import Logout from "./components/views/Login/Logout";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
@@ -34,7 +33,6 @@ const App = () => {
                             <Route path="/fan" component={MyFan}/>
                             <Route exact path="/" component={MainSlide}/>
                             <Route path="/register" component={Register}/>
-                            <Route path="/control" component={LoginControl}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/logout" component={Logout}/>
                             <Route path="/library" component={BookList}/>

@@ -1,24 +1,35 @@
 import React, {Component} from "react";
 import "./Header.css";
-import logo from "../../logo.png";
+import cookie from 'react-cookies'
+
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            level:cookie.load('level'),
+            login:cookie.load('login')
+        }
+    }
+
     render() {
         return (
             <div>
                 <button type="button" className="mobile-nav-toggle d-lg-none">
-                    <i className="fa fa-bars"></i>
                 </button>
                 <div id="head-util">
-                    <ul>
-                        <a href="/mypage" >마이페이지</a>
-                        <button>로그아웃</button>
+                    <ul id="login">
+                        {this.state.level !=='3' ? <a href="mypage">마이페이지</a>:
+                            <a href="detail">관리자 페이지</a>}&nbsp;|&nbsp;
+                        {this.state.login !== 'ture' ? <a href="/login">로그인</a> :
+                            <a href="/logout">로그아웃</a>
+                        }
                     </ul>
                 </div>
                 <div id="header">
                     <nav role="navigation">
                         <ul id="main-menu">
-                            <li><img className="logo" src="assets/img/logo.png"/></li>
-                            <li><h1 className="name"><a href="/"> <br/> FAN <br/>CUK</a></h1></li>
+                            <img className="logo" src="assets/img/logo.png"/>
+                            <h1 className="name"><a href="/">FAN CUK</a></h1>
                             <li><a href="/">Home</a></li>
                             <li><a href="#">Board</a>
                                 <ul id="sub-menu">
