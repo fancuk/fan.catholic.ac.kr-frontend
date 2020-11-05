@@ -46,11 +46,10 @@ class MyPage extends Component {
 
     render() {
         console.log(this.state.user)
-        // const {user} = this.props;
         return (
             <Div>
-                {this.state.level === '' ?
-                    <h3>&nbsp; 페이지 접근 권한이 없습니다.</h3> :
+                {this.state.login !== 'true' ?
+                    <a href="login">로그인</a> :
                     <>
                         <Card body outline color="primary">
                             <h1><BsFillHouseFill/>My Page - HOME<BsFillHouseFill/></h1>
