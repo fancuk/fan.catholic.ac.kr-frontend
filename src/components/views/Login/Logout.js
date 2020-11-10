@@ -8,7 +8,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import Typography from "@material-ui/core/Typography";
 import DialogActions from "@material-ui/core/DialogActions";
-import styled from "styled-components";
 
 class Logout extends Component {
     state = {
@@ -57,7 +56,7 @@ class Logout extends Component {
     render() {
         return (
             <span>
-                <a onClick={this.handleClickOpen}>Logout</a>
+                <a style={{color:'#007BFF'}} onClick={this.handleClickOpen}>Logout</a>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle id="alert-dialog-title" onClose={this.handleClose}>로그아웃 알림</DialogTitle>
                     <DialogContent>
