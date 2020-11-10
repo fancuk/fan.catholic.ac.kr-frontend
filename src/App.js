@@ -18,7 +18,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
 import AdminList from "./components/views/AdminBoard/AdminList";
 import AdminAdd from "./components/views/AdminBoard/AdminAdd";
-import MyFan from "./components/views/MyFan/MyFan";
 import Header from "./components/views/Header/Header";
 
 const App = () => {
@@ -30,7 +29,6 @@ const App = () => {
                     <ScrollToTop>
                         <Switch>
                             <Route path="/mypage" component={MyPage}/>
-                            <Route path="/fan" component={MyFan}/>
                             <Route exact path="/" component={MainSlide}/>
                             <Route path="/register" component={Register}/>
                             <Route path="/login" component={Login}/>

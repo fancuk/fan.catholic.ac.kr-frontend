@@ -31,6 +31,7 @@ ul, li {
     margin-top: 2%;
     margin-right: 12%;
     text-align: right;
+    color: #5c7cfa ;
 }
 
 #head-util > ul > li> a {
@@ -87,7 +88,7 @@ ul, li {
 }
 #sub-menu > li {
     background-color: whitesmoke;
-    padding: 16px 62px;
+    padding: 16px 48px;
     border-bottom: 1px solid rgba(0,0,0,0.15);
 }
 #sub-menu > li >  a {
