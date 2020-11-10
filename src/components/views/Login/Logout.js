@@ -57,7 +57,7 @@ class Logout extends Component {
     render() {
         return (
             <span>
-                <a onClick={this.handleClickOpen}>Logout</a>
+                <a style={{color:'#007BFF'}} onClick={this.handleClickOpen}>Logout</a>
                 <Dialog open={this.state.open} onClose={this.handleClose}>
                     <DialogTitle id="alert-dialog-title" onClose={this.handleClose}>로그아웃 알림</DialogTitle>
                     <DialogContent>
