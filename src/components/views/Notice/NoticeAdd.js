@@ -10,33 +10,29 @@ class NoticeAdd extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            writer:cookie.load("user_id"),
-            token:cookie.load("token"),
             board_name: 'noticeBoard',
             title: '',
+            writer: '',
             content: '',
-            add:false
+            add:false,
+            token:cookie.load('token'),
+            user_id:cookie.load('user_id')
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url='http://fan.catholic.ac.kr:5000/api/post/add?user_id='+this.state.writer;
+        let url='http://fan.catholic.ac.kr:5000/api/post/add';
         const board = {
             board_name: 'noticeBoard',
-            token:cookie.load("token"),
             title: this.state.title,
             writer: this.state.writer,
             content: this.state.content
         }
-        const config = {
-            headers: {authorization: this.state.token}
-        }
-
-        axios.post(url, board,config)
+        axios.post(url, board,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-
+                document.location.href="./admin";
             })
             .catch(e => {
                 console.log(e);
@@ -62,7 +58,7 @@ class NoticeAdd extends React.Component {
             <Div>
                 <Card body outline color="primary">
                     <h1>< AiFillAlert/> 공지사항 <AiFillAlert/></h1>
-                    <Label for="StudyAdd"> <strong> - 팬과 함께 공지를! - </strong> </Label>
+                    <Label for="NoticeAdd"> <strong> - 팬과 함께 공지를! - </strong> </Label>
                     <Form onSubmit={this.handleFormSubmit}>
                         <FormGroup>
                             <Label for="title"> 제목 </Label>
@@ -70,7 +66,7 @@ class NoticeAdd extends React.Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="writer"> 작성자 </Label>
-                            <Input type="text" name="writer" value={this.state.writer} />
+                            <Input type="text" name="writer" value={this.state.writer} onChange={this.handleInput} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="content"> 내용 </Label>
