@@ -31,4 +31,5 @@ class MyRent extends React.Component {
         );
     }
 }
+
 export default MyRent;

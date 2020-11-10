@@ -68,4 +68,4 @@ class MyBook extends Component {
         );
     }
 }
-export default withStyles(styles)(MyBook)
+export default MyBook
