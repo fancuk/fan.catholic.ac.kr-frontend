@@ -5,6 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { AiFillAlert } from "react-icons/ai";
 import cookie from "react-cookies";
+import {Editor} from "@toast-ui/react-editor";
 
 class NoticeAdd extends React.Component {
     constructor(props) {
@@ -24,9 +25,7 @@ class NoticeAdd extends React.Component {
         let url='http://fan.catholic.ac.kr:5000/api/post/add?user_id='+this.state.writer;
         const board = {
             board_name: 'noticeBoard',
-            token:cookie.load("token"),
             title: this.state.title,
-            writer: this.state.writer,
             content: this.state.content
         }
         const config = {
@@ -72,14 +71,17 @@ class NoticeAdd extends React.Component {
                             <Label for="writer"> 작성자 </Label>
                             <Input type="text" name="writer" value={this.state.writer} />
                         </FormGroup>
-                        <FormGroup>
-                            <Label for="content"> 내용 </Label>
-                            <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
-                        </FormGroup>
-                        <Link to="./notice">
+                        <Editor
+                            previewStyle="vertical"
+                            height="300px"
+                            initialEditType="wysiwyg"
+                            placeholder="글쓰기"
+                            ref={this.editorRef}
+                        />
+                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>저장</Button>
+                        <Link to="./free">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
-                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>
                     </Form>
                 </Card>
             </Div>
