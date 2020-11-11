@@ -74,7 +74,7 @@ class StudyAdd extends React.Component {
                             ref={this.editorRef}
                         />
                         <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>저장</Button>
-                        <Link to="./free">
+                        <Link to="./study">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
                     </Form>
@@ -89,7 +89,7 @@ const Div = styled.div`
 text-align:left;
 width:50%;
 height:100%;
-margin: 10% auto;
+margin: auto;
 `;
 
 export default withRouter(StudyAdd);

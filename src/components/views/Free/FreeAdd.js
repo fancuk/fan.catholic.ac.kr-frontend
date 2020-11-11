@@ -17,11 +17,11 @@ class FreeAdd extends React.Component {
         this.state = {
             board_name: 'freeBoard',
             title: '',
-            writer: '',
+            writer: cookie.load('user_id'),
             content: '',
             add:false,
             token:cookie.load('token'),
-            user_id:cookie.load('user_id')
+
         }
     }
 
@@ -61,8 +61,8 @@ class FreeAdd extends React.Component {
         return (
             <Div>
                 <Card body outline color="primary">
-                    <h1>< AiFillAlert/> 공지사항 <AiFillAlert/></h1>
-                    <Label for="FreeAdd"> <strong> - 팬과 함께 공지를! - </strong> </Label>
+                    <h1>< AiFillAlert/> 자유게시판 <AiFillAlert/></h1>
+                    <Label for="FreeAdd"> <strong> - 팬과 함께 - </strong> </Label>
                     <Form onSubmit={this.handleFormSubmit}>
                         <FormGroup>
                             <Label for="title"> 제목 </Label>
@@ -70,7 +70,7 @@ class FreeAdd extends React.Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="writer"> 작성자 </Label>
-                            <Input type="text" name="writer" value={this.state.writer} onChange={this.handleInput} />
+                            <Input type="text" name="writer" value={this.state.writer}/>
                         </FormGroup>
                         <Editor
                             previewStyle="vertical"
@@ -95,7 +95,7 @@ const Div = styled.div`
 text-align:left;
 width:50%;
 height:100%;
-margin: 10% auto;
+margin: auto;
 `;
 
-export default withRouter(StudyAdd);
+export default withRouter(FreeAdd);
