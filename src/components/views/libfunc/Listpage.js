@@ -34,7 +34,7 @@ class Listpage extends Component {
                                 this.props.rented?<th>대여자</th>:<th>남은 도서</th>
                             }
                             {
-                                this.props.rented?'':<th></th>
+                                this.props.rented?<th>대여일</th>:<th></th>
                             }
                         </tr>
                     </thead>

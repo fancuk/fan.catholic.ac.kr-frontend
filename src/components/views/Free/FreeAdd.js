@@ -5,8 +5,13 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { AiFillAlert } from "react-icons/ai";
 import cookie from "react-cookies";
+import {BsFillBellFill} from "react-icons/bs";
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 
-class StudyAdd extends React.Component {
+class FreeAdd extends React.Component {
+    editorRef = React.createRef();
     constructor(props) {
         super(props);
         this.state = {
@@ -26,8 +31,7 @@ class StudyAdd extends React.Component {
         const board = {
             board_name: 'freeBoard',
             title: this.state.title,
-            writer: this.state.writer,
-            content: this.state.content
+            content: this.editorRef.current.getInstance().getHtml()
         }
         axios.post(url, board,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
@@ -68,14 +72,17 @@ class StudyAdd extends React.Component {
                             <Label for="writer"> 작성자 </Label>
                             <Input type="text" name="writer" value={this.state.writer} onChange={this.handleInput} />
                         </FormGroup>
-                        <FormGroup>
-                            <Label for="content"> 내용 </Label>
-                            <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
-                        </FormGroup>
+                        <Editor
+                            previewStyle="vertical"
+                            height="300px"
+                            initialEditType="wysiwyg"
+                            placeholder="글쓰기"
+                            ref={this.editorRef}
+                        />
+                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>저장</Button>
                         <Link to="./free">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
-                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>
                     </Form>
                 </Card>
             </Div>

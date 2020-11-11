@@ -5,6 +5,9 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
 
+import { RiPencilLine } from "react-icons/ri";
+import {Editor} from "@toast-ui/react-editor";
+
 class StudyAdd extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +16,6 @@ class StudyAdd extends React.Component {
             title: '',
             writer: cookie.load('user_id'),
             content: '',
-            add:false,
             token:cookie.load('token')
         }
     }
@@ -22,7 +24,7 @@ class StudyAdd extends React.Component {
         e.preventDefault()
         let url='http://fan.catholic.ac.kr:5000/api/post/add';
         const board = {
-            board_name: 'studyBoard',
+            board_name: this.state.board_name,
             title: this.state.title,
             writer: this.state.writer,
             content: this.state.content
@@ -40,7 +42,6 @@ class StudyAdd extends React.Component {
             title: '',
             writer: '',
             content: '',
-            add:false
         })
     }
 
@@ -49,7 +50,6 @@ class StudyAdd extends React.Component {
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
     }
-
     render() {
         const { } = this.props;
         return (
@@ -66,14 +66,17 @@ class StudyAdd extends React.Component {
                             <Label for="writer"> 작성자 </Label>
                             <Input type="text" name="writer" value={this.state.writer}/>
                         </FormGroup>
-                        <FormGroup>
-                            <Label for="content"> 내용 </Label>
-                            <Input type="textarea" name="content" value={this.state.content} onChange={this.handleInput} />
-                        </FormGroup>
-                        <Link to="./study">
+                        <Editor
+                            previewStyle="vertical"
+                            height="300px"
+                            initialEditType="wysiwyg"
+                            placeholder="글쓰기"
+                            ref={this.editorRef}
+                        />
+                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>저장</Button>
+                        <Link to="./free">
                             <Button outline color="primary">취소</Button>
                         </Link>{' '}
-                        <Button outline color="primary" onClick={this.handleFormSubmit} type='submit'>글쓰기</Button>
                     </Form>
                 </Card>
             </Div>
