@@ -3,24 +3,39 @@ import {Button} from 'reactstrap';
 import { Link} from "react-router-dom";
 import axios from "axios";
 import NoticePage from "./NoticePage"
-import cookie from "react-cookies";
-import styled from "styled-components";
+import cookie from 'react-cookies';
+
+const styles = theme => ({
+    root: {
+        width: "100%",
+        minWidth: 1080
+    },
+    paper: {
+        marginTop: 20,
+        marginLeft: 18,
+        marginRight: 18
+    },
+    progress: {
+        margin: theme.spacing.unit * 2
+    },
+    page: {
+        display: 'flex',
+        justifyContent: 'center'
+    }
+});
 
 class NoticeList extends Component {
     state = {
         list: false,
-        user_id:cookie.load("user_id"),
-        token:cookie.load("token"),
         board_name: 'noticeBoard',
-        data:[]
+        data:[],
+        token:cookie.load('token'),
+        user_id:cookie.load('user_id')
 
     };
-    boardList = async () => {
-        const config = {
-            headers: {authorization: this.state.token}
-        }
 
-        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=noticeBoard',config)
+    boardList = async () => {
+        await axios.get('http://fan.catholic.ac.kr:5000/api/post/list?board_name=noticeBoard',{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(({data}) => {
                 this.setState({
                     board_name: 'noticeBoard',
@@ -41,24 +56,21 @@ class NoticeList extends Component {
         this.boardList();
     }
 
+
+
+
+
     render() {
+        console.log(this.state.data); // 조건부 렌더링으로 주고 받아야함
         return (
-            <Div>
-                <NoticePage Notice={this.state.data}/>
+            <div>
+                <NoticePage data={this.state.data}/>
                 <Link to="./noticeadd">
                     <Button outline color="primary" type='submit'>글쓰기</Button>
                 </Link>
-            </Div>
+            </div>
         );
-
     }
 }
-
-const Div = styled.div`
-    text-align:center;
-    width:60%;
-    margin: 10% auto;
-    padding:10% auto;
-    `;
 
 export default NoticeList;

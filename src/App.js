@@ -4,7 +4,6 @@ import MainSlide from "./components/views/Home/MainSlide";
 import MyPage from "./components/views/Profile/MyPage";
 import Register from "./components/views/Login/Register";
 import Login from "./components/views/Login/Login";
-import LoginControl from "./components/views/Login/LoginControl";
 import Logout from "./components/views/Login/Logout";
 import RentBookList from "./components/views/library/RentBookList";
 import BookList from "./components/views/library/BookList";
@@ -19,10 +18,12 @@ import ScrollToTop from "./components/ScrollToTop";
 import './App.css';
 import AdminList from "./components/views/AdminBoard/AdminList";
 import AdminAdd from "./components/views/AdminBoard/AdminAdd";
+import Header from "./components/views/Header/Header";
 
 const App = () => {
     return (
         <>
+            <Header/>
             <Router>
                 <div>
                     <ScrollToTop>
@@ -30,7 +31,6 @@ const App = () => {
                             <Route path="/mypage" component={MyPage}/>
                             <Route exact path="/" component={MainSlide}/>
                             <Route path="/register" component={Register}/>
-                            <Route path="/control" component={LoginControl}/>
                             <Route path="/login" component={Login}/>
                             <Route path="/logout" component={Logout}/>
                             <Route path="/library" component={BookList}/>

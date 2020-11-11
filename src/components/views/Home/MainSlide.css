@@ -20,6 +20,7 @@
     position: absolute;
     top: 2rem;
     left: 0;
+    z-index: 1;
 }
 
 #slider-wrap ul#slider li {

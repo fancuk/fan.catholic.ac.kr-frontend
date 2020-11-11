@@ -1,21 +1,18 @@
 import React, {Component} from "react";
 import NoticeCard from "./NoticeCard";
 import {Table} from "reactstrap";
-import { AiFillAlert } from "react-icons/ai";
 
 class NoticePage extends Component {
     state = {};
 
     render() {
-        const {Notice} = this.props;
+        const {data} = this.props;
         return (
             <div>
-                <h2>< AiFillAlert/> 공지사항 <AiFillAlert/></h2>
-                <h6> <strong> - 팬과 함께 공지를! - </strong> </h6>
+                <h2>공지사항 게시판</h2>
                 <Table hover>
                     <thead>
                     <tr>
-                        <th>게시판명</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>날짜</th>
@@ -23,11 +20,10 @@ class NoticePage extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {Notice &&
-                    Notice.map((board) => {
+                    {data &&
+                    data.map((board) => {
                         return (
                             <NoticeCard
-                                board_name={board.board_name}
                                 title={board.title}
                                 writer={board.writer}
                                 date={board.date}

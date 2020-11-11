@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import cookie from "react-cookies";
+
 import { RiPencilLine } from "react-icons/ri";
 import {Editor} from "@toast-ui/react-editor";
 
@@ -11,31 +12,27 @@ class StudyAdd extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            writer:cookie.load("user_id"),
-            token:cookie.load("token"),
-            board_name: 'noticeBoard',
+            board_name: 'studyBoard',
             title: '',
+            writer: cookie.load('user_id'),
             content: '',
+            token:cookie.load('token')
         }
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        let url='http://fan.catholic.ac.kr:5000/api/post/add?user_id='+this.state.writer;
+        let url='http://fan.catholic.ac.kr:5000/api/post/add';
         const board = {
             board_name: this.state.board_name,
             title: this.state.title,
             writer: this.state.writer,
             content: this.state.content
         }
-        const config = {
-            headers: {authorization: this.state.token}
-        }
-
-        axios.post(url,board,config)
+        axios.post(url, board,{ headers: { Authorization: ` ${cookie.load('token')}` } })
             .then(response => {
                 console.log('response : ', JSON.stringify(response))
-
+                document.location.href="./study";
             })
             .catch(e => {
                 console.log(e);
@@ -58,8 +55,8 @@ class StudyAdd extends React.Component {
         return (
             <Div>
                 <Card body outline color="primary">
-                    <h2><RiPencilLine/> 스터디 게시판 <RiPencilLine/></h2>
-                    <Label for="StudyAdd"><h6><strong> - 팬이랑 공부랑 - </strong></h6></Label>
+                    <h1>공부게시판</h1>
+                    <Label for="StudyAdd"> <strong> - 팬과 함께 공부를! - </strong> </Label>
                     <Form onSubmit={this.handleFormSubmit}>
                         <FormGroup>
                             <Label for="title"> 제목 </Label>
@@ -67,7 +64,7 @@ class StudyAdd extends React.Component {
                         </FormGroup>
                         <FormGroup>
                             <Label for="writer"> 작성자 </Label>
-                            <Input type="text" name="writer" value={this.state.writer} />
+                            <Input type="text" name="writer" value={this.state.writer}/>
                         </FormGroup>
                         <Editor
                             previewStyle="vertical"

@@ -8,8 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import DialogActions from "@material-ui/core/DialogActions";
 import cookie from "react-cookies";
 
-
-
 class MyDelete extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +20,7 @@ class MyDelete extends Component {
     }
 
     deleteUser() {
-        const url = 'http://fan.catholic.ac.kr:5000/api/delete/user?user_id='+cookie.load("user_id");
+        const url = 'http://fan.catholic.ac.kr:5000/api/profile/drop'
         const user = {
             user_id:cookie.load("user_id"),
             token:cookie.load("token"),
@@ -33,10 +31,16 @@ class MyDelete extends Component {
         }
         axios.post(url, user, config)
             .then(response => {
-                if (response.data.delete === "True") {
+                if (response.data.delete) {
+                    cookie.remove("user_id", {path: '/'});
+                    cookie.remove("token", {path: '/'});
+                    cookie.remove("level", {path: '/'});
+                    cookie.remove("login", {path: '/'});
+                    window.location.href = './'
                     alert("탈퇴 완료 하였습니다.")
                     window.location.href = '/'
-                } else if (!response.data.delete) {
+                }
+                else {
                     console.log('response : ', JSON.stringify(response));
                     alert("다시 확인 하세요")
                 }
@@ -81,7 +85,7 @@ class MyDelete extends Component {
                                 onInput={this.handleInput}
                             />
                         <Typography >
-                            웹 사이트를 탈퇴합니다.
+                            비밀번호를 입력 후 웹 사이트 탈퇴합니다.
                         </Typography>
                     </DialogContent>
                     <DialogActions>
