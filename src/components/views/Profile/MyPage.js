@@ -44,14 +44,14 @@ class MyPage extends Component {
         return (
             <Div>
                 {this.state.login !== "True" ?
-                    <h3>페이지 접근 권한이 없습니다. 로그인 해주세요!<br/>
-                    <a href="./login">로그인</a>
+                    <h3><b>페이지 접근 권한이 없습니다. 로그인 해주세요!</b><br/>
+                    <a href="./login"><b>로그인</b></a>
                     </h3>
                     :
                     <>
                         <Card body outline color="primary">
-                            <h1>My Page - HOME</h1>
-                            <h3>Free meeting Active studying Nice ending</h3>
+                            <h1><b>FAN MY PAGE</b></h1>
+                            <h3><b>F</b>ree meeting <b>A</b>ctive studying <b>N</b>ice ending</h3>
                             <ul>
                                 <li><strong>안녕하세요 FAN 홈페이지 입니다 !</strong></li>
                                 <li><strong>책 대여 기한은 1학기 입니다. 공부 하시고 나서 반납 부탁드립니다.</strong></li>
@@ -69,7 +69,7 @@ class MyPage extends Component {
 
 const Div = styled.div`
     width:50%;
-    margin: auto;
+    margin:3% auto;
     `;
 
 export default withRouter(MyPage);

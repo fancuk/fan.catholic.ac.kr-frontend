@@ -55,10 +55,6 @@ class MyEdit extends React.Component {
         e.preventDefault()
         if (!/([a-zA-Z0-9_-])/.test(this.state.user_pwd)) {
             alert('비밀번호를 다시 확인해주세요.')
-        } else if (!/^([가-힣]*)$/.test(this.state.name)) {
-            alert('이름을 다시 확인해주세요.')
-        } else if (!/^([0-9])+$/.test(this.state.student_id) && this.state.student_id.length !== 9) {
-            alert('학번은 총 9자리며 숫자만 입력해주세요')
         } else if (!/^([0-9])+$/.test(this.state.grade) && this.state.grade < 5) {
             alert('학년은 1~4학년까지 있습니다.')
         } else if (!/(\d)/.test(this.state.semester) && this.state.semester < 3) {
@@ -145,6 +141,7 @@ class MyEdit extends React.Component {
             open: false
         })
     }
+    //마이페이지 : 회원정보 수정(비번, 비번확인, 전번, 이메일, 학년, 학기)만 할 수 있도록 진행 한다.
     render() {
         console.log(this.state.user)
         return (
@@ -155,13 +152,13 @@ class MyEdit extends React.Component {
                     <DialogContent>
                         <TextField label="아이디" type="text" name="user_id"  value={this.state.user_id}/><br/>
                         <TextField label="비밀번호" type="password" name="user_pwd"  value={this.state.user_pwd}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="비밀번호 확인" type="text" name="user_check"  value={this.state.user_check}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="이름" type="text" name="name"  value={this.state.name}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="학번" type="text" name="student_id"  value={this.state.student_id}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="비밀번호 확인" type="password" name="user_check"  value={this.state.user_check}  onChange={this.handleValueChange} /><br/>
+                        <TextField label="이름" type="text" name="name"  value={this.state.name} /><br/>
+                        <TextField label="학번" type="text" name="student_id"  value={this.state.student_id}/><br/>
                         <TextField label="학년" type="text" name="grade"  value={this.state.grade}  onChange={this.handleValueChange} /><br/>
                         <TextField label="학기" type="text" name="semester"  value={this.state.semester}  onChange={this.handleValueChange} /><br/>
-                        <TextField label="전화번호" type="text" name="phone"  value={this.state.phone} onChange={this.handleValueChange} /><br/>
-                        <TextField label="이메일" type="text" name="email"  value={this.state.email} onChange={this.handleValueChange} /><br/>
+                        <TextField label="전화번호" type="text" name="phone" placeholder="010-XXXX-XXXX" value={this.state.phone} onChange={this.handleValueChange} /><br/>
+                        <TextField label="이메일" type="text" name="email"  placeholder="test@test.com" value={this.state.email} onChange={this.handleValueChange} /><br/>
                     </DialogContent>
                     <DialogActions>
                         <Button outline color="primary" onClick={this.handleFormSubmit}>저장</Button>
