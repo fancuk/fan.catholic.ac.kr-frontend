@@ -58,7 +58,7 @@ class Register extends Component {
             alert('학년은 1~4학년까지 있습니다.')
         } else if (!/(\d)/.test(this.state.semester) && this.state.semester < 3) {
             alert('학기는 1~2학기만 가능합니다.')
-        } else if (!/(\d{2,3}-\d{3,4}-\d{4})/.test(this.state.phone) && this.state.phone.length !== 13) {
+        } else if (!/(\d{2,3}-\d{3,4}-\d{4})/.test(this.state.phone)) {
             alert('전화번호를 다시 확인해주세요')
         } else if (!/([a-zA-Z0-9_-]+@[a-z]+.[a-z]+)/.test(this.state.email)) {
             alert('이메일을 확인해주세요')
@@ -105,9 +105,9 @@ class Register extends Component {
         return (
             <Div>
                 <Card body outline color="primary">
-                    <h1>REGISTER</h1>
-                    <h4>Free meeting Active studying Nice ending</h4>
-                    <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 !</h5>
+                    <h1><b>FAN REGISTER</b></h1>
+                    <h4><b>F</b>ree meeting <b>A</b>ctive studying <b>N</b>ice ending</h4>
+                    <h5>컴퓨터정보공학부 전공학회 F.A.N 회원가입을 환영합니다 !</h5><br/>
                     <Form onSubmit={this.handleFormSubmit}>
                         <FormGroup>
                             <Label for="user_id">아이디</Label>
@@ -135,7 +135,7 @@ class Register extends Component {
                         <FormGroup>
                             <Label for="user_check">비밀번호 확인</Label>
                             <Input
-                                type='text'
+                                type='password'
                                 name="user_check"
                                 placeholder='비밀번호 확인'
                                 value={this.state.user_check}
@@ -187,7 +187,7 @@ class Register extends Component {
                             <Input
                                 type='text'
                                 name="phone"
-                                placeholder='휴대폰 번호'
+                                placeholder='010-XXXX-XXXX'
                                 value={this.state.phone}
                                 onChange={this.handleInput}
                             />
@@ -197,7 +197,7 @@ class Register extends Component {
                             <Input
                                 type='text'
                                 name="email"
-                                placeholder='이메일'
+                                placeholder='test@test.com'
                                 value={this.state.email}
                                 onChange={this.handleInput}
                             />

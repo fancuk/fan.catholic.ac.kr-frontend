@@ -1,0 +1,45 @@
+#start {
+    margin: 1% auto;
+
+}
+
+.space {
+    margin-left:25%;
+    margin-bottom: 10px;
+}
+
+.space_2 {
+    margin-top: 30px;
+}
+
+#expend_0 {
+    padding: 50px 0px;
+    margin: 1% auto;
+}
+
+#expend_1 {
+    padding: 30px 100px;
+
+
+}
+
+#expend_2 {
+    padding: 30px 200px;
+
+}
+#expend_3 {
+    padding: 15px 105px;
+
+}
+
+#expend_4 {
+    padding: 15px 105px;
+
+}
+
+
+#mileSize {
+    font-size : 18pt;
+    color : #007bff;
+    padding : 1px 0px 1px 1px;
+}
